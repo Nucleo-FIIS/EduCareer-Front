@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<section class="section">
+    <!-- BUSCADOR Y FILTRO DE LAS ESPECIALIZACIONES -->
+    <div class="filter-container">
+        <input class="input" type="text" placeholder="Buscar especialidad..." [(ngModel)]="filtroBusqueda"  (keydown.enter)="buscarEspecialidad()">
+        <select class="filter" [(ngModel)]="ordenSeleccionado" name="" id="" (change)="filtroEspecialidad()">
+            <option value="asc">Nombre (Asc)</option>
+            <option value="desc">Nombre (Desc)</option>
+            <option value="pop">Popularidad</option>
+            <option value="views">Vistas</option>
+            <option value="demand">Demanda laboral</option>
+        </select>
+    </div>
+    <!-- ESPECIALIZACIONES -->
+    <div class="specialty-container">
+            <div *ngFor="let especialidad of especialidades" class="curse-container">
+                <div class="imgtitle-curse">
+                    <img class="image-12-XX2" [src]="especialidad.img" alt="{{ especialidad.title }}">
+                    <p class="desarrollo-web-UHr">{{especialidad.title}}</p>
+                </div>
+                <div class="summary-curse">
+                    <p class="text-gray limit-lines">{{especialidad.description}}</p>
+                    <a class="centered-link" routerLink="/guia/guia-especializacion/{{especialidad.id}}">Ver más</a>
+                </div>
+            </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

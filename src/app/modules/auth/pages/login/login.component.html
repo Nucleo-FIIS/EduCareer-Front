@@ -1,0 +1,119 @@
+<main>
+    <div class="box">
+      <div class="inner-box">
+        <div class="forms-wrap">
+          <form [formGroup]="formLogin" [ngClass]="{'sign-up-mode': isSignUpMode}" (ngSubmit)="submitForm()" autocomplete="off" class="sign-in-form">
+            <div class="logo">
+              <img src="../../../../../assets/img/logo-nucleo.png" alt="easyclass" />
+              <h4>EduCareer</h4>
+            </div>
+
+            <div class="heading">
+              <h2>Iniciar sesión</h2>
+              <h6>¡Bienvenido a EduCareer!</h6>
+            </div>
+
+            <div class="actual-form">
+                <div class="input-wrap" [ngClass]="{
+                  'error-border': email.invalid && (email.dirty || email.touched),
+                  'valid-border': email.valid && (email.dirty || email.touched)
+              }">
+                    <input
+                    #emailInput
+                    type="email"
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                    (focus)="onInputFocus(emailInput)"
+                    (blur)="onInputBlur(emailInput)"
+                    formControlName="email" 
+                    />
+                    <label>Email</label>
+                </div>
+
+                <div class="mt-2 mb-2 email-errors" *ngIf="email.dirty && (email.valid || email.hasError('required') || email.hasError('pattern'))">
+                  <div class="valid-email" *ngIf="email.valid">
+                      ¡El correo es válido ✅!
+                  </div>
+                  <div class="invalid-email" *ngIf="email.hasError('required')">
+                      ¡El correo es requerido 🧐!
+                  </div>
+                  <div class="invalid-email" *ngIf="email.hasError('pattern')">
+                      ¡Ingrese un correo válido ❌!
+                  </div>
+                </div>
+
+              <div class="input-wrap" [ngClass]="{
+                'error-border': password.invalid && (password.dirty || password.touched),
+                'valid-border': password.valid && (password.dirty || password.touched)
+            }">
+                <input
+                  #passwordInput
+                  type="password"
+                  class="input-field"
+                  autocomplete="off"
+                  required
+                  (focus)="onInputFocus(passwordInput)"
+                  (blur)="onInputBlur(passwordInput)"
+                  formControlName="password"
+                />
+                <label>Contraseña</label>
+              </div>
+
+              <div class="mt-2 mb-2 password-errors" *ngIf="password.dirty && (password.valid || password.hasError('required') || password.hasError('invalidCharacters') || password.getError('length'))">
+                <div class="invalid-password" *ngIf="password.hasError('required')">
+                    ¡La contraseña es requerida 🧐!
+                </div>
+                <div class="invalid-password" *ngIf="password.hasError('invalidCharacters')">
+                    ¡La contraseña contiene caracteres inválidos 😤!
+                </div>
+                <div class="short-password" *ngIf="password.getError('length') === 'short'">
+                    ¡La contraseña es muy corta ❌!
+                </div>
+                <div class="medium-password" *ngIf="password.getError('length') === 'medium'">
+                    ¡La contraseña es mediana 😢!
+                </div>
+                <div class="large-password" *ngIf="password.getError('length') === null">
+                    ¡La contraseña es válida ✅!
+                </div>
+              </div>
+
+              <input type="submit" [disabled]="formLogin.invalid" value="Iniciar sesión" class="sign-btn" />
+
+              <p class="text">
+                ¿No tienes una cuenta?
+                <a routerLink="/auth/registro" class="toggle">Registrate</a>
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <div class="carousel">
+          <div class="images-wrapper">
+            <img src="../../../../../assets/img/image1.png" class="image img-1 show" alt="" />
+            <img src="../../../../../assets/img/image2.png" class="image img-2" alt="" />
+            <img src="../../../../../assets/img/image3.png" class="image img-3" alt="" />
+          </div>
+
+          <div class="text-slider">
+            <div class="text-wrap">
+              <div class="text-group">
+                <h2>Crea tu línea de carrera</h2>
+                <h2>Personaliza como quieras</h2>
+                <h2>Invita a tus compañeros</h2>
+              </div>
+            </div>
+
+            <!-- ... Otro código del componente ... -->
+
+            <div class="bullets">
+                <span class="bullet active" (click)="moveSlider(1)" data-value="1"></span>
+                <span class="bullet" (click)="moveSlider(2)" data-value="2"></span>
+                <span class="bullet" (click)="moveSlider(3)" data-value="3"></span>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+</main>

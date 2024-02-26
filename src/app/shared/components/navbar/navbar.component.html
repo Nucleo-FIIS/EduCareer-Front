@@ -1,0 +1,52 @@
+<!-- HEADER START -->
+<header>
+    <div class="contain-logo-nucleo">
+        <img src="../../../../assets/img/logo-nucleo.png" alt="">
+        <a href="#" class="logo">EduCareer</a>
+    </div>
+    <div id="menu-icon" class="{{ !isActive ? 'bx bx-grid-alt' : 'bx bx-x' }}" (click)="toggleMenu()"></div>
+
+    <ul class="navbar" [class.active]="isActive">
+        <li>
+            <a routerLinkActive="active">Inicio</a>
+        </li>
+        <li>
+            <a routerLink="/profesores" routerLinkActive="active">Profesores</a>
+        </li>
+        <li>
+            <a routerLink="/guia/todos-guia-especializacion" routerLinkActive="active" >Guía de especialización</a>
+        </li>
+    </ul>
+
+    
+    <!-- START PROFILE -->
+    <div class="icons">
+        <div class="profile-show" (click)="toggleMenuProfile()">
+            <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="">
+            <p>John Doe</p>
+        </div>
+
+        <!-- DESGLOSAR PROFILE -->
+        <div class="menu" [class.active]="isActiveProfile">
+            <div class="profile">
+              <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" />
+              <div class="info">
+                <h2>John Doe</h2>
+                <p>@jhond</p>
+              </div>
+            </div>
+            <ul>
+              <li>
+                <img src="../../../../assets/img/profile-menu/edit.png" />
+                <a href="#">Editar perfil</a>
+              </li>
+              <li class="logout">
+                <div class="btn-logout">
+                    <img src="../../../../assets/img/profile-menu//logout.png" />
+                    <a routerLink="/auth/login">Cerrar sesión</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+    </div>
+</header>
