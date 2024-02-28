@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class CursoCicloComponent {
 
+  public hasLoaded: boolean = false;
+
+  onLoad() {
+    this.hasLoaded = true;
+  }
 }

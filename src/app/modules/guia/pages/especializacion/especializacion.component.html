@@ -4,7 +4,8 @@
     <div class="auto-group-9a1i-mF2">
         <div class="contain-curso">
             <p class="desarrollo-web-UHr text-center">{{this.especialidad?.title}}</p>
-            <img class="image-12-XX2" [src]="this.especialidad?.img">
+            <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="this.especialidad?.img" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+            <div class="loader__container"><img class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
         </div>
         <div class="group-27-cYU">
           <div class="group-22-KSt">

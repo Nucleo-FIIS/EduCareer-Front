@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./especializacion.component.css']
 })
 export class EspecializacionComponent {
+  public hasLoaded: boolean = false;
+  
   constructor(private activateRoute:ActivatedRoute){
     console.log(this.activateRoute.snapshot.params['id'])
     console.log(this.especialidad)
@@ -25,5 +27,9 @@ export class EspecializacionComponent {
     {id:10,title:'Visualización de datos e información',description:'El desarrollo web es el proceso de creación y mantenimiento de sitios web. Puede implicar una amplia gama de acciones, desde la codificación y el diseño hasta la gestión de contenidos y la administración del servidor web.',img:'https://tekla.io/wp-content/uploads/2022/03/Recurso1.png'},
   ];
   especialidad=this.especialidadesAll.find(c=>c.id==this.activateRoute.snapshot.params['id']);
+
+  onLoad() {
+    this.hasLoaded = true;
+  }
   
 }

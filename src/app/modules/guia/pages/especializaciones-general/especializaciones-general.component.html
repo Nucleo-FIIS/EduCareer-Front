@@ -15,8 +15,9 @@
     <div class="specialty-container">
             <div *ngFor="let especialidad of especialidades" class="curse-container">
                 <div class="imgtitle-curse">
-                    <img class="image-12-XX2" [src]="especialidad.img" alt="{{ especialidad.title }}">
-                    <p class="desarrollo-web-UHr">{{especialidad.title}}</p>
+                    <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="especialidad.img" alt="{{ especialidad.title }}" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+                    <div class="loader__container"><img class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
+                    <p class="desarrollo-web-UHr" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">{{especialidad.title}}</p>
                 </div>
                 <div class="summary-curse">
                     <p class="text-gray limit-lines">{{especialidad.description}}</p>

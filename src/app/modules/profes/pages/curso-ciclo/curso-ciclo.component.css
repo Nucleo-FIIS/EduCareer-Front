@@ -2,6 +2,15 @@ section {
   padding: 120px 6%;
 }
 
+.loader__container {
+  display: flex;
+  justify-content: center;
+}
+
+.loader__container img {
+  width: 80% !important;
+}
+
 .curses-cycle-container {
   cursor: default;
   transition: box-shadow 0.3s ease-in-out;

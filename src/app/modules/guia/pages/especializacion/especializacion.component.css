@@ -2,6 +2,15 @@ section {
     padding: 120px 6%;
 }
 
+.loader__container {
+  display: flex;
+  justify-content: center;
+}
+
+.loader__container img {
+  width: 80% !important;
+}
+
 .auto-group-9a1i-mF2 {
     width: 100%;
     display: flex;
