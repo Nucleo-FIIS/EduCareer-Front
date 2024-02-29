@@ -1,201 +1,186 @@
 <main class="sign-up-mode">
-    <div class="box">
-      <div class="inner-box">
+  <div class="box">
+    <div class="inner-box">
 
-        <div class="forms-wrap">
-            <form [formGroup]="formRegister" class="sign-up-form" (ngSubmit)="submitForm()" autocomplete="off">
-              <div class="logo">
-                <img src="../../../../../assets/img/logo-nucleo.png" alt="easyclass" />
-                <h4>EduCareer</h4>
-              </div>
-  
-              <div class="heading">
-                <h2>Registrate</h2>
-                <h6>¡Regístrate para ser parte de la comunidad de EduCareer!</h6>
-              </div>
-  
-              <div class="actual-form">
-                <div class="input-wrap" [ngClass]="{
-                  'error-border': fullName.invalid && (fullName.dirty || fullName.touched),
-                  'valid-border': fullName.valid && (fullName.dirty || fullName.touched)
+      <div class="forms-wrap">
+        <form [formGroup]="formRegister" class="sign-up-form" (ngSubmit)="submitForm()" autocomplete="off">
+          <div class="logo">
+            <img src="../../../../../assets/img/logo-nucleo.png" alt="easyclass" />
+            <h4>EduCareer</h4>
+          </div>
+
+          <div class="heading">
+            <h2>Registrate</h2>
+            <h6>¡Regístrate para ser parte de la comunidad de EduCareer!</h6>
+          </div>
+
+          <div class="actual-form">
+            <div class="input-wrap" [ngClass]="{
+                  'error-border': nombre_user.invalid && (nombre_user.dirty || nombre_user.touched),
+                  'valid-border': nombre_user.valid && (nombre_user.dirty || nombre_user.touched)
               }">
-                  <input
-                  #nameInput
-                  type="text"
-                  class="input-field"
-                  autocomplete="off"
-                  required
-                  (focus)="onInputFocus(nameInput)"
-                  (blur)="onInputBlur(nameInput)"
-                  formControlName="fullName"
-                  />
-                  <label>Nombre completo</label>
-                </div>
+              <input #nameInput type="text" class="input-field" autocomplete="off" required
+                (focus)="onInputFocus(nameInput)" (blur)="onInputBlur(nameInput)" formControlName="nombre_user" />
+              <label>Nombre completo</label>
+            </div>
 
-                <div class="mt-2 mb-2 name-errors">
-                  <div class="invalid-fullName" *ngIf="fullName.dirty && fullName.hasError('required')">
-                      ¡El nombre es requerido 🧐!
-                  </div>
-                  <div class="invalid-fullName" *ngIf="fullName.dirty && fullName.hasError('invalidCharacters')">
-                      ¡El nombre contiene caracteres inválidos 😤!
-                  </div>
-                  <div class="valid-fullName" *ngIf="fullName.valid && fullName.dirty && !fullName.hasError('invalidCharacters')">
-                      ¡El nombre es válido ✅!
-                  </div>
-                  <div class="invalid-fullName" *ngIf="fullName.dirty && fullName.getError('length') === 'short'">
-                      ¡El nombre es muy corto! Debe tener al menos 6 caracteres ❌!
-                  </div>
+            <div class="mt-2 mb-2 name-errors">
+              <div class="invalid-fullName" *ngIf="nombre_user.dirty && nombre_user.hasError('required')">
+                ¡El nombre es requerido 🧐!
               </div>
+              <div class="invalid-fullName" *ngIf="nombre_user.dirty && nombre_user.hasError('invalidCharacters')">
+                ¡El nombre contiene caracteres inválidos 😤!
+              </div>
+              <div class="valid-fullName"
+                *ngIf="nombre_user.valid && nombre_user.dirty && !nombre_user.hasError('invalidCharacters')">
+                ¡El nombre es válido ✅!
+              </div>
+              <div class="invalid-fullName" *ngIf="nombre_user.dirty && nombre_user.getError('length') === 'short'">
+                ¡El nombre es muy corto! Debe tener al menos 6 caracteres ❌!
+              </div>
+            </div>
 
-                <div class="input-wrap" [ngClass]="{
+            <div class="input-wrap" [ngClass]="{
                   'error-border': email.invalid && (email.dirty || email.touched),
                   'valid-border': email.valid && (email.dirty || email.touched)
               }">
-                    <input
-                    #emailInput
-                    type="email"
-                    class="input-field"
-                    autocomplete="off"
-                    required
-                    (focus)="onInputFocus(emailInput)"
-                    (blur)="onInputBlur(emailInput)"
-                    formControlName="email"
-                    />
-                    <label>Email</label>
-                </div>
+              <input #emailInput type="email" class="input-field" autocomplete="off" required
+                (focus)="onInputFocus(emailInput)" (blur)="onInputBlur(emailInput)" formControlName="email" />
+              <label>Email</label>
+            </div>
 
-                <div class="mt-2 mb-2 email-errors" *ngIf="email.dirty && (email.valid || email.hasError('required') || email.hasError('pattern'))">
-                  <div class="valid-email" *ngIf="email.valid">
-                      ¡El correo es válido ✅!
-                  </div>
-                  <div class="invalid-email" *ngIf="email.hasError('required')">
-                      ¡El correo es requerido 🧐!
-                  </div>
-                  <div class="invalid-email" *ngIf="email.hasError('pattern')">
-                      ¡Ingrese un correo válido ❌!
-                  </div>
-                </div>
-  
-                <div class="input-wrap" [ngClass]="{
+            <div class="mt-2 mb-2 email-errors"
+              *ngIf="email.dirty && (email.valid || email.hasError('required') || email.hasError('pattern'))">
+              <div class="valid-email" *ngIf="email.valid">
+                ¡El correo es válido ✅!
+              </div>
+              <div class="invalid-email" *ngIf="email.hasError('required')">
+                ¡El correo es requerido 🧐!
+              </div>
+              <div class="invalid-email" *ngIf="email.hasError('pattern')">
+                ¡Ingrese un correo válido ❌!
+              </div>
+            </div>
+
+            <div class="input-wrap" [ngClass]="{
                   'error-border': password.invalid && (password.dirty || password.touched),
                   'valid-border': password.valid && (password.dirty || password.touched)
               }">
-                  <input
-                    #passwordInput
-                    type="password"
-                    minlength="4"
-                    class="input-field"
-                    autocomplete="off"
-                    required
-                    (focus)="onInputFocus(passwordInput)"
-                    (blur)="onInputBlur(passwordInput)"
-                    formControlName="password"
-                  />
-                  <label>Contraseña</label>
-                </div>
+              <input #passwordInput type="password" minlength="4" class="input-field" autocomplete="off" required
+                (focus)="onInputFocus(passwordInput)" (blur)="onInputBlur(passwordInput)" formControlName="password" />
+              <label>Contraseña</label>
+            </div>
 
-                <div class="mt-2 mb-2 password-errors" *ngIf="password.dirty && (password.valid || password.hasError('required') || password.hasError('invalidCharacters') || password.getError('length'))">
-                  <div class="invalid-password" *ngIf="password.hasError('required')">
-                      ¡La contraseña es requerida 🧐!
-                  </div>
-                  <div class="invalid-password" *ngIf="password.hasError('invalidCharacters')">
-                      ¡La contraseña contiene caracteres inválidos 😤!
-                  </div>
-                  <div class="short-password" *ngIf="password.getError('length') === 'short'">
-                      ¡La contraseña es muy corta ❌!
-                  </div>
-                  <div class="medium-password" *ngIf="password.getError('length') === 'medium'">
-                      ¡La contraseña es mediana 😢!
-                  </div>
-                  <div class="large-password" *ngIf="password.getError('length') === null">
-                      ¡La contraseña es válida ✅!
-                  </div>
+            <div class="mt-2 mb-2 password-errors"
+              *ngIf="password.dirty && (password.valid || password.hasError('required') || password.hasError('invalidCharacters') || password.getError('length'))">
+              <div class="invalid-password" *ngIf="password.hasError('required')">
+                ¡La contraseña es requerida 🧐!
               </div>
+              <div class="invalid-password" *ngIf="password.hasError('invalidCharacters')">
+                ¡La contraseña contiene caracteres inválidos 😤!
+              </div>
+              <div class="short-password" *ngIf="password.getError('length') === 'short'">
+                ¡La contraseña es muy corta ❌!
+              </div>
+              <div class="medium-password" *ngIf="password.getError('length') === 'medium'">
+                ¡La contraseña es mediana 😢!
+              </div>
+              <div class="large-password" *ngIf="password.getError('length') === null">
+                ¡La contraseña es válida ✅!
+              </div>
+            </div>
 
-              <div class="input-wrap-gender">
-                <p>Género</p>
-                <div class="select-menu" [class.active]="activeMenu === 'gender'">
-                  <div class="select-btn" (click)="toggleOptions('gender')">
-                    <div class="gender-photo">
-                      <img class="men" *ngIf="selectedGender === 'Masculino'" src="https://cdn-icons-png.flaticon.com/128/3584/3584411.png" alt="Perfil masculino">
-                      <img class="women" *ngIf="selectedGender === 'Femenino'" src="https://cdn-icons-png.flaticon.com/128/2293/2293826.png" alt="Perfil femenino">
-                      <span class="sBtn-text">{{ selectedGender || 'Selecciona tu género' }}</span>
-                    </div>
-                    <i class="bx bx-chevron-down"></i>
+            <div class="input-wrap-gender">
+              <p>Género</p>
+              <div class="select-menu" [class.active]="activeMenu === 'gender'">
+                <div class="select-btn" (click)="toggleOptions('gender')">
+                  <div class="gender-photo">
+                    <img class="men" *ngIf="selectedGender === 'Masculino'"
+                      src="https://cdn-icons-png.flaticon.com/128/3584/3584411.png" alt="Perfil masculino">
+                    <img class="women" *ngIf="selectedGender === 'Femenino'"
+                      src="https://cdn-icons-png.flaticon.com/128/2293/2293826.png" alt="Perfil femenino">
+                    <span class="sBtn-text">{{ selectedGender || 'Selecciona tu género' }}</span>
                   </div>
-                  <ul class="options">
-                    <li class="option" [class.selected]="isOptionSelected('gender', 'Masculino')" (click)="selectOption('gender', 'Masculino')">
-                      <img src="https://cdn-icons-png.flaticon.com/128/3584/3584411.png" alt="Perfil masculino">
-                      <span class="option-text">Masculino</span>
-                    </li>
-                    <li class="option" [class.selected]="isOptionSelected('gender', 'Femenino')" (click)="selectOption('gender', 'Femenino')">
-                      <img src="https://cdn-icons-png.flaticon.com/128/2293/2293826.png" alt="Perfil femenino">
-                      <span class="option-text">Femenino</span>
-                    </li>
-                  </ul>
+                  <i class="bx bx-chevron-down"></i>
                 </div>
+                <ul class="options">
+                  <li class="option" [class.selected]="isOptionSelected('gender', 'Masculino')"
+                    (click)="selectOption('gender', 'Masculino',0)">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3584/3584411.png" alt="Perfil masculino">
+                    <span class="option-text">Masculino</span>
+                  </li>
+                  <li class="option" [class.selected]="isOptionSelected('gender', 'Femenino')"
+                    (click)="selectOption('gender', 'Femenino',0)">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2293/2293826.png" alt="Perfil femenino">
+                    <span class="option-text">Femenino</span>
+                  </li>
+                </ul>
               </div>
+            </div>
 
-              <div class="input-wrap-career">
-                <p>Carrera</p>
-                <div class="select-menu" [class.active]="activeMenu === 'career'">
-                  <div class="select-btn" (click)="toggleOptions('career')">
-                    <div class="career-photo">
-                      <img class="systems" *ngIf="selectedCareer === 'Ing. de Sistemas'" src="https://cdn-icons-png.flaticon.com/128/7339/7339540.png" alt="Ingeniería de Sistemas">
-                      <img class="industrial" *ngIf="selectedCareer === 'Ing. Industrial'" src="https://cdn-icons-png.flaticon.com/128/2630/2630910.png" alt="Ingeniería Industrial">
-                      <span class="sBtn-text">{{ selectedCareer || 'Selecciona tu carrera' }}</span>
-                    </div>
-                    <i class="bx bx-chevron-down"></i>
+            <div class="input-wrap-career">
+              <p>Carrera</p>
+              <div class="select-menu" [class.active]="activeMenu === 'career'">
+                <div class="select-btn" (click)="toggleOptions('career')">
+                  <div class="career-photo">
+                    <ng-container *ngFor="let item of listCarrera">
+                      <img class="carreras" *ngIf="selectedCareer === item.nombre_carrera" src={{item.img_carrera}}
+                        alt={{item.nombre_carrera}}>
+                    </ng-container>
+                    <span class="sBtn-text">{{ selectedCareer || 'Selecciona tu carrera' }}</span>
                   </div>
-                  <ul class="options">
-                    <li class="option" [class.selected]="isOptionSelected('career', 'Ing. de Sistemas')" (click)="selectOption('career', 'Ing. de Sistemas')">
-                      <img src="https://cdn-icons-png.flaticon.com/128/7339/7339540.png" alt="Ingeniería de Sistemas">
-                      <span class="option-text">Ing. de Sistemas</span>
-                    </li>
-                    <li class="option" [class.selected]="isOptionSelected('career', 'Ing. Industrial')" (click)="selectOption('career', 'Ing. Industrial')">
-                      <img src="https://cdn-icons-png.flaticon.com/128/2630/2630910.png" alt="Ingeniería Industrial">
-                      <span class="option-text">Ing. Industrial</span>
-                    </li>
-                  </ul>
+
+                  <i class="bx bx-chevron-down"></i>
                 </div>
+                <ul class="options">
+                  <ng-container *ngFor="let item of listCarrera">
+                    <li class="option" [class.selected]="isOptionSelected('career', item.nombre_carrera)"
+                      (click)="selectOption('career', item.nombre_carrera,item.id_carrera)">
+                      <img src={{item.img_carrera}} alt={{item.nombre_carrera}}>
+                      <span class="option-text">{{item.nombre_carrera}}</span>
+                    </li>
+                  </ng-container>
+                </ul>
               </div>
-  
-                <input type="submit" [disabled]="formRegister.invalid || !selectedGender || !selectedCareer" value="Registrate" class="sign-btn" />
-  
-                <p class="text">
-                  ¿Ya tienes una cuenta?
-                  <a routerLink="/auth/login" class="toggle">Inicia sesión</a>
-                </p>
-              </div>
-            </form>
+            </div>
+
+            <input type="submit" [disabled]="formRegister.invalid || !selectedGender || !selectedCareer"
+              value="Registrate" class="sign-btn" />
+
+            <p class="text">
+              ¿Ya tienes una cuenta?
+              <a routerLink="/auth/login" class="toggle">Inicia sesión</a>
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <div class="carousel">
+        <div class="images-wrapper">
+          <img src="../../../../../assets/img/image1.png" class="image img-1 show" alt="" />
+          <img src="../../../../../assets/img/image2.png" class="image img-2" alt="" />
+          <img src="../../../../../assets/img/image3.png" class="image img-3" alt="" />
         </div>
 
-        <div class="carousel">
-          <div class="images-wrapper">
-            <img src="../../../../../assets/img/image1.png" class="image img-1 show" alt="" />
-            <img src="../../../../../assets/img/image2.png" class="image img-2" alt="" />
-            <img src="../../../../../assets/img/image3.png" class="image img-3" alt="" />
+        <div class="text-slider">
+          <div class="text-wrap">
+            <div class="text-group">
+              <h2>Crea tu línea de carrera</h2>
+              <h2>Personaliza como quieras</h2>
+              <h2>Invita a tus compañeros</h2>
+            </div>
           </div>
 
-          <div class="text-slider">
-            <div class="text-wrap">
-              <div class="text-group">
-                <h2>Crea tu línea de carrera</h2>
-                <h2>Personaliza como quieras</h2>
-                <h2>Invita a tus compañeros</h2>
-              </div>
-            </div>
+          <!-- ... Otro código del componente ... -->
 
-            <!-- ... Otro código del componente ... -->
-
-            <div class="bullets">
-                <span class="bullet active" (click)="moveSlider(1)" data-value="1"></span>
-                <span class="bullet" (click)="moveSlider(2)" data-value="2"></span>
-                <span class="bullet" (click)="moveSlider(3)" data-value="3"></span>
-            </div>
-  
+          <div class="bullets">
+            <span class="bullet active" (click)="moveSlider(1)" data-value="1"></span>
+            <span class="bullet" (click)="moveSlider(2)" data-value="2"></span>
+            <span class="bullet" (click)="moveSlider(3)" data-value="3"></span>
           </div>
+
         </div>
       </div>
     </div>
+  </div>
 </main>
