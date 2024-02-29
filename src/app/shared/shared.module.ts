@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 
 
@@ -11,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
   declarations: [
     NavbarComponent,
     FooterComponent,
+    TruncatePipe,
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { FooterComponent } from './components/footer/footer.component';
   exports: [
     NavbarComponent,
     FooterComponent,
+    TruncatePipe,
   ]
 })
 export class SharedModule { }

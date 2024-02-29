@@ -1,0 +1,194 @@
+<app-navbar></app-navbar>
+
+<section>
+
+    <div class="flex justify-center mb-4 mt-4">
+        <div class="relative w-full sm:w-6/12">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 18 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                </svg>
+            </div>
+            <input type="text" id="simple-search"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full ps-10 p-2.5 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm focus:ring-1"
+                placeholder="Buscar..." required />
+        </div>
+        <button type="submit"
+            class="p-2.5 ms-2 text-sm font-medium text-white bg-indigo-700 rounded-lg border border-indigo-700 hover:bg-indigo-800 focus:outline-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+            <span class="sr-only">Search</span>
+        </button>
+    </div>
+
+    <div class="w-full gap-4 flex-wrap flex justify-center items-center">
+
+        <!-- Card -->
+        <div
+            class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl border-dashed border-2 border-violet-600">
+            <!-- Image -->
+            <div class="flex justify-center">
+                <img class="h-40 object-cover rounded-xl animate__animated animate__fadeIn"
+                    src="assets/img/images-of-teachers/ERNESTO-ROBINSON.jpg" alt="" (load)="onLoad()"
+                    [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+                <div class="loader__container" [ngStyle]="{ display: !hasLoaded ? '' : 'none' }"><img
+                        class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
+            </div>
+            <div class="p-2">
+                <!-- Heading -->
+                <h2 class="font-bold text-lg mb-2 text-center">ERNESTO ROBINSON</h2>
+                <!-- Description -->
+                <p class="text-sm text-gray-600">{{teacherDescription | truncate: 100 }}</p>
+            </div>
+            <!-- CTA -->
+            <div class="m-2 flex justify-center">
+                <a href="javascript:void(0)">
+                    <button type="button"
+                        class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2">
+                        <img src="assets/img/flaticon-img/libro.png" alt="">
+                        Leer más
+                    </button>
+                </a>
+            </div>
+
+            <div class="flex justify-center">
+                <ul class="ra-rating-star">
+                    <li class="score">4.5</li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-half-line"></i></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Card -->
+        <div
+            class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl border-dashed border-2 border-violet-600">
+            <!-- Image -->
+            <div class="flex justify-center">
+                <img class="h-40 object-cover rounded-xl animate__animated animate__fadeIn"
+                    src="assets/img/images-of-teachers/PEÑA-QUIÑONES-CELESTINA.jpg" alt="" (load)="onLoad()"
+                    [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+                <div class="loader__container" [ngStyle]="{ display: !hasLoaded ? '' : 'none' }"><img
+                        class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
+            </div>
+            <div class="p-2">
+                <!-- Heading -->
+                <h2 class="font-bold text-lg mb-2 text-center">CELESTINA PEÑA</h2>
+                <!-- Description -->
+                <p class="text-sm text-gray-600">{{teacherDescription | truncate: 100 }}</p>
+            </div>
+            <!-- CTA -->
+            <div class="m-2 flex justify-center">
+                <a href="javascript:void(0)">
+                    <button type="button"
+                        class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2">
+                        <img src="assets/img/flaticon-img/libro.png" alt="">
+                        Leer más
+                    </button>
+                </a>
+            </div>
+
+            <div class="flex justify-center">
+                <ul class="ra-rating-star">
+                    <li class="score">4.8</li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-half-line"></i></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card -->
+        <div
+            class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl border-dashed border-2 border-violet-600">
+            <!-- Image -->
+            <div class="flex justify-center">
+                <img class="h-40 object-cover rounded-xl animate__animated animate__fadeIn"
+                    src="assets/img/images-of-teachers/LLANCCE-MONDRAGON-LUISA.jpg" alt="" (load)="onLoad()"
+                    [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+                <div class="loader__container" [ngStyle]="{ display: !hasLoaded ? '' : 'none' }"><img
+                        class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
+            </div>
+            <div class="p-2">
+                <!-- Heading -->
+                <h2 class="font-bold text-lg mb-2 text-center">LUISA LLANCCE</h2>
+                <!-- Description -->
+                <p class="text-sm text-gray-600">{{teacherDescription | truncate: 100 }}</p>
+            </div>
+            <!-- CTA -->
+            <div class="m-2 flex justify-center">
+                <a href="javascript:void(0)">
+                    <button type="button"
+                        class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2">
+                        <img src="assets/img/flaticon-img/libro.png" alt="">
+                        Leer más
+                    </button>
+                </a>
+            </div>
+
+            <div class="flex justify-center">
+                <ul class="ra-rating-star">
+                    <li class="score">4.9</li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-half-line"></i></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Card -->
+        <div
+            class="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl border-dashed border-2 border-violet-600">
+            <!-- Image -->
+            <div class="flex justify-center">
+                <img class="h-40 object-cover rounded-xl animate__animated animate__fadeIn"
+                    src="assets/img/images-of-teachers/CARLOS-ANTONIO.jpg" alt="" (load)="onLoad()"
+                    [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+                <div class="loader__container" [ngStyle]="{ display: !hasLoaded ? '' : 'none' }"><img
+                        class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
+            </div>
+            <div class="p-2">
+                <!-- Heading -->
+                <h2 class="font-bold text-lg mb-2 text-center">CARLOS ANTONIO</h2>
+                <!-- Description -->
+                <p class="text-sm text-gray-600">{{teacherDescription | truncate: 100 }}</p>
+            </div>
+            <!-- CTA -->
+            <div class="m-2 flex justify-center">
+                <a href="javascript:void(0)">
+                    <button type="button"
+                        class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 me-2 mb-2">
+                        <img src="assets/img/flaticon-img/libro.png" alt="">
+                        Leer más
+                    </button>
+                </a>
+            </div>
+
+            <div class="flex justify-center">
+                <ul class="ra-rating-star">
+                    <li class="score">4.6</li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-fill"></i></li>
+                    <li><i class="ri-star-half-line"></i></li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</section>
+
+<app-footer></app-footer>
