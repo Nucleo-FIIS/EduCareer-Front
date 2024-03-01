@@ -1,23 +1,38 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import { CarreraModel } from 'src/app/models/carrera-model';
+import { AuthService } from 'src/app/services/auth.service';
+import { CarreraService } from 'src/app/services/carrera.service';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit{
   isSignUpMode: boolean = false;
+  listCarrera: CarreraModel [] = [];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private carreraService:CarreraService, private authService:AuthService) {
   }
+  ngOnInit(): void {
+    this.list();
+  }
+  list(){
+    this.carreraService.getCarreras().subscribe(resp=>{
+      if(resp){
+        this.listCarrera = resp;
+      }
+    });
+  }
+  
 
   formRegister = this.formBuilder.group({
-    'fullName': ['', [Validators.required, this.customNameValidator]],
+    'nombre_user': ['', [Validators.required, this.customNameValidator]],
     'email': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-À-ÿ]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
     'password': ['', [Validators.required, this.customPasswordValidator]],
-    'gender': ['', Validators.required],
-    'career': ['', Validators.required]
+    'genero': ['', Validators.required],
+    'id_carrera': ['', Validators.required]
   });
 
   customPasswordValidator(control: AbstractControl): ValidationErrors | null {
@@ -63,8 +78,8 @@ export class RegistroComponent {
     return null; // Nombre válido
   }
 
-  get fullName() {
-    return this.formRegister.get('fullName') as FormControl;
+  get nombre_user() {
+    return this.formRegister.get('nombre_user') as FormControl;
   }
 
   get email() {
@@ -142,13 +157,13 @@ export class RegistroComponent {
   selectedGender: string | null = null;
   selectedCareer: string | null = null;
 
-  selectOption(menu: 'gender' | 'career', option: string): void {
+  selectOption(menu: 'gender' | 'career', option: string , idCarrera:number): void {
     if (menu === 'gender') {
       this.selectedGender = option;
-      this.formRegister.patchValue({ gender: option });
+      this.formRegister.patchValue({ genero: option });
     } else {
       this.selectedCareer = option;
-      this.formRegister.patchValue({ career: option });
+      this.formRegister.patchValue({ id_carrera: idCarrera.toString() });
     }
     this.activeMenu = null;  // Cerrar el menú desplegable
   }  
@@ -178,8 +193,12 @@ export class RegistroComponent {
   
 
   submitForm(): void {
+    const data={...this.formRegister.value,img_user:"imagen_ruta"}
+    this.authService.register(data).subscribe(resp=>{
+      console.log("data recibida:",resp)
+    });
     console.log('Formulario enviado');
-    console.log(this.formRegister.value);
+    console.log(data);
 
     // Restablecer estilos
     this.resetStyles();

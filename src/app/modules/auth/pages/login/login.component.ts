@@ -1,5 +1,6 @@
 import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent {
   emailLogin: string = '';
   passwordLogin: string = '';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private authService:AuthService) {
   }
 
   formLogin = this.formBuilder.group({
@@ -126,6 +127,9 @@ export class LoginComponent {
 
   submitForm(): void {
     // Aquí puedes enviar los datos del formulario si es necesario
+    this.authService.login(this.formLogin.value).subscribe(resp=>{
+      console.log("data recibida:",resp)
+    });
     console.log('Formulario enviado');
     console.log(this.formLogin.value);
 
