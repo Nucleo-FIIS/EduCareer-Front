@@ -22,6 +22,7 @@
   --text-color-hover-active: #9893D7;
   --text-color-active: #453493;
   --main-font: 1.2rem;
+  --body-color: hsl(207, 4%, 99%);
   --p-font: 1rem;
   --c-grey-100: #f4f6f8;
   --c-grey-200: #e3e3e3;
@@ -41,6 +42,11 @@
   --extra-light: #f8f8f8;
   --white: #ffffff;
   --max-width: 1200px;
+
+  --title-color: hsl(207, 4%, 16%);
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
 }
 
 body,

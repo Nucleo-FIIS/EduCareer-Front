@@ -1,17 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     FooterComponent,
+    NavbarComponent,
+    ScrollUpComponent,
     TruncatePipe,
   ],
   imports: [
@@ -19,8 +23,9 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     RouterModule,
   ],
   exports: [
-    NavbarComponent,
     FooterComponent,
+    NavbarComponent,
+    ScrollUpComponent,
     TruncatePipe,
   ]
 })
