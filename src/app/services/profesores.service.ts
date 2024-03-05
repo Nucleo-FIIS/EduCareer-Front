@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Profesores } from '../models/profesores-model';
 
 @Injectable({
@@ -9,11 +10,11 @@ import { Profesores } from '../models/profesores-model';
 })
 export class ProfesoresService {
 
-  private profesoresURL = 'assets/data/profesores.json';
+  URL_API: string = 'http://localhost:8080/';
 
-  constructor(  private http: HttpClient ) { }
+  constructor(  private httpClient: HttpClient ) { }
 
-  getAllProfesores(): Observable<Profesores> {
-    return this.http.get<Profesores>(this.profesoresURL);
+  getProfesores(): Observable<Profesores[]> {
+    return this.httpClient.get<Profesores[]>(this.URL_API + 'api/profesor/profesores').pipe( map( res => res ) );
   }
 }

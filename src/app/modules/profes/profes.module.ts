@@ -4,13 +4,15 @@ import { ProfesRoutingModule } from './profes-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CursoCicloComponent } from './pages/curso-ciclo/curso-ciclo.component';
 import { ProfesPorCursoComponent } from './pages/profes-por-curso/profes-por-curso.component';
+import { DetalleProfesorComponent } from './pages/detalle-profesor/detalle-profesor.component';
 
 
 
 @NgModule({
   declarations: [
     CursoCicloComponent,
-    ProfesPorCursoComponent
+    ProfesPorCursoComponent,
+    DetalleProfesorComponent
   ],
   imports: [
     CommonModule,

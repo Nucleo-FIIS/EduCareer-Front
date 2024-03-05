@@ -23,8 +23,9 @@ export class ProfesPorCursoComponent {
   }
   
   getProfesores(): void {
-    this.profesoresService.getAllProfesores().subscribe((profesores) => {
-      this.profesores = profesores.data.results;
+    this.profesoresService.getProfesores().subscribe((profesores) => {
+      this.profesores = profesores;
+      console.log(this.profesores);
     });
   }
 
