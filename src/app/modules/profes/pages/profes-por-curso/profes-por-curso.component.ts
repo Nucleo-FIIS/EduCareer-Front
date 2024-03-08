@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProfesoresService } from 'src/app/services/profesores.service';
 
 @Component({
@@ -8,9 +9,12 @@ import { ProfesoresService } from 'src/app/services/profesores.service';
 })
 export class ProfesPorCursoComponent {
   profesores: any = [];
+  palabraNoEncontrada : string = '';
   public hasLoaded: boolean = false;
 
-  constructor( private profesoresService: ProfesoresService ) { }
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
+  constructor( private profesoresService: ProfesoresService, private router: Router ) { }
 
   ngOnInit(): void {
     this.getProfesores();
@@ -25,8 +29,43 @@ export class ProfesPorCursoComponent {
   getProfesores(): void {
     this.profesoresService.getProfesores().subscribe((profesores) => {
       this.profesores = profesores;
-      console.log(this.profesores);
     });
+  }
+
+  handleKeyPress(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.search();
+    }
+  }
+
+  searchClicked(): void {
+    this.search();
+  }
+
+  cleanClicked(): void {
+    if (this.searchInput.nativeElement.value.length > 0) {
+      this.regresar();
+    }
+  }
+
+  search(): void {
+    const searchTerm: string = this.searchInput.nativeElement.value.trim();
+
+    if (searchTerm.length > 0) {
+      console.log('Búsqueda:', searchTerm);
+      this.profesoresService.findProfesor(searchTerm).subscribe((profes) => {
+        this.profesores = profes;
+        if (profes.length === 0) {
+          this.palabraNoEncontrada = searchTerm;
+        }
+        console.log(profes);
+      })
+    }
+  }
+
+  regresar(): void {
+    this.searchInput.nativeElement.value = '';
+    this.getProfesores();
   }
 
   // Método para calcular las estrellas

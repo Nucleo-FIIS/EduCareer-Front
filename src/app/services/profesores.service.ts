@@ -17,4 +17,8 @@ export class ProfesoresService {
   getProfesores(): Observable<Profesores[]> {
     return this.httpClient.get<Profesores[]>(this.URL_API + 'api/profesor/profesores').pipe( map( res => res ) );
   }
+
+  findProfesor(nombre: String): Observable<Profesores[]> {
+    return this.httpClient.get<Profesores[]>(`${this.URL_API}api/profesor/encontrar-profesor/${nombre}`).pipe(map(res => res));
+  }
 }

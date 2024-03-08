@@ -1,3 +1,13 @@
 section {
     padding: 120px 6%;
 }
+
+.loader__container {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+}
+
+.loader__container img {
+    width: 30% !important;
+}

@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {path: 'curso-por-ciclo', component: CursoCicloComponent, title: 'Profesores por ciclo | EduCareer'},
       {path: 'profesores-por-curso', component: ProfesPorCursoComponent, title: 'Profesores por curso | EduCareer'},
-      {path: 'detalle/:slug', component: DetalleProfesorComponent, title: 'Detalle del profesor | EduCareer'},
+      {path: 'detalle/:id', component: DetalleProfesorComponent},
       {path: '**', redirectTo: 'curso-por-ciclo'}
     ]
   }
