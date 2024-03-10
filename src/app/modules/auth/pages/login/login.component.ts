@@ -127,11 +127,14 @@ export class LoginComponent {
 
   submitForm(): void {
     // Aquí puedes enviar los datos del formulario si es necesario
-    this.authService.login(this.formLogin.value).subscribe(resp=>{
-      console.log("data recibida:",resp)
+    this.authService.login(this.formLogin.value).subscribe({
+      next:(response: any) => {
+          console.log("Response received:", response.message);
+      },
+      error:(error: any) => {
+          console.log("Error occurred:", error.message);
+      }
     });
-    console.log('Formulario enviado');
-    console.log(this.formLogin.value);
 
     // Restablecer estilos
     this.resetStyles();

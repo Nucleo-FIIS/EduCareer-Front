@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
@@ -10,32 +10,38 @@ export class AuthService {
 
     URL_API: string = 'http://localhost:8080/';
     AUTH_COOKIE_NAME: string = 'auth_token';
-    httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8' }) };
+    httpOptions = { headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })};
     constructor(private httpClient: HttpClient) {
 
     }
-    errorHandl(error: any) {
-        let errorMessage = '';
+    handleError(error: HttpErrorResponse): Observable<any> {
+        let errorMessage = 'Unknown error occurred';
         if (error.error instanceof ErrorEvent) {
             errorMessage = error.error.message;
         } else {
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            if (error.status === 0) {
+                errorMessage = 'Error al conectar con el servidor';
+            } else {
+                errorMessage = error.error.message;
+            }
         }
-        console.log(errorMessage);
-        return throwError(errorMessage);
+        return throwError(() => new Error(errorMessage));
     }
     register(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + 'api/users/register', request, this.httpOptions).pipe(
-            retry(1),
-            catchError(this.errorHandl),
-            map(response => response.token)
+        return this.httpClient.post<any>(this.URL_API + 'api/auth/register', request, this.httpOptions).pipe(
+            catchError(this.handleError)
         );
     }
     login(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + 'api/users/login', request, this.httpOptions).pipe(
-            retry(1),
-            catchError(this.errorHandl),
-            map(response => response.token)
+        return this.httpClient.post<any>(this.URL_API + 'api/auth/login', request, this.httpOptions).pipe(
+            catchError(this.handleError)
+        );
+    }
+    resetPassword(request: String): Observable<String> {
+        return this.httpClient.post<any>(this.URL_API + 'api/auth/email-reset-password', request, this.httpOptions).pipe(
+            catchError(this.handleError)
         );
     }
 }

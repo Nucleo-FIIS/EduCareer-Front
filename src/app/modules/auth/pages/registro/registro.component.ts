@@ -194,11 +194,14 @@ export class RegistroComponent implements OnInit{
 
   submitForm(): void {
     const data={...this.formRegister.value,img_user:"imagen_ruta"}
-    this.authService.register(data).subscribe(resp=>{
-      console.log("data recibida:",resp)
+    this.authService.register(data).subscribe({
+      next:(response: any) => {
+          console.log("Response received:", response.message);
+      },
+      error:(error: any) => {
+          console.log("Error occurred:", error.message);
+      }
     });
-    console.log('Formulario enviado');
-    console.log(data);
 
     // Restablecer estilos
     this.resetStyles();
