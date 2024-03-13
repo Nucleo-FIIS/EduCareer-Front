@@ -10,12 +10,8 @@ import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 import { SidebarUserComponent } from './components/sidebar-user/sidebar-user.component';
 
 import { TruncatePipe } from './pipes/truncate.pipe';
-<<<<<<< HEAD
-import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 import { LoadingPageComponent } from './components/loading-page/loading-page.component';
 import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
-=======
->>>>>>> e8ddb7fea19dc936c04a48e003676a5b6829e6ff
 
 
 
