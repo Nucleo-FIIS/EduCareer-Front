@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import {FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import { CarreraModel } from 'src/app/models/carrera-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarreraService } from 'src/app/services/carrera.service';
+import { ToastNotificationComponent } from 'src/app/shared/components/toast-notification/toast-notification.component';
 
 @Component({
   selector: 'app-registro',
@@ -12,6 +13,10 @@ import { CarreraService } from 'src/app/services/carrera.service';
 export class RegistroComponent implements OnInit{
   isSignUpMode: boolean = false;
   listCarrera: CarreraModel [] = [];
+
+  loading: boolean = false;
+
+  @ViewChild(ToastNotificationComponent) toastNotification!: ToastNotificationComponent;
 
   constructor(private formBuilder: FormBuilder,private carreraService:CarreraService, private authService:AuthService) {
   }
@@ -193,17 +198,34 @@ export class RegistroComponent implements OnInit{
   
 
   submitForm(): void {
+    this.loading=true;
     const data={...this.formRegister.value,img_user:"imagen_ruta"}
-    console.log("cargando...")
     this.authService.register(data).subscribe({
       next:(response: any) => {
-          console.log("Response received:", response.message);
+          const alertResponse = {
+            id_toast: new Date().toString(),
+            message: response.message,
+            duration: 4600,
+            type: 'success',
+            status_code: 200
+          }
+          this.toastNotification.addToasts(alertResponse)
       },
       error:(error: any) => {
-          console.log("Error occurred:", error.message);
+        const alertError = {
+          id_toast: new Date().toString(),
+          message: error.message,
+          duration: 4600,
+          type: 'error',
+          status_code: 400
+        }
+        this.toastNotification.addToasts(alertError)
+        console.error("Error occurred:", error.message);
+        this.loading = false;
       },
       complete:()=>{
         console.log("temino de cargar")
+        this.loading=false;
       }
     });
 

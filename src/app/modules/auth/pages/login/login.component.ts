@@ -1,6 +1,8 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastNotificationComponent } from 'src/app/shared/components/toast-notification/toast-notification.component';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,11 @@ export class LoginComponent {
   isSignUpMode: boolean = false;
   emailLogin: string = '';
   passwordLogin: string = '';
+  loading: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private authService:AuthService) {
+  @ViewChild(ToastNotificationComponent) toastNotification!: ToastNotificationComponent;
+
+  constructor(private router: Router,private formBuilder: FormBuilder, private authService:AuthService) {
   }
 
   formLogin = this.formBuilder.group({
@@ -123,45 +128,25 @@ export class LoginComponent {
       }
     });
   }
-  miFuncionLogout():void{
-    this.authService.logout(null).subscribe({
-      next:(response: any) => {
-          console.log("Response received:", response.message);
-      },
-      error:(error: any) => {
-          console.log("Error occurred:", error.message);
-      },
-      complete:()=>{
-        console.log("temino de cargar")
-      }
-    });
-  }
-  miFuncionUser():void{
-    this.authService.prueba(null).subscribe({
-      next:(response: any) => {
-          console.log("Response received:", response.message);
-      },
-      error:(error: any) => {
-          console.log("Error occurred:", error.message);
-      },
-      complete:()=>{
-        console.log("temino de cargar")
-      }
-    });
-  }
 
   submitForm(): void {
     // Aquí puedes enviar los datos del formulario si es necesario
-    console.log("cargando...")
+    this.loading=true;
     this.authService.login(this.formLogin.value).subscribe({
-      next:(response: any) => {
-          console.log("Response received:", response);
+      next:() => {
+        this.router.navigate(['/home/inicio'])
       },
       error:(error: any) => {
-          console.log("Error occurred:", error.message);
-      },
-      complete:()=>{
-        console.log("temino de cargar")
+        const alertError = {
+          id_toast: new Date().toString(),
+          message: error.message,
+          duration: 4600,
+          type: 'error',
+          status_code: 400
+        }
+        this.toastNotification.addToasts(alertError)
+        console.error("Error occurred:", error.message);
+        this.loading = false;
       }
     });
 

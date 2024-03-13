@@ -8,6 +8,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
+import { LoadingPageComponent } from './components/loading-page/loading-page.component';
+import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
 
 
 
@@ -17,16 +19,20 @@ import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
     NavbarComponent,
     ScrollUpComponent,
     TruncatePipe,
+    LoadingPageComponent,
+    ToastNotificationComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     ScrollUpComponent,
     TruncatePipe,
+    LoadingPageComponent,
+    ToastNotificationComponent
   ]
 })
 export class SharedModule { }

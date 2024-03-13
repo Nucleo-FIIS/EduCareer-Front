@@ -1,15 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Alerts } from 'src/app/models/alerts-model';
 import { Test } from 'src/app/models/test-model';
-import { AlertsService } from 'src/app/services/alerts.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
-interface Toast {
-  id: number;
-  message: string;
-  type: 'success' | 'error';
-  duration: number;
-}
+import { AuthService } from 'src/app/services/auth.service';
+import { ToastNotificationComponent } from 'src/app/shared/components/toast-notification/toast-notification.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,13 +10,16 @@ interface Toast {
 })
 export class ForgotPasswordComponent {
   // Assuming Toast is defined somewhere, otherwise, define it accordingly
-  toasts: Alerts[] = [];
+  loading: boolean = false;
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
+  @ViewChild(ToastNotificationComponent) toastNotification!: ToastNotificationComponent;
+
+
   isButtonDisabled = true;
 
-  constructor(private alertsService: AlertsService, private sanitizer: DomSanitizer) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     if (this.searchInput) {
@@ -52,6 +47,7 @@ export class ForgotPasswordComponent {
   }
 
   realizarTest() {
+    this.loading = true;
     const inputValue = this.searchInput.nativeElement.value.trim();
 
     if (inputValue.length > 0) {
@@ -65,82 +61,37 @@ export class ForgotPasswordComponent {
       email: inputValue
     };
 
-    this.alertsService.realizarTest(test).subscribe(
-      response => {
-        this.addToasts(response);
+    this.authService.resetPassword(test.email).subscribe({
+      next: (response: any) => {
+        const alertResponse = {
+          id_toast: new Date().toString(),
+          message: response.message,
+          duration: 4600,
+          type: 'success',
+          status_code: 200
+        }
+        this.toastNotification.addToasts(alertResponse)
       },
-      error => {
-        this.addToasts(error.error);
+      error: (error: any) => {
+        const alertError = {
+          id_toast: new Date().toString(),
+          message: error.message,
+          duration: 4600,
+          type: 'error',
+          status_code: 400
+        }
+        this.toastNotification.addToasts(alertError)
+        console.error("Error occurred:", error.message);
+        this.loading = false;
+      },
+      complete: () => {
+        console.log("temino de cargar")
+        this.loading = false;
       }
-    );
+    });
   }
 
-  removeAlertById(alertId: number): void {
-    this.toasts = this.toasts.filter(alert => alert.id_toast !== alertId);
-  }
 
-  addToasts(alert: Alerts): void {
-    this.toasts.push(alert);
-
-    
-    setTimeout(() => {
-      const alertElement = document.getElementById(`toast-${alert.id_toast}`);
-      if (alertElement) {
-        alertElement.classList.add('toast-hide');
-      }
-    }, 4650); // Aplica la clase 'toast-hide' antes de que termine el tiempo total
-
-    setTimeout(() => {
-      this.removeAlertById(alert.id_toast);
-    }, alert.duration);
-  }
-
-  generateSuccessAlert(toast: any): SafeHtml {
-    const sanitizedHtml = `
-    <div class="mt-5 mx-4 px-4 rounded-md bg-green-50 md:max-w-2xl md:mx-auto"
-    *ngFor="let toast of toasts">
-      <div class="flex justify-between py-3">
-          <div class="flex">
-              <div class="text-green-500 text-2xl">
-                <i class="uil uil-check-circle"></i>
-              </div>
-              <div class="self-center ml-3">
-                  <span class="text-green-600 font-semibold capitalize">
-                  ${toast.type}
-                  </span>
-                  <p class="text-green-600 mt-1">
-                  ${toast.message}
-                  </p>
-              </div>
-          </div>
-      </div>
-    </div>
-    `;
-    return this.sanitizer.bypassSecurityTrustHtml(sanitizedHtml);
-  }
-
-  generateDangerAlert(toast: any): SafeHtml {
-    const sanitizedHtml = `
-    <div class="mt-5 mx-4 px-4 rounded-md bg-red-50 md:max-w-2xl md:mx-auto">
-      <div class="flex justify-between py-3">
-          <div class="flex">
-              <div class="text-red-500 text-2xl">
-                <i class="uil uil-times-circle"></i>
-              </div>
-              <div class="self-center ml-3">
-                  <span class="text-red-600 font-semibold capitalize">
-                  ${toast.type}
-                  </span>
-                  <p class="text-red-600 mt-1">
-                  ${toast.message}
-                  </p>
-              </div>
-          </div>
-      </div>
-    </div>
-    `;
-    return this.sanitizer.bypassSecurityTrustHtml(sanitizedHtml);
-  }
 }
 
 

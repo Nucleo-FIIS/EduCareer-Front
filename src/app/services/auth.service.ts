@@ -53,7 +53,7 @@ export class AuthService {
             catchError(this.handleError)
         );
     }
-    prueba(request: any): Observable<any> {
+    prueba(): Observable<any> {
         return this.httpClient.get<any>(this.URL_API + 'api/pruebas/user', this.httpOptionslogin).pipe(
             catchError(this.handleError)
         );
