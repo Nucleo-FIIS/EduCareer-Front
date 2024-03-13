@@ -226,6 +226,14 @@ header {
     transition: all 0.40s ease;
   }
 
+  .edit-profile .btn_edit {
+    transition: all 0.40s ease;
+  }
+
+  .edit-profile .btn_edit:hover {
+    color: #6366F1 !important;  ;
+  }
+
 
 /* MEDIA QUERIES */
 

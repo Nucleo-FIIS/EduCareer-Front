@@ -1,0 +1,4 @@
+nav ul a.active {
+    background-color: #f3f4f6;
+    pointer-events: none;
+}

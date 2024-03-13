@@ -1,0 +1,18 @@
+.dropdown-open {
+    position: fixed; 
+    inset: 0px 0px auto auto; 
+    margin: 0px; 
+    transform: translate(-32px, 64px);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.dropdown-close {
+    position: fixed; 
+    inset: 0px 0px auto auto; 
+    margin: 0px; 
+    transform: translate(-32px, 64px);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
