@@ -10,9 +10,17 @@ export class AuthService {
 
     URL_API: string = 'http://localhost:8080/';
     AUTH_COOKIE_NAME: string = 'auth_token';
-    httpOptions = { headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })};
+    httpOptions = { 
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    };
+    httpOptionslogin = { 
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        }),
+        withCredentials: true
+    };
     constructor(private httpClient: HttpClient) {
 
     }
@@ -21,6 +29,7 @@ export class AuthService {
         if (error.error instanceof ErrorEvent) {
             errorMessage = error.error.message;
         } else {
+            console.log(error)
             if (error.status === 0) {
                 errorMessage = 'Error al conectar con el servidor';
             } else {
@@ -35,7 +44,17 @@ export class AuthService {
         );
     }
     login(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + 'api/auth/login', request, this.httpOptions).pipe(
+        return this.httpClient.post<any>(this.URL_API + 'api/auth/login', request, this.httpOptionslogin).pipe(
+            catchError(this.handleError)
+        );
+    }
+    logout(request: any): Observable<any> {
+        return this.httpClient.post<any>(this.URL_API + 'api/auth/logout',request, this.httpOptionslogin).pipe(
+            catchError(this.handleError)
+        );
+    }
+    prueba(request: any): Observable<any> {
+        return this.httpClient.get<any>(this.URL_API + 'api/pruebas/user', this.httpOptionslogin).pipe(
             catchError(this.handleError)
         );
     }

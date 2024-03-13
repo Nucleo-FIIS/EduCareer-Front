@@ -194,12 +194,16 @@ export class RegistroComponent implements OnInit{
 
   submitForm(): void {
     const data={...this.formRegister.value,img_user:"imagen_ruta"}
+    console.log("cargando...")
     this.authService.register(data).subscribe({
       next:(response: any) => {
           console.log("Response received:", response.message);
       },
       error:(error: any) => {
           console.log("Error occurred:", error.message);
+      },
+      complete:()=>{
+        console.log("temino de cargar")
       }
     });
 

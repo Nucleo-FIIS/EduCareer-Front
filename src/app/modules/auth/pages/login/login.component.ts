@@ -123,16 +123,45 @@ export class LoginComponent {
       }
     });
   }
-  
-
-  submitForm(): void {
-    // Aquí puedes enviar los datos del formulario si es necesario
-    this.authService.login(this.formLogin.value).subscribe({
+  miFuncionLogout():void{
+    this.authService.logout(null).subscribe({
       next:(response: any) => {
           console.log("Response received:", response.message);
       },
       error:(error: any) => {
           console.log("Error occurred:", error.message);
+      },
+      complete:()=>{
+        console.log("temino de cargar")
+      }
+    });
+  }
+  miFuncionUser():void{
+    this.authService.prueba(null).subscribe({
+      next:(response: any) => {
+          console.log("Response received:", response.message);
+      },
+      error:(error: any) => {
+          console.log("Error occurred:", error.message);
+      },
+      complete:()=>{
+        console.log("temino de cargar")
+      }
+    });
+  }
+
+  submitForm(): void {
+    // Aquí puedes enviar los datos del formulario si es necesario
+    console.log("cargando...")
+    this.authService.login(this.formLogin.value).subscribe({
+      next:(response: any) => {
+          console.log("Response received:", response);
+      },
+      error:(error: any) => {
+          console.log("Error occurred:", error.message);
+      },
+      complete:()=>{
+        console.log("temino de cargar")
       }
     });
 
