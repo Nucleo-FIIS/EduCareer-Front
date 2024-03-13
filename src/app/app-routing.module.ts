@@ -18,6 +18,14 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./modules/home/home.module').then( m => m.HomeModule )
   },
+  { 
+    path: 'dashboard/welcome',
+    loadChildren: () => import('./modules/dashboard/home/home.module').then( m => m.HomeModule )
+  },
+  { 
+    path: 'dashboard',
+    loadChildren: () => import('./modules/dashboard/profile/profile.module').then( m => m.ProfileModule )
+  },
   {
     path: '**',
     redirectTo: 'auth'

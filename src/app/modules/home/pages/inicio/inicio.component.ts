@@ -13,6 +13,8 @@ export class InicioComponent {
 
   infoCibersegiuridad: string = 'Los expertos en ciberseguridad se centran en proteger los sistemas de información y redes contra amenazas y ataques cibernéticos. Desarrollan estrategias de seguridad, implementan medidas de prevención y responden a incidentes de seguridad.';
 
+  descripcionDocente: string = 'Este profesor se rige por sus enseñanzas y se tiene en claro que le gusta conversar con sus alumnos y tener una clase dinámica con todos ellos. Posiblemente sea uno de los profesores con más empeño.';
+
   scrollToSection(sectionId: string): void {
     const section = document.getElementById(sectionId);
 
