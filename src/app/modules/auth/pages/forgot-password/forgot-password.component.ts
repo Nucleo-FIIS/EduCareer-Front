@@ -1,8 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Alerts } from 'src/app/models/alerts-model';
 import { Test } from 'src/app/models/test-model';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ToastNotificationComponent } from 'src/app/shared/components/toast-notification/toast-notification.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,13 +12,16 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class ForgotPasswordComponent {
   // Assuming Toast is defined somewhere, otherwise, define it accordingly
-  toasts: Alerts[] = [];
+  loading: boolean = false;
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
+  @ViewChild(ToastNotificationComponent) toastNotification!: ToastNotificationComponent;
+
+
   isButtonDisabled = true;
 
-  constructor(private alertsService: AlertsService, private elementRef: ElementRef) { }
+  constructor( private alertsService: AlertsService, private elementRef: ElementRef, private authService: AuthService ) { }
 
   ngOnInit(): void {
     this.observeDisabledAttributeChanges();
@@ -70,6 +74,7 @@ export class ForgotPasswordComponent {
   }
 
   realizarTest() {
+    this.loading = true;
     const inputValue = this.searchInput.nativeElement.value.trim();
 
     if (inputValue.length > 0) {
@@ -89,9 +94,40 @@ export class ForgotPasswordComponent {
       },
       error => {
         this.alertsService.sendToast(error.error); // Enviar el toast de error
-      }
-    );
+
+      });
+
+    // this.authService.resetPassword(test.email).subscribe({
+    //   next: (response: any) => {
+    //     const alertResponse = {
+    //       id_toast: new Date().toString(),
+    //       message: response.message,
+    //       duration: 4600,
+    //       type: 'success',
+    //       status_code: 200
+    //     }
+    //     this.toastNotification.addToasts(alertResponse)
+    //   },
+    //   error: (error: any) => {
+    //     const alertError = {
+    //       id_toast: new Date().toString(),
+    //       message: error.message,
+    //       duration: 4600,
+    //       type: 'error',
+    //       status_code: 400
+    //     }
+    //     this.toastNotification.addToasts(alertError)
+    //     console.error("Error occurred:", error.message);
+    //     this.loading = false;
+    //   },
+    //   complete: () => {
+    //     console.log("temino de cargar")
+    //     this.loading = false;
+    //   }
+    // });
   }
+
+
 }
 
 

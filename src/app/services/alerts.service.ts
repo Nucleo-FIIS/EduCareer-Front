@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Test } from '../models/test-model';
-import { Alerts } from '../models/alerts-model';
+import { Alerts, Toast } from '../models/alerts-model';
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { retry, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AlertsService {
-  private toastSubject = new Subject<Alerts>();
+  private toastSubject = new Subject<Toast>();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,12 +23,12 @@ export class AlertsService {
   };
 
 
-  realizarTest(test: Test): Observable<Alerts> {
-    return this.httpClient.post<Alerts>(this.URL_API, test, this.httpOptions);
+  realizarTest(test: Test): Observable<Toast> {
+    return this.httpClient.post<Toast>(this.URL_API, test, this.httpOptions);
   }
 
   // Método para enviar un nuevo toast
-  sendToast(toast: Alerts) {
+  sendToast(toast: Toast) {
     this.toastSubject.next(toast);
   }
 

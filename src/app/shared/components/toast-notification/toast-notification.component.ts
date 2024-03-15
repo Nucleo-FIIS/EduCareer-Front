@@ -1,41 +1,35 @@
-import { Component, ElementRef, Input, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
-import { Alerts, Toast } from 'src/app/models/alerts-model';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { AlertsService } from 'src/app/services/alerts.service';
-import { Test } from 'src/app/models/test-model';
+import { Alerts } from 'src/app/models/alerts-model';
 
 @Component({
-  selector: 'app-toast',
-  templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.css']
+  selector: 'app-toast-notification',
+  templateUrl: './toast-notification.component.html',
+  styleUrls: ['./toast-notification.component.css']
 })
-export class ToastComponent {
-  toasts: Toast[] = [];
+export class ToastNotificationComponent {
+  toasts: Alerts[] = [];
 
-  isButtonDisabled = true;
+  constructor(private sanitizer: DomSanitizer) { }
 
-  constructor(private alertsService: AlertsService, private sanitizer: DomSanitizer) { }
-
-  ngOnInit(): void {
-    this.alertsService.getToasts().subscribe((toast: Toast) => {
-      this.toasts.push(toast);
-      setTimeout(() => {
-        const alertElement = document.getElementById(`toast-${toast.id_toast}`);
-        if (alertElement) {
-          alertElement.classList.add('toast-hide');
-        }
-      }, 4650); // Aplica la clase 'toast-hide' antes de que termine el tiempo total
-
-      setTimeout(() => {
-        this.removeAlertById(toast.id_toast);
-      }, toast.duration);
-
-      console.clear();
-    });
+  removeAlertById(alertId: string): void {
+    this.toasts = this.toasts.filter(alert => alert.id_toast !== alertId);
   }
 
-  removeAlertById(alertId: number): void {
-    this.toasts = this.toasts.filter(alert => alert.id_toast !== alertId);
+  addToasts(alert: Alerts): void {
+    this.toasts.push(alert);
+
+
+    setTimeout(() => {
+      const alertElement = document.getElementById(`toast-${alert.id_toast}`);
+      if (alertElement) {
+        alertElement.classList.add('toast-hide');
+      }
+    }, alert.duration); // Aplica la clase 'toast-hide' antes de que termine el tiempo total
+
+    setTimeout(() => {
+      this.removeAlertById(alert.id_toast);
+    }, alert.duration);
   }
 
   generateSuccessAlert(toast: any): SafeHtml {
