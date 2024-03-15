@@ -12,32 +12,39 @@ import { DetalleProfesor } from 'src/app/models/detalle-profesor-model';
 export class DetalleProfesorComponent {
   id !: Number;
   datosProfesor !: DetalleProfesor;
+  
 
   public hasLoaded: boolean = false;
-  onLoad() {                                                        
+  onLoad() {
     setTimeout(() => {
       this.hasLoaded = true;
     }, 650);
-  }                                                                                                             
-
-  constructor( private route: ActivatedRoute, private detalleProfesorService: DetalleProfesorService, private router: Router, private title: Title ) { 
-    this.route.params.subscribe(params => this.id = params['id']);
   }
 
-  ngOnInit(): void {
-    // Llamar al servicio con el slug
-    this.obtenerDatosDelProfesor();
+  constructor(private route: ActivatedRoute, private detalleProfesorService: DetalleProfesorService, private router: Router, private title: Title) {
+    this.route.params.subscribe(params => {
+      const idFromParams = +params['id']; // Convierte el parámetro a número
+      if (!isNaN(idFromParams) && Number.isInteger(idFromParams)) {
+        this.id = idFromParams; // Asigna el id solo si es un número entero
+        this.obtenerDatosDelProfesor();
+      } else {
+        // Redirige si el id no es un número entero
+        this.router.navigate(['/profesores/profesores-por-curso']);
+      }
+    });
   }
 
-  obtenerDatosDelProfesor() :void {
-    this.detalleProfesorService.getDetalleProfesor(this.id).subscribe( profesor => {
-    // Manejar la respuesta del servicio aquí
-    if (profesor == null) {
-      this.router.navigate(['/profesores/profesores-por-curso']);
-    } else {
-      this.datosProfesor = profesor;
-      this.title.setTitle(profesor.first_last_name + '  ' + ' | EduCareer');
-    }
+  ngOnInit(): void {  }
 
-  })};
+  obtenerDatosDelProfesor(): void {
+    this.detalleProfesorService.getDetalleProfesor(this.id).subscribe(
+      response => {
+        this.datosProfesor = response;
+      },
+      error => {
+        this.router.navigate(['/profesores/profesores-por-curso']);
+      }
+
+    )
+  };
 }

@@ -4,13 +4,6 @@ import { Test } from 'src/app/models/test-model';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-interface Toast {
-  id: number;
-  message: string;
-  type: 'success' | 'error';
-  duration: number;
-}
-
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -24,14 +17,39 @@ export class ForgotPasswordComponent {
 
   isButtonDisabled = true;
 
-  constructor(private alertsService: AlertsService, private sanitizer: DomSanitizer) { }
+  constructor(private alertsService: AlertsService, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
+    this.observeDisabledAttributeChanges();
     if (this.searchInput) {
       this.searchInput.nativeElement.addEventListener('input', () => {
         this.handleInput();
       });
     }
+  }
+
+  observeDisabledAttributeChanges() {
+    const targetNode = this.elementRef.nativeElement.querySelector('button');
+
+    // Crear un observador de mutaciones
+    const observer = new MutationObserver(mutationsList => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
+          // Obtener el valor actual del atributo disabled
+          const isDisabled = targetNode.disabled;
+          // Actualizar la propiedad isButtonDisabled si es necesario
+          this.isButtonDisabled = isDisabled;
+
+          // Si el atributo disabled fue eliminado, volver a agregarlo
+          if (!isDisabled) {
+            targetNode.setAttribute('disabled', 'true');
+          }
+        }
+      }
+    });
+
+    // Observar cambios en el atributo disabled del elemento input
+    observer.observe(targetNode, { attributes: true });
   }
 
   handleInput(): void {
@@ -67,79 +85,12 @@ export class ForgotPasswordComponent {
 
     this.alertsService.realizarTest(test).subscribe(
       response => {
-        this.addToasts(response);
+        this.alertsService.sendToast(response); // Enviar el toast
       },
       error => {
-        this.addToasts(error.error);
+        this.alertsService.sendToast(error.error); // Enviar el toast de error
       }
     );
-  }
-
-  removeAlertById(alertId: number): void {
-    this.toasts = this.toasts.filter(alert => alert.id_toast !== alertId);
-  }
-
-  addToasts(alert: Alerts): void {
-    this.toasts.push(alert);
-
-    
-    setTimeout(() => {
-      const alertElement = document.getElementById(`toast-${alert.id_toast}`);
-      if (alertElement) {
-        alertElement.classList.add('toast-hide');
-      }
-    }, 4650); // Aplica la clase 'toast-hide' antes de que termine el tiempo total
-
-    setTimeout(() => {
-      this.removeAlertById(alert.id_toast);
-    }, alert.duration);
-  }
-
-  generateSuccessAlert(toast: any): SafeHtml {
-    const sanitizedHtml = `
-    <div class="mt-5 mx-4 px-4 rounded-md bg-green-50 md:max-w-2xl md:mx-auto"
-    *ngFor="let toast of toasts">
-      <div class="flex justify-between py-3">
-          <div class="flex">
-              <div class="text-green-500 text-2xl">
-                <i class="uil uil-check-circle"></i>
-              </div>
-              <div class="self-center ml-3">
-                  <span class="text-green-600 font-semibold capitalize">
-                  ${toast.type}
-                  </span>
-                  <p class="text-green-600 mt-1">
-                  ${toast.message}
-                  </p>
-              </div>
-          </div>
-      </div>
-    </div>
-    `;
-    return this.sanitizer.bypassSecurityTrustHtml(sanitizedHtml);
-  }
-
-  generateDangerAlert(toast: any): SafeHtml {
-    const sanitizedHtml = `
-    <div class="mt-5 mx-4 px-4 rounded-md bg-red-50 md:max-w-2xl md:mx-auto">
-      <div class="flex justify-between py-3">
-          <div class="flex">
-              <div class="text-red-500 text-2xl">
-                <i class="uil uil-times-circle"></i>
-              </div>
-              <div class="self-center ml-3">
-                  <span class="text-red-600 font-semibold capitalize">
-                  ${toast.type}
-                  </span>
-                  <p class="text-red-600 mt-1">
-                  ${toast.message}
-                  </p>
-              </div>
-          </div>
-      </div>
-    </div>
-    `;
-    return this.sanitizer.bypassSecurityTrustHtml(sanitizedHtml);
   }
 }
 

@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Profesores } from 'src/app/models/profesores-model';
 import { ProfesoresService } from 'src/app/services/profesores.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ProfesoresService } from 'src/app/services/profesores.service';
   styleUrls: ['./profes-por-curso.component.css']
 })
 export class ProfesPorCursoComponent {
-  profesores: any = [];
+  profesores: Profesores[] = [];
   palabraNoEncontrada : string = '';
   public hasLoaded: boolean = false;
 
@@ -52,14 +53,25 @@ export class ProfesPorCursoComponent {
     const searchTerm: string = this.searchInput.nativeElement.value.trim();
 
     if (searchTerm.length > 0) {
-      console.log('Búsqueda:', searchTerm);
-      this.profesoresService.findProfesor(searchTerm).subscribe((profes) => {
-        this.profesores = profes;
-        if (profes.length === 0) {
-          this.palabraNoEncontrada = searchTerm;
-        }
-        console.log(profes);
-      })
+      // Expresión regular para validar número entero o decimal
+      const regex = /^[+-]?\d+(\.\d+)?$/;
+      if (regex.test(searchTerm)) {
+        // Si es un número entero o decimal, muestra mensaje de error
+        this.palabraNoEncontrada = 'Formato de búsqueda no válido. Debe digitar en formato de texto, no un número 😡.';
+        this.profesores = [];
+      } else {
+        // Si es un texto, realiza la búsqueda
+        this.profesoresService.findProfesor(searchTerm).subscribe(
+          (response) => {
+            this.profesores = response;
+          },
+          (error) => {
+            this.profesores = [];
+            this.palabraNoEncontrada = error.error.message;
+            // console.clear(); //Método para borrar la consola del navegador
+          }
+        );
+      }
     }
   }
 

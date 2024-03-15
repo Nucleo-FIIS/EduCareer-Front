@@ -1,0 +1,12 @@
+<!-- TOAST NOTIFICATION -->
+<div class="fixed top-7 right-5 animate__animated animate__fadeIn notifications">
+    <ng-container *ngFor="let toast of toasts">
+        <!-- Usa ngIf para elegir qué función de generación de alertas usar según el tipo -->
+        <ng-container *ngIf="toast.type === 'success'; else dangerAlert">
+            <div class="toast-alert-success" id="toast-{{toast.id_toast}}" [innerHTML]="generateSuccessAlert(toast)"></div>
+        </ng-container>
+        <ng-template #dangerAlert>
+            <div class="toast-alert-danger" id="toast-{{toast.id_toast}}" [innerHTML]="generateDangerAlert(toast)"></div>
+        </ng-template>
+    </ng-container>
+</div>
