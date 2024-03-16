@@ -27,11 +27,12 @@
 
 .footer-logo-nucleo {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 .footer-logo-nucleo img {
-    width: 28px;
+    width: 150px;
     margin-right: 8px;
 }
 

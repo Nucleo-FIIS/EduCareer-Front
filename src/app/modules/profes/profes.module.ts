@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CursoCicloComponent } from './pages/curso-ciclo/curso-ciclo.component';
 import { ProfesPorCursoComponent } from './pages/profes-por-curso/profes-por-curso.component';
 import { DetalleProfesorComponent } from './pages/detalle-profesor/detalle-profesor.component';
+import { CiclosComponent } from './pages/ciclos/ciclos.component';
 
 
 
@@ -12,7 +13,8 @@ import { DetalleProfesorComponent } from './pages/detalle-profesor/detalle-profe
   declarations: [
     CursoCicloComponent,
     ProfesPorCursoComponent,
-    DetalleProfesorComponent
+    DetalleProfesorComponent,
+    CiclosComponent
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,10 @@
 <!-- HEADER START -->
 <header>
-    <div class="contain-logo-nucleo">
-        <img src="../../../../assets/img/logo-nucleo.png" alt="">
-        <a href="#" class="logo">EduCareer</a>
-    </div>
+    <a routerLink="/home">
+      <div class="contain-logo-nucleo">
+          <img src="assets/img/logo-educareer.png" alt="">
+      </div>
+    </a>
     <div id="menu-icon" class="{{ !isActive ? 'bx bx-grid-alt' : 'bx bx-x' }}" (click)="toggleMenu()"></div>
 
     <ul class="navbar" [class.active]="isActive">
