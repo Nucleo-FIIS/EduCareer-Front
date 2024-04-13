@@ -41,9 +41,9 @@
                 <a class="btn_edit" routerLink="/dashboard/edit-profile">Editar perfil</a>
               </li>
               <li class="logout">
-                <div class="btn-logout">
+                <div class="btn-logout" (click)="logout()">
                     <img src="assets/img/profile-menu//logout.png" />
-                    <a routerLink="/auth/login">Cerrar sesión</a>
+                    <a>Cerrar sesión</a>
                 </div>
               </li>
             </ul>
