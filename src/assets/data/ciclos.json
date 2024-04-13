@@ -1,0 +1,56 @@
+{
+    "data": {
+        "results": [
+            {
+                "id": 1,
+                "emoji": "🚀",
+                "cycleNumber": "Primer ciclo"
+            },
+            {
+                "id": 2,
+                "emoji": "📘",
+                "cycleNumber": "Segundo ciclo"
+            },
+            {
+                "id": 3,
+                "emoji": "📊",
+                "cycleNumber": "Tercer ciclo"
+            },
+            {
+                "id": 4,
+                "emoji": "🔧",
+                "cycleNumber": "Cuarto ciclo"
+            },
+            {
+                "id": 5,
+                "emoji": "🖥️",
+                "cycleNumber": "Quinto ciclo"
+            },
+            {
+                "id": 6,
+                "emoji": "📈",
+                "cycleNumber": "Sexto ciclo"
+            },
+            {
+                "id": 7,
+                "emoji": "💡",
+                "cycleNumber": "Septimo ciclo"
+            },
+            {
+                "id": 8,
+                "emoji": "🛠️",
+                "cycleNumber": "Octavo ciclo"
+            },
+            {
+                "id": 9,
+                "emoji": "📝",
+                "cycleNumber": "Noveno ciclo"
+            },
+            {
+                "id": 10,
+                "emoji": "🎉",
+                "cycleNumber": "Decimo ciclo"
+            }
+        ]
+    }
+}

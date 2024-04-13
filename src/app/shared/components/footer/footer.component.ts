@@ -13,17 +13,42 @@ export class FooterComponent {
 
   isButtonDisabled = true;
 
-  constructor() {
+  constructor( private elementRef: ElementRef ) {
     // Obtener el año actual
     this.year = new Date().getFullYear();
   }
 
   ngOnInit(): void {
+    this.observeDisabledAttributeChanges();
     if (this.searchInput) {
       this.searchInput.nativeElement.addEventListener('input', () => {
         this.handleInput();
       });
     }
+  }
+
+  observeDisabledAttributeChanges() {
+    const targetNode = this.elementRef.nativeElement.querySelector('button');
+
+    // Crear un observador de mutaciones
+    const observer = new MutationObserver(mutationsList => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
+          // Obtener el valor actual del atributo disabled
+          const isDisabled = targetNode.disabled;
+          // Actualizar la propiedad isButtonDisabled si es necesario
+          this.isButtonDisabled = isDisabled;
+
+          // Si el atributo disabled fue eliminado, volver a agregarlo
+          if (!isDisabled) {
+            targetNode.setAttribute('disabled', 'true');
+          }
+        }
+      }
+    });
+
+    // Observar cambios en el atributo disabled del elemento input
+    observer.observe(targetNode, { attributes: true });
   }
 
   handleInput(): void {
