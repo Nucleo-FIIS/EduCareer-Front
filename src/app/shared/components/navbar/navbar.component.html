@@ -1,53 +1,69 @@
 <!-- HEADER START -->
 <header>
-    <a routerLink="/home">
-      <div class="contain-logo-nucleo">
-          <img src="assets/img/logo-educareer.png" alt="">
-      </div>
-    </a>
-    <div id="menu-icon" class="{{ !isActive ? 'bx bx-grid-alt' : 'bx bx-x' }}" (click)="toggleMenu()"></div>
-
-    <ul class="navbar" [class.active]="isActive">
-        <li>
-            <a routerLink="/home" routerLinkActive="active">Inicio</a>
-        </li>
-        <li>
-            <a routerLink="/profesores" routerLinkActive="active">Profesores</a>
-        </li>
-        <li>
-            <a routerLink="/guia" routerLinkActive="active" >Guía de especialización</a>
-        </li>
-    </ul>
-
-    
-    <!-- START PROFILE -->
-    <div class="icons">
-        <div class="profile-show" (click)="toggleMenuProfile()">
-            <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="">
-            <p>John Doe</p>
-        </div>
-
-        <!-- DESGLOSAR PROFILE -->
-        <div class="menu" [class.active]="isActiveProfile">
-            <div class="profile">
-              <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" />
-              <div class="info">
-                <h2>John Doe</h2>
-                <p>@john_doe</p>
-              </div>
-            </div>
-            <ul>
-              <li class="edit-profile">
-                <img src="assets/img/profile-menu/edit.png" />
-                <a class="btn_edit" routerLink="/dashboard/edit-profile">Editar perfil</a>
-              </li>
-              <li class="logout">
-                <div class="btn-logout">
-                    <img src="assets/img/profile-menu//logout.png" />
-                    <a routerLink="/auth/login">Cerrar sesión</a>
-                </div>
-              </li>
-            </ul>
-          </div>
+  <a routerLink="/home">
+    <div class="contain-logo-nucleo">
+      <img src="assets/img/logo-educareer.png" alt="">
     </div>
+  </a>
+  <div id="menu-icon" class="{{ !isActive ? 'bx bx-grid-alt' : 'bx bx-x' }}" (click)="toggleMenu()"></div>
+
+  <ul class="navbar" [class.active]="isActive">
+    <li>
+      <a routerLink="/home" routerLinkActive="active">Inicio</a>
+    </li>
+    <li>
+      <a routerLink="/profesores" routerLinkActive="active">Profesores</a>
+    </li>
+    <li>
+      <a routerLink="/guia" routerLinkActive="active">Guía de especialización</a>
+    </li>
+  </ul>
+
+
+  <!-- START PROFILE -->
+  <div class="icons flex">
+    <div class="menu-icon flex justify-center items-center gap-2">
+      <a routerLink="/auth/login" class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-[#7289da] from-gray-800 to-black text-white font-semibold hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-log-in">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+          <polyline points="10 17 15 12 10 7" />
+          <line x1="15" x2="3" y1="12" y2="12" />
+        </svg>
+        <span
+          class="pointer-events-none absolute opacity-0 bottom-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-bottom-8 duration-700">
+          Login
+        </span>
+      </a>
+    </div>
+    
+    <div *ngIf="userDetails" class="profile-show" (click)="toggleMenuProfile()">
+      <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="">
+      <p>John Doe</p>
+    </div>
+
+    <!-- DESGLOSAR PROFILE -->
+    <div class="menu" [class.active]="isActiveProfile">
+      <div class="profile">
+        <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" />
+        <div class="info">
+          <h2>John Doe</h2>
+          <p>@john_doe</p>
+        </div>
+      </div>
+      <ul>
+        <li class="edit-profile">
+          <img src="assets/img/profile-menu/edit.png" />
+          <a class="btn_edit" routerLink="/dashboard/edit-profile">Editar perfil</a>
+        </li>
+        <li class="logout">
+          <div class="btn-logout">
+            <img src="assets/img/profile-menu//logout.png" />
+            <a routerLink="/auth/login">Cerrar sesión</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>

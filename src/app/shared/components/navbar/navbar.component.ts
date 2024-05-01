@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
   isActive = false;
   isActiveProfile = false;
+  userDetails !: string;
 
   toggleMenu(): void {
     this.isActive = !this.isActive;

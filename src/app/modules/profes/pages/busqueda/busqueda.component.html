@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+
+<section>
+
+    <app-search></app-search>
+
+    <app-not-found *ngIf="showError"></app-not-found>
+
+    <app-card *ngIf="!showError"></app-card>
+
+
+</section>
+
+
+<app-scroll-up></app-scroll-up>
+
+<app-footer></app-footer>

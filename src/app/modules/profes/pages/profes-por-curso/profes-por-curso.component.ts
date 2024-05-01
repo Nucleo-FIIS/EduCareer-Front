@@ -29,27 +29,11 @@ export class ProfesPorCursoComponent {
   
   getProfesores(): void {
     this.profesoresService.getProfesores().subscribe((profesores) => {
-      this.profesores = profesores;
+      this.profesoresService.setProfesores(profesores);
     });
   }
 
-  handleKeyPress(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      this.search();
-    }
-  }
-
-  searchClicked(): void {
-    this.search();
-  }
-
-  cleanClicked(): void {
-    if (this.searchInput.nativeElement.value.length > 0) {
-      this.regresar();
-    }
-  }
-
-  search(): void {
+  /*search(): void {
     const searchTerm: string = this.searchInput.nativeElement.value.trim();
 
     if (searchTerm.length > 0) {
@@ -73,7 +57,7 @@ export class ProfesPorCursoComponent {
         );
       }
     }
-  }
+  }*/
 
   regresar(): void {
     this.searchInput.nativeElement.value = '';
@@ -81,17 +65,17 @@ export class ProfesPorCursoComponent {
   }
 
   // Método para calcular las estrellas
-  stars(score: string): string[] {
-    const numericScore = parseFloat(score);
-    const roundedScore = Math.ceil(numericScore * 2) / 2;  // Redondear hacia arriba a la mitad más cercana
-    const fullStars = Math.floor(roundedScore);
-    const halfStar = (roundedScore % 1 !== 0) ? ['ri-star-half-line'] : [];
-    const emptyStars = 5 - fullStars - halfStar.length;
+  // stars(score: string): string[] {
+  //   const numericScore = parseFloat(score);
+  //   const roundedScore = Math.ceil(numericScore * 2) / 2;  // Redondear hacia arriba a la mitad más cercana
+  //   const fullStars = Math.floor(roundedScore);
+  //   const halfStar = (roundedScore % 1 !== 0) ? ['ri-star-half-line'] : [];
+  //   const emptyStars = 5 - fullStars - halfStar.length;
 
-    const starArray = Array(fullStars).fill('ri-star-fill').concat(halfStar, Array(emptyStars).fill('ri-star-line'));
+  //   const starArray = Array(fullStars).fill('ri-star-fill').concat(halfStar, Array(emptyStars).fill('ri-star-line'));
 
-    return starArray;
-  }
+  //   return starArray;
+  // }
 
 
 

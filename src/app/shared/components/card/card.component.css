@@ -1,0 +1,29 @@
+button img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.loader__container {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+}
+
+.loader__container img {
+    width: 80% !important;
+}
+
+.ra-rating-star {
+    margin: 0 0 15px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+.ra-rating-star li i {
+    color: #b4690e;
+}
+
+.score {
+    margin-right: 5px;
+}
