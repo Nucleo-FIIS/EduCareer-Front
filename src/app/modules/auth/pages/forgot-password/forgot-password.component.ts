@@ -21,9 +21,17 @@ export class ForgotPasswordComponent {
 
   isButtonDisabled = true;
 
-  constructor( private alertsService: AlertsService, private elementRef: ElementRef, private authService: AuthService ) { }
+  constructor(private alertsService: AlertsService, private elementRef: ElementRef, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.pruebaUser().subscribe({
+      next: (response: any) => {
+        console.log(response)
+      },
+      error: (error: any) => {
+        console.error("Error occurred:", error.message);
+      }
+    });
     this.observeDisabledAttributeChanges();
     if (this.searchInput) {
       this.searchInput.nativeElement.addEventListener('input', () => {
@@ -74,28 +82,28 @@ export class ForgotPasswordComponent {
   }
 
   realizarTest() {
-    this.loading = true;
-    const inputValue = this.searchInput.nativeElement.value.trim();
+    // this.loading = true;
+    // const inputValue = this.searchInput.nativeElement.value.trim();
 
-    if (inputValue.length > 0) {
-      this.isButtonDisabled = true; // Deshabilitar el botón antes de realizar la acción
-      this.searchInput.nativeElement.value = ''; // Limpiar el campo después de hacer clic en Enviar
-    } else {
-      return; // Evitar realizar la acción si el campo está vacío
-    }
+    // if (inputValue.length > 0) {
+    //   this.isButtonDisabled = true; // Deshabilitar el botón antes de realizar la acción
+    //   this.searchInput.nativeElement.value = ''; // Limpiar el campo después de hacer clic en Enviar
+    // } else {
+    //   return; // Evitar realizar la acción si el campo está vacío
+    // }
 
-    const test: Test = {
-      email: inputValue
-    };
+    // const test: Test = {
+    //   email: inputValue
+    // };
 
-    this.alertsService.realizarTest(test).subscribe(
-      response => {
-        this.alertsService.sendToast(response); // Enviar el toast
-      },
-      error => {
-        this.alertsService.sendToast(error.error); // Enviar el toast de error
+    // this.alertsService.realizarTest(test).subscribe(
+    //   response => {
+    //     this.alertsService.sendToast(response); // Enviar el toast
+    //   },
+    //   error => {
+    //     this.alertsService.sendToast(error.error); // Enviar el toast de error
 
-      });
+    //   });
 
     // this.authService.resetPassword(test.email).subscribe({
     //   next: (response: any) => {

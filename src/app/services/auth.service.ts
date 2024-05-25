@@ -53,14 +53,20 @@ export class AuthService {
             catchError(this.handleError)
         );
     }
-    prueba(): Observable<any> {
-        return this.httpClient.get<any>(this.URL_API + 'api/pruebas/user', this.httpOptionslogin).pipe(
-            catchError(this.handleError)
-        );
-    }
     resetPassword(request: String): Observable<String> {
         return this.httpClient.post<any>(this.URL_API + 'api/auth/email-reset-password', request, this.httpOptions).pipe(
             catchError(this.handleError)
         );
+    }
+
+    pruebaUser(): Observable<any> {
+        return this.httpClient.get<any>(this.URL_API + 'api/pruebas/user', { 
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            }),
+            withCredentials: true
+        }).pipe(
+            catchError(this.handleError)
+        );;
     }
 }
