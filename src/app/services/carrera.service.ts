@@ -10,9 +10,7 @@ import { CarreraModel } from '../models/carrera-model';
 export class CarreraService {
 
     URL_API: string = 'http://localhost:8080/';
-    constructor(private httpClient: HttpClient) {
-
-    }
+    constructor(private httpClient: HttpClient) { }
 
     getCarreras(): Observable<CarreraModel[]> {
         return this.httpClient.get<CarreraModel[]>(this.URL_API + 'api/carrera/carreras').pipe(map(res => res));
