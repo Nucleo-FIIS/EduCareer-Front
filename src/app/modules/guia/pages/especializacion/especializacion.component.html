@@ -3,22 +3,22 @@
     <!-- INFORMACION DEL CURSO -->
     <div class="auto-group-9a1i-mF2">
         <div class="contain-curso">
-            <p class="desarrollo-web-UHr text-center">{{this.especialidad?.title}}</p>
-            <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="this.especialidad?.img" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+            <p class="desarrollo-web-UHr text-center">{{this.especialidad?.nombre_especialidad}}</p>
+            <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="this.especialidad?.img_especialidad" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
             <div class="loader__container"><img class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
         </div>
         <div class="group-27-cYU">
           <div class="group-22-KSt">
             <p class="introduccin-del-curso-qg8 text-start">Introducción del curso</p>
             <div class="auto-group-yc8c-hiL">
-              <p class="el-desarrollo-web-es-el-proceso-de-creacin-y-mantenimiento-de-sitios-web-puede-implicar-una-amplia-gama-de-acciones-desde-la-codificacin-y-el-diseo-hasta-la-gestin-de-contenidos-y-la-administracin-del-servidor-web-dbz text-gray">{{this.especialidad?.description}}</p>
+              <p class="el-desarrollo-web-es-el-proceso-de-creacin-y-mantenimiento-de-sitios-web-puede-implicar-una-amplia-gama-de-acciones-desde-la-codificacin-y-el-diseo-hasta-la-gestin-de-contenidos-y-la-administracin-del-servidor-web-dbz text-gray">{{this.especialidad?.descripcion}}</p>
             </div>
           </div>
           <div class="group-23-vur">
             <p class="drive-del-curso-tbn text-start">Drive del curso</p>
             <p class="info-curso">
               <span class="text-gray">Para acceder a la información, haz click </span>
-              <a href="https://drive.google.com/drive/u/0/" target="_blank">aquí</a>
+              <a href="this.especialidad?.img_url" target="_blank">aquí</a>
             </p>
           </div>
         </div>

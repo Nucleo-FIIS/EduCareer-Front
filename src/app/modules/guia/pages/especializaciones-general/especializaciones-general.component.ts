@@ -26,14 +26,13 @@ export class EspecializacionesGeneralComponent {
   }
 
   loadEspecialidades(order: string) {
-    console.log(this.ordenSeleccionado)
     this.especializacionService.getAllEspecialidades(order).subscribe(
       (data: EspecialidadPaginada) => {
         this.especialidades = data;
-        console.log(this.especialidades);
+        this.selectPage(0);
+        console.log(this.paginaSeleccionada);
       }
     )
-    this.selectPage(0);
   }
 
   buscarEspecialidad(order: string, filter: string) {
@@ -41,7 +40,7 @@ export class EspecializacionesGeneralComponent {
       (data: EspecialidadPaginada) => {
         this.especialidades = data;
         this.selectPage(0);
-        console.log(this.especialidades);
+        console.log(this.paginaSeleccionada);
       }
     )
     /* this.especialidades=[...this.especialidadesAll];
