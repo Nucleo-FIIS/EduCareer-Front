@@ -6,6 +6,7 @@ import { CursoCicloComponent } from './pages/curso-ciclo/curso-ciclo.component';
 import { ProfesPorCursoComponent } from './pages/profes-por-curso/profes-por-curso.component';
 import { DetalleProfesorComponent } from './pages/detalle-profesor/detalle-profesor.component';
 import { CiclosComponent } from './pages/ciclos/ciclos.component';
+import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 
 
 
@@ -14,12 +15,13 @@ import { CiclosComponent } from './pages/ciclos/ciclos.component';
     CursoCicloComponent,
     ProfesPorCursoComponent,
     DetalleProfesorComponent,
-    CiclosComponent
+    CiclosComponent,
+    BusquedaComponent
   ],
   imports: [
     CommonModule,
     ProfesRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class ProfesModule { }

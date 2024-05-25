@@ -58,4 +58,15 @@ export class AuthService {
             catchError(this.handleError)
         );
     }
+
+    pruebaUser(): Observable<any> {
+        return this.httpClient.get<any>(this.URL_API + 'api/pruebas/user', { 
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            }),
+            withCredentials: true
+        }).pipe(
+            catchError(this.handleError)
+        );;
+    }
 }

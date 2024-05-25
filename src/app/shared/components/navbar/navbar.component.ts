@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent {
   isActive = false;
   isActiveProfile = false;
+  userDetails !: string;
 
   constructor(private router:Router,private authService:AuthService){
 

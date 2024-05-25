@@ -1,0 +1,45 @@
+<label class="mt-4 block text-sm font-medium text-gray-900 text-center sm:text-start"> Buscar por </label>
+<div class="flex items-center flex-col sm:flex-row">
+
+    <!-- Select -->
+    <div class="w-2/5">
+        <select [(ngModel)]="opcionSeleccionado" name="opcionSeleccionado" (change)="capturar()"
+            class="bg-gray-50 w-full rounded-lg border p-2 border-gray-300 text-gray-700 text-sm sm:text-sm focus:outline-none">
+            <option value="0" disabled selected>Elige una opción</option>
+            <option>Cursos</option>
+            <option>Profesores</option>
+        </select>
+    </div>
+
+    <!-- Search -->
+    <div class="flex ml-2 items-center mb-4 mt-4 w-full">
+        <div class="relative w-full">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                </svg>
+            </div>
+            <input type="text" id="simple-search" (keydown)="handleKeyPress($event)" #searchInput
+                class="disabled:opacity-50 disabled:pointer-events-none disabled:select-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full ps-10 p-2.5 focus:outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm focus:ring-1"
+                placeholder="Buscar..." required [disabled]="isSelected" />
+        </div>
+        <button type="submit" (click)="searchClicked()" [disabled]="isSelected"
+            class="disabled:opacity-50 disabled:pointer-events-none disabled:select-none p-2.5 ms-2 text-sm font-medium text-white bg-indigo-700 rounded-lg border border-indigo-700 hover:bg-indigo-800 focus:outline-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+            <span class="sr-only">Search</span>
+        </button>
+        <button type="submit" (click)="cleanClicked()" [disabled]="isSelected"
+            class="disabled:opacity-50 disabled:pointer-events-none disabled:select-none p-2.5 ms-2 text-sm font-medium text-white bg-indigo-700 rounded-lg border border-indigo-700 hover:bg-indigo-800 focus:outline-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+            </svg>
+            <span class="sr-only">Clean</span>
+        </button>
+    </div>
+</div>

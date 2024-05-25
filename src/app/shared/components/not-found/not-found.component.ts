@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ProfesoresService } from 'src/app/services/profesores.service';
 
 @Component({
   selector: 'app-not-found',
@@ -7,6 +8,14 @@ import { Component, Input } from '@angular/core';
 })
 export class NotFoundComponent {
 
-  @Input() message !: string;
+  message !: string;
+
+  constructor( private profesoresService: ProfesoresService) { }
+
+  ngOnInit(): void {
+    this.profesoresService.getMessageError().subscribe(message => {
+      this.message = message;
+    });
+  }
 
 }
