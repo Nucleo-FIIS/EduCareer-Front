@@ -7,9 +7,9 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'guia-especializacion/:id', component: EspecializacionComponent, title: 'Guía de Especialización | EduCareer'},
-      {path: 'todos-guia-especializacion', component: EspecializacionesGeneralComponent, title: 'Guía de Especialización | EduCareer'},
-      {path: '**', redirectTo: 'todos-guia-especializacion'}
+      { path: 'guia-especializacion/:id', component: EspecializacionComponent, title: 'Guía de Especialización | EduCareer' },
+      { path: 'guias-especializacion', component: EspecializacionesGeneralComponent, title: 'Guía de Especialización | EduCareer' },
+      { path: '**', redirectTo: 'guias-especializacion' }
     ]
   }
 ];

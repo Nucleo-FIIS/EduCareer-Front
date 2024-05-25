@@ -2,30 +2,38 @@
 <section class="section">
     <!-- BUSCADOR Y FILTRO DE LAS ESPECIALIZACIONES -->
     <div class="filter-container">
-        <input class="input" type="text" placeholder="Buscar especialidad..." [(ngModel)]="filtroBusqueda"  (keydown.enter)="buscarEspecialidad()">
-        <select class="filter" [(ngModel)]="ordenSeleccionado" name="" id="" (change)="filtroEspecialidad()">
+        <input class="input" type="text" placeholder="Buscar especialidad..." [(ngModel)]="filtroBusqueda"  (keydown.enter)="buscarEspecialidad('ASC',filtroBusqueda)">
+        <select class="filter" [(ngModel)]="ordenSeleccionado" name="" id="" (change)="filtroBusqueda===''? loadEspecialidades(ordenSeleccionado):buscarEspecialidad(ordenSeleccionado,filtroBusqueda)">
             <option value="asc">Nombre (Asc)</option>
             <option value="desc">Nombre (Desc)</option>
-            <option value="pop">Popularidad</option>
+            <!-- <option value="pop">Popularidad</option>
             <option value="views">Vistas</option>
-            <option value="demand">Demanda laboral</option>
+            <option value="demand">Demanda laboral</option> -->
         </select>
     </div>
     <!-- ESPECIALIZACIONES -->
     <div class="specialty-container">
-            <div *ngFor="let especialidad of especialidades" class="curse-container">
+            <div *ngFor="let especialidad of paginaSeleccionada" class="curse-container">
                 <div class="imgtitle-curse">
-                    <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="especialidad.img" alt="{{ especialidad.title }}" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
+                    <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="especialidad.imagen_url" alt="{{ especialidad.nombre_especialidad }}" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
                     <div class="loader__container"><img class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
-                    <p class="desarrollo-web-UHr" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">{{especialidad.title}}</p>
+                    <p class="desarrollo-web-UHr" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">{{especialidad.nombre_especialidad}}</p>
                 </div>
                 <div class="summary-curse">
-                    <p class="text-gray limit-lines">{{especialidad.description}}</p>
-                    <a class="centered-link" routerLink="/guia/guia-especializacion/{{especialidad.id}}">Ver más</a>
+                    <p class="text-gray limit-lines">{{especialidad.descripcion}}</p>
+                    <a class="centered-link" routerLink="/guia/guia-especializacion/{{especialidad.id_especialidad}}">Ver más</a>
                 </div>
             </div>
     </div>
+    <!-- BOTONES -->
+    <div class="paginacion">   
+        <button *ngFor="let page of especialidades; let j = index" (click)="selectPage(j)">
+          {{ j + 1 }}
+        </button>
+    </div>
 </section>
+
+
 
 <app-scroll-up></app-scroll-up>
 
