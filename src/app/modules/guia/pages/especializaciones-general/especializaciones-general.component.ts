@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EspecialidadModel, EspecialidadPaginada } from 'src/app/models/especialidad-model';
 import { EspecializacionService } from 'src/app/services/especializacion.service';
 
@@ -7,7 +7,7 @@ import { EspecializacionService } from 'src/app/services/especializacion.service
   templateUrl: './especializaciones-general.component.html',
   styleUrls: ['./especializaciones-general.component.css']
 })
-export class EspecializacionesGeneralComponent {
+export class EspecializacionesGeneralComponent implements OnInit{
   filtroBusqueda: string = '';
   ordenSeleccionado: string = 'ASC';
 
