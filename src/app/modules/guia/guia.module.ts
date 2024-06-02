@@ -6,12 +6,16 @@ import { EspecializacionComponent } from './pages/especializacion/especializacio
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EspecializacionesGeneralComponent } from './pages/especializaciones-general/especializaciones-general.component';
 import { FormsModule } from '@angular/forms';
+import { ComentarioEspecializacionComponent } from './pages/comentario-especializacion/comentario-especializacion.component';
+import { RespuestasComponent } from './pages/respuestas/respuestas.component';
 
 
 @NgModule({
   declarations: [
     EspecializacionComponent,
-    EspecializacionesGeneralComponent
+    EspecializacionesGeneralComponent,
+    ComentarioEspecializacionComponent,
+    RespuestasComponent
   ],
   imports: [
     CommonModule,

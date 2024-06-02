@@ -1,0 +1,45 @@
+<section>
+<div class="contain-timeline">
+    <p class="comments">Comentarios</p>
+    <ol class="timeline">
+        <li class="timeline-item">
+            <span class="timeline-item-icon | avatar-icon"></span>
+            <div class="new-comment">
+                <input type="text" placeholder="Añade un comentario..." />
+            </div>
+        </li>
+        <div *ngIf="comentarios.length > 0; else noComments">
+            <li class="timeline-item | extra-space" *ngFor="let c of comentarios" class="curse-container">
+                <span class="timeline-item-icon | filled-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path fill="currentColor" d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM7 10v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z" />
+                    </svg>
+                </span>
+                <div class="timeline-item-wrapper">
+                    <div class="timeline-item-description">
+                        <!-- <i class="avatar | small">
+                            <img src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" />
+                        </i> -->
+                        <span><a href="#">{{c.usuario}}</a> comentó el {{c.fecha}}</span>
+                    </div>
+                    <div class="comment">
+                        <p>{{c.comentario}}</p>
+                        <button class="button">👏 2</button>
+                        <button class="button | square">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7 12a5 5 0 0 0 10 0h-2a3 3 0 0 1-6 0H7z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <app-respuestas [comentario_id]="c.id_comentario" [especialidad_id]="especialidad_id"></app-respuestas>
+                </div>
+            </li>
+        </div>
+        <ng-template #noComments>
+            <p>No hay comentarios disponibles</p>
+          </ng-template>
+    </ol>
+</div>
+</section>

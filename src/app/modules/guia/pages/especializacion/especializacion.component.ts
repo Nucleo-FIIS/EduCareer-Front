@@ -11,12 +11,14 @@ import { EspecializacionService } from 'src/app/services/especializacion.service
 export class EspecializacionComponent {
   public hasLoaded: boolean = false;
   especialidad: EspecialidadModel | undefined;
+  id_especialidad: number;
 
   ngOnInit(): void {
 
   }
 
   constructor(private activateRoute: ActivatedRoute, private especializacionService: EspecializacionService) {
+    this.id_especialidad = this.activateRoute.snapshot.params['id'];
     console.log(this.activateRoute.snapshot.params['id']);
     console.log(this.especialidad);
     this.findByID(this.activateRoute.snapshot.params['id']);
