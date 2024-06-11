@@ -1,0 +1,162 @@
+<!-- Comentarios -->
+<article class="bg-white py-8 lg:py-16 antialiased animate__animated animate__fadeIn">
+    <div class="max-w-2xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg lg:text-2xl font-bold text-black">Comentarios (20)</h2>
+        </div>
+        <!-- Single comment -->
+        <article class="p-6 mb-6 text-base bg-gray-100 rounded-lg">
+            <footer class="flex justify-between items-center mb-2">
+                <div class="flex items-center">
+                    <p class="text-sm text-gray-600"><span
+                            class="cursor-pointer underline font-semibold text-indigo-600 hover:text-indigo-800 transition-all duration-300"
+                            routerLink="/auth/login">Iniciar sesión</span> para comentar 🔐💬</p>
+                </div>
+            </footer>
+        </article>
+        <form class="mb-6" *ngIf="isAvailable">
+            <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border-2 border-indigo-700">
+                <textarea id="comment" name="comment" rows="6" (input)="onInput($event)" (keydown)="onKeydown($event)"
+                    [(ngModel)]="textInput" autofocus
+                    class="resize-none px-0 w-full text-sm text-stone-950 border-0 focus:ring-0 focus:outline-none placeholder-gray-400"
+                    placeholder="Escribe tu comentario..." required></textarea>
+            </div>
+            <button type="submit" [disabled]="!isAvailable" (click)="sendMessage()"
+                class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-indigo-800 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                Publicar
+            </button>
+        </form>
+        <article>
+            <div class="p-6 text-base bg-indigo-50 rounded-lg">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="inline-flex items-center mr-3 text-sm text-black font-semibold"><img
+                                class="mr-2 w-6 h-6 rounded-full"
+                                src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                                alt="Michael Gough">Michael Gough</p>
+                        <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-08" title="February 8th, 2022">Feb.
+                                8,
+                                2022</time></p>
+                    </div>
+                </footer>
+                <p class="text-gray-600 text-sm">Very straight-to-point article. Really worth time reading. Thank
+                    you! But tools are just the
+                    instruments for the UX designers. The knowledge of the design tools are as important as the
+                    creation of the design strategy.</p>
+                <div class="flex items-center mt-4 space-x-4">
+                    <button type="button" class="flex items-center text-sm hover:text-indigo-700 text-indigo-500 hover:underline font-medium transition-all duration-300">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                        </svg>
+                        Comentar
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-6 my-3 ml-6 lg:ml-12 text-base bg-indigo-50 rounded-lg">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="inline-flex items-center mr-3 text-sm text-black font-semibold"><img
+                                class="mr-2 w-6 h-6 rounded-full"
+                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Jese Leos">Jese
+                            Leos</p>
+                        <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-12"
+                                title="February 12th, 2022">Feb. 12,
+                                2022</time></p>
+                    </div>
+                </footer>
+                <p class="text-gray-600 text-sm">Much appreciated! Glad you liked it 🤗</p>
+                <div class="flex items-center mt-4 space-x-4">
+                    <button type="button" class="flex items-center text-sm hover:text-indigo-700 text-indigo-500 hover:underline font-medium transition-all duration-300">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                        </svg>
+                        Comentar
+                    </button>
+                </div>
+            </div>
+        </article>
+        <article class="p-6 my-3 ml-6 lg:ml-12 text-base bg-indigo-50 rounded-lg">
+            <footer class="flex justify-between items-center mb-2">
+                <div class="flex items-center">
+                    <p class="inline-flex items-center mr-3 text-sm text-black font-semibold"><img
+                            class="mr-2 w-6 h-6 rounded-full"
+                            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Jese Leos">Jese
+                        Leos</p>
+                    <p class="text-sm text-gray-600"><time pubdate datetime="2022-02-12"
+                            title="February 12th, 2022">Feb. 12,
+                            2022</time></p>
+                </div>
+            </footer>
+            <p class="text-gray-600 text-sm">Much appreciated! Glad you liked it 🤗</p>
+            <div class="flex items-center mt-4 space-x-4">
+                <button type="button" class="flex items-center text-sm hover:text-indigo-700 text-indigo-500 hover:underline font-medium transition-all duration-300">
+                    <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                    </svg>
+                    Comentar
+                </button>
+            </div>
+        </article>
+        <article class="border-t border-indigo-300">
+            <div class="p-6 my-3 text-base bg-indigo-50 rounded-lg">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="inline-flex items-center mr-3 text-sm text-black font-semibold"><img
+                                class="mr-2 w-6 h-6 rounded-full"
+                                src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+                                alt="Bonnie Green">Bonnie Green</p>
+                        <p class="text-sm text-gray-600"><time pubdate datetime="2022-03-12" title="March 12th, 2022">Mar.
+                                12,
+                                2022</time></p>
+                    </div>
+                </footer>
+                <p class="text-gray-600 text-sm">The article covers the essentials, challenges, myths and stages the
+                    UX designer should consider while creating the design strategy.</p>
+                <div class="flex items-center mt-4 space-x-4">
+                    <button type="button" class="flex items-center text-sm hover:text-indigo-700 text-indigo-500 hover:underline font-medium transition-all duration-300">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                        </svg>
+                        Comentar
+                    </button>
+                </div>
+            </div>
+        </article>
+        <article class="border-t border-indigo-300">
+            <div class="p-6 my-3 text-base bg-indigo-50 rounded-lg">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="inline-flex items-center mr-3 text-sm text-black font-semibold"><img
+                                class="mr-2 w-6 h-6 rounded-full"
+                                src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+                                alt="Helene Engels">Helene Engels</p>
+                        <p class="text-sm text-gray-600 "><time pubdate datetime="2022-06-23" title="June 23rd, 2022">Jun.
+                                23,
+                                2022</time></p>
+                    </div>
+                </footer>
+                <p class="text-gray-600 text-sm">Thanks for sharing this. I do came from the Backend development and
+                    explored some of the tools to design my Side Projects.</p>
+                <div class="flex items-center mt-4 space-x-4">
+                    <button type="button" class="flex items-center text-sm hover:text-indigo-700 text-indigo-500 hover:underline font-medium transition-all duration-300">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                        </svg>
+                        Comentar
+                    </button>
+                </div>
+            </div>
+        </article>
+    </div>
+</article>

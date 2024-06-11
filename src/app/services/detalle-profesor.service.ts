@@ -12,7 +12,7 @@ export class DetalleProfesorService {
 
   constructor(  private httpClient: HttpClient ) { }
 
-  getDetalleProfesor(id: Number): Observable<DetalleProfesor> {
-    return this.httpClient.get<DetalleProfesor>(`${this.URL_API}api/profesores/detalle-profesor/${id}`).pipe(map(res => res));
+  getDetalleProfesor(idCurso: Number, idProfesor: Number): Observable<DetalleProfesor> {
+    return this.httpClient.get<DetalleProfesor>(`${this.URL_API}api/profesores/detalle-profesor/${idCurso}/${idProfesor}`).pipe(map(res => res));
   }
 }

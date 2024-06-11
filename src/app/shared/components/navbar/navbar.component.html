@@ -23,7 +23,7 @@
   <!-- START PROFILE -->
   <div class="icons flex">
     <div class="menu-icon flex justify-center items-center gap-2">
-      <a routerLink="/auth/login" class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-[#7289da] from-gray-800 to-black text-white font-semibold hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
+      <button routerLink="/auth/login" class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-[#7289da] from-gray-800 to-black text-white font-semibold hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="lucide lucide-log-in">
@@ -35,7 +35,7 @@
           class="pointer-events-none absolute opacity-0 bottom-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-bottom-8 duration-700">
           Login
         </span>
-      </a>
+      </button>
     </div>
     
     <div *ngIf="userDetails" class="profile-show" (click)="toggleMenuProfile()">

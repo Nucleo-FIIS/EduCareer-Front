@@ -1,0 +1,19 @@
+{
+    "carreras": [
+        {
+            "id": 1,
+            "emoji": "💻",
+            "name": "Ingeniería de Sistemas"
+        },
+        {
+            "id": 2,
+            "emoji": "🏭",
+            "name": "Ingeniería Industrial"
+        },
+        {
+            "id": 3,
+            "emoji": "👩‍💻",
+            "name": "Ingeniería de Software"
+        }
+    ]
+}

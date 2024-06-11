@@ -11,3 +11,190 @@ section {
 .loader__container img {
     width: 30% !important;
 }
+
+.cssbuttons-io-button {
+    /*background: #eab308;*/
+    background: #e89a3a;
+    color: white;
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em #eab308;
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+    cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em #eab308;
+    right: 0.3em;
+    transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+    width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #eab308;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+    transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+    transform: scale(0.95);
+}
+
+/* ESTILOS RANGE SLIDER */
+.main {
+    width: 60%;
+    margin: 24% auto;
+    position: relative;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 7px;
+    outline: none;
+    border-radius: 3px;
+    background: gray;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
+}
+
+#selector {
+    height: 104px;
+    width: 48px;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.SelectBtn {
+    height: 48px;
+    width: 48px;
+    background-image: url('../../../../../assets/img/range-icon.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 5px 25px rgb(0 0 0 / 15%);
+    position: absolute;
+    bottom: 0;
+}
+
+#SelectValue {
+    width: 48px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    background: #ffd200;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 45px;
+    font-size: 20px;
+    font-weight: bold;
+    zoom: 0.8;
+}
+
+#SelectValue::after {
+    content: "";
+    border-top: 17px solid #ffd200;
+    border-left: 24px solid #ffffff;
+    border-right: 24px solid #ffffff;
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+}
+
+#ProgressBar {
+    width: 50%;
+    height: 7px;
+    background: #ffd200;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+}
+
+.field .value {
+    position: absolute;
+    font-size: 18px;
+    color: #664AFF;
+    font-weight: 600;
+}
+
+.field .value.left {
+    left: -43px;
+}
+
+.field .value.right {
+    right: -43px;
+}
+
+.rounded-t-lg {
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity));
+    border-color: transparent;
+    
+}
+
+.rounded-t-lg:hover {
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81 / var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 249 249 / var(--tw-bg-opacity));
+    --tw-border-opacity: 1;
+    border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.rounded-t-lg.active {
+    --tw-border-opacity: 1;
+    border-color: rgb(99 102 241 / var(--tw-border-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(79 70 229 / var(--tw-text-opacity));
+}
+
+.rounded-t-lg.active:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(238 242 255 / var(--tw-bg-opacity));
+}

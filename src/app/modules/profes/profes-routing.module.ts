@@ -5,17 +5,25 @@ import { ProfesPorCursoComponent } from './pages/profes-por-curso/profes-por-cur
 import { DetalleProfesorComponent } from './pages/detalle-profesor/detalle-profesor.component';
 import { CiclosComponent } from './pages/ciclos/ciclos.component';
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
+import { CarrerasComponent } from './pages/carreras/carreras.component';
+import { PostsComponent } from './pages/detalle-profesor/components/posts/posts.component';
+import { ScoresComponent } from './pages/detalle-profesor/components/scores/scores.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'ciclos', component: CiclosComponent, title: 'Ciclos | EduCareer'},
+      {path: 'carreras', component: CarrerasComponent, title: 'Carreras | EduCareer'},
+      {path: 'carrera/:id/ciclos', component: CiclosComponent},
       {path: 'busqueda', component: BusquedaComponent, title: 'Búsqueda | EduCareer'},
-      {path: 'cursos-por-ciclo', component: CursoCicloComponent, title: 'Profesores por ciclo | EduCareer'},
-      {path: 'profesores-por-curso', component: ProfesPorCursoComponent, title: 'Profesores por curso | EduCareer'},
-      {path: 'detalle/:id', component: DetalleProfesorComponent},
-      {path: '**', redirectTo: 'ciclos'}
+      {path: 'carrera/:idCarrera/ciclo/:id/cursos', component: CursoCicloComponent, title: 'Profesores por ciclo | EduCareer'},
+      {path: 'carrera/:idCarrera/ciclo/:idCiclo/curso/:idCurso/profesores-por-curso', component: ProfesPorCursoComponent},
+
+      {path: 'detalle/:idCurso/:idProfesor', component: DetalleProfesorComponent, children: [
+        {path: 'posts', component: PostsComponent},
+        {path: 'scores', component: ScoresComponent}
+      ]},
+      {path: '**', redirectTo: 'carreras'}
     ]
   }
 ];

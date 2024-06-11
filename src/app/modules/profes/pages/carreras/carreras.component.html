@@ -2,23 +2,23 @@
 
 <section>
     <div class="text-center mt-5 mb-10">
-        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">Bienvenido a {{ nombreCarrera }}</h1>
+        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">¡Bienvenido 👋🏻!</h1>
 
-        <p class="mt-1.5 text-sm text-gray-500">Elija el ciclo donde se encuentre 📚</p>
+        <p class="mt-1.5 text-sm text-gray-500">Elige tu carrera 🎓</p>
     </div>
 
     <app-loader *ngIf="isLoading"></app-loader>
 
     <div class="flex items-center justify-center flex-wrap" *ngIf="!isLoading">
-        <button [routerLink]="['/profesores/carrera', encriptarId( idCarrera.toString()) ,'ciclo', encriptarId(ciclo.id), 'cursos']"  *ngFor="let ciclo of ciclos"
+        <button [routerLink]="['/profesores/carrera', encriptarId(carrera.id), 'ciclos']"  *ngFor="let carrera of carreras"
             class="m-5 box-border relative z-30 inline-flex items-center justify-center w-auto px-8 py-3 overflow-hidden font-bold text-white transition-all duration-300 bg-indigo-600 rounded-md cursor-pointer group ring-offset-2 ring-1 ring-indigo-300 ring-offset-indigo-200 hover:ring-offset-indigo-500 ease focus:outline-none">
             <span
                 class="absolute bottom-0 right-0 w-8 h-20 -mb-8 -mr-5 transition-all duration-300 ease-out transform rotate-45 translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
             <span
                 class="absolute top-0 left-0 w-20 h-8 -mt-1 -ml-12 transition-all duration-300 ease-out transform -rotate-45 -translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
             <span class="relative z-20 flex items-center text-sm">
-                <p class="animate-bounce mr-2">{{ ciclo.emoji }}</p>
-                {{ ciclo.cycleNumber }}
+                <p class="animate-bounce mr-2">{{ carrera.emoji }}</p>
+                {{ carrera.name }}
             </span>
         </button>
     </div>

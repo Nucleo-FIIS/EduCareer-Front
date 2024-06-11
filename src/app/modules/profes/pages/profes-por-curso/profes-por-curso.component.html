@@ -2,7 +2,7 @@
 
 <section>
 
-    <nav aria-label="Breadcrumb" class="flex">
+    <nav aria-label="Breadcrumb" class="flex" *ngIf="profesPorCurso">
         <ol class="flex overflow-hidden rounded-lg border border-gray-200 text-gray-600">
             <li class="flex items-center">
                 <a
@@ -13,7 +13,7 @@
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
 
-                    <span class="ms-1.5 text-xs font-medium"> 1° Ciclo </span>
+                    <span class="ms-1.5 text-xs font-medium"> {{profesPorCurso.nombre_carrera}} </span>
                 </a>
             </li>
 
@@ -24,7 +24,18 @@
 
                 <a
                     class="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900 pointer-events-none">
-                    Química I
+                    {{profesPorCurso.nombre_ciclo}}
+                </a>
+            </li>
+
+            <li class="relative flex items-center">
+                <span
+                    class="absolute inset-y-0 -start-px h-10 w-4 bg-white [clip-path:_polygon(0_0,_0%_100%,_100%_50%)] rtl:rotate-180">
+                </span>
+
+                <a
+                    class="flex h-10 items-center bg-gray-100 pe-4 ps-8 text-xs font-medium transition hover:text-gray-900 pointer-events-none">
+                    {{profesPorCurso.nombre_curso}}
                 </a>
             </li>
         </ol>
@@ -33,12 +44,19 @@
     <!-- Search -->
     <app-search></app-search>
 
-    <!-- <div class="mt-4 w-full gap-4 flex-wrap flex justify-center items-center select-none"> -->
-
     <!-- Card -->
-    <!-- <app-card *ngFor="let profesor of profesores" [profesor]="profesor"></app-card> -->
-    <!-- </div> -->
-    <app-card></app-card>
+    <app-card *ngIf="!showError"></app-card>
+
+    <!-- Error -->
+    <app-not-found *ngIf="showError"></app-not-found>
+
+    <!-- Regresar a la página anterior -->
+    <div class="flex justify-center mt-10">
+        <a [routerLink]="['/profesores/carrera', encriptarId(idCarrera.toString()), 'ciclo', encriptarId(idCiclo.toString()), 'cursos']"
+            class="inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500">
+            Regresar
+        </a>
+    </div>
 </section>
 
 <app-scroll-up></app-scroll-up>

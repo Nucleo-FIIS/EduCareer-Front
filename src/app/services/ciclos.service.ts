@@ -1,24 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ciclos } from '../models/ciclos-model';
+import { Ciclos, Data } from '../models/ciclos-model';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Cursos } from '../models/curso-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CiclosService {
 
-  private apiUrl = 'assets/data/ciclos.json';
+  private apiCiclos = 'assets/data/ciclos.json';
+  private apiCarreras = 'assets/data/carreras.json';
+
+  URL_API: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {}
 
   getAllCycles(): Observable<Ciclos> {
-    return this.http.get<Ciclos>(this.apiUrl).pipe(
-      catchError((error: any) => {
-        console.error('Error al obtener los ciclos:', error);
-        return of({ data: { results: [] } } as Ciclos); // Retorna un observable con un objeto Ciclos vacío
-      })
-    );
+    return this.http.get<Ciclos>(this.apiCiclos);
+  }
+
+  getAllCarreers(): Observable<any> {
+    return this.http.get<any>(this.apiCarreras);
+  }
+
+  getCoursesByCarreer(idCarrera: number, idCiclo: number): Observable<Cursos[]> {
+    return this.http.get<Cursos[]>(`${this.URL_API}api/curso/carrera/${idCarrera}/ciclo/${idCiclo}/encontrar-cursos`);
   }
 }
