@@ -2,9 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Test } from '../models/test-model';
-import { Alerts, Toast } from '../models/alerts-model';
-import { throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { Toast } from '../models/alerts-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,7 @@ export class AlertsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  URL_API: string = 'http://localhost:8080/api/test';
+  URL_API: string = `${environment.HOST_URL}/api/test`;
 
   httpOptions = {
     headers: new HttpHeaders({

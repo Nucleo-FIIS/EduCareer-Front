@@ -1,14 +1,15 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    URL_API: string = 'http://localhost:8080/';
+    URL_API: string = `${environment.HOST_URL}`;
     AUTH_COOKIE_NAME: string = 'auth_token';
     httpOptions = { 
         headers: new HttpHeaders({
@@ -39,28 +40,28 @@ export class AuthService {
         return throwError(() => new Error(errorMessage));
     }
     register(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + 'api/auth/register', request, this.httpOptions).pipe(
+        return this.httpClient.post<any>(this.URL_API + '/api/auth/register', request, this.httpOptions).pipe(
             catchError(this.handleError)
         );
     }
     login(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + 'api/auth/login', request, this.httpOptionslogin).pipe(
+        return this.httpClient.post<any>(this.URL_API + '/api/auth/login', request, this.httpOptionslogin).pipe(
             catchError(this.handleError)
         );
     }
     logout(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + 'api/auth/logout',request, this.httpOptionslogin).pipe(
+        return this.httpClient.post<any>(this.URL_API + '/api/auth/logout',request, this.httpOptionslogin).pipe(
             catchError(this.handleError)
         );
     }
     resetPassword(request: String): Observable<String> {
-        return this.httpClient.post<any>(this.URL_API + 'api/auth/email-reset-password', request, this.httpOptions).pipe(
+        return this.httpClient.post<any>(this.URL_API + '/api/auth/email-reset-password', request, this.httpOptions).pipe(
             catchError(this.handleError)
         );
     }
 
     pruebaUser(): Observable<any> {
-        return this.httpClient.get<any>(this.URL_API + 'api/pruebas/user', { 
+        return this.httpClient.get<any>(this.URL_API + '/api/pruebas/user', { 
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             }),

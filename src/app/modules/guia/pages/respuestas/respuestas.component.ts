@@ -13,6 +13,8 @@ export class RespuestasComponent {
   respuestas: ComentarioModel[] = [];
   respuestas_mostradas: ComentarioModel[] = [];
 
+  isHide : boolean = false;
+
   constructor(private service: ComentarioEspecializacionService) { }
 
   ngOnInit(): void {
@@ -25,5 +27,11 @@ export class RespuestasComponent {
 
   loadResponses() {
     this.respuestas_mostradas = this.respuestas;
+    this.isHide = true;
+  }
+
+  hideResponses() {
+    this.respuestas_mostradas = [];
+    this.isHide = false;
   }
 }
