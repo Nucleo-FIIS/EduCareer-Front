@@ -2,10 +2,11 @@
 <section class="section">
     <!-- BUSCADOR Y FILTRO DE LAS ESPECIALIZACIONES -->
     <div class="filter-container">
-        <input class="input" type="text" placeholder="Buscar especialidad..." [(ngModel)]="filtroBusqueda"  (keydown.enter)="buscarEspecialidad('ASC',filtroBusqueda)">
-        <select class="filter" [(ngModel)]="ordenSeleccionado" name="" id="" (change)="filtroBusqueda===''? loadEspecialidades(ordenSeleccionado):buscarEspecialidad(ordenSeleccionado,filtroBusqueda)">
-            <option value="asc">Nombre (Asc)</option>
-            <option value="desc">Nombre (Desc)</option>
+        <input class="input" type="text" placeholder="Buscar especialidad..." [(ngModel)]="filtroBusqueda"  (ngModelChange)="buscarEspecialidad()">
+        <select class="filter" [(ngModel)]="ordenSeleccionado" name="" id="" (change)="buscarEspecialidad()">
+            <option value="">-----</option>
+            <option value="ASC">Nombre (Asc)</option>
+            <option value="DESC">Nombre (Desc)</option>
             <!-- <option value="pop">Popularidad</option>
             <option value="views">Vistas</option>
             <option value="demand">Demanda laboral</option> -->
@@ -13,7 +14,7 @@
     </div>
     <!-- ESPECIALIZACIONES -->
     <div class="specialty-container">
-            <div *ngFor="let especialidad of paginaSeleccionada" class="curse-container">
+            <div *ngFor="let especialidad of especialidades" class="curse-container">
                 <div class="imgtitle-curse">
                     <img class="image-12-XX2 animate__animated animate__fadeIn" [src]="especialidad.imagen_url" alt="{{ especialidad.nombre_especialidad }}" (load)="onLoad()" [ngStyle]="{ display: hasLoaded ? '' : 'none' }">
                     <div class="loader__container"><img class="image-12-XX2" *ngIf="!hasLoaded" src="assets/img/svg/loader.svg"></div>
@@ -27,8 +28,8 @@
     </div>
     <!-- BOTONES -->
     <div class="paginacion">   
-        <button *ngFor="let page of especialidades; let j = index" (click)="selectPage(j)">
-          {{ j + 1 }}
+        <button *ngFor="let num of paginas" (click)="selectPage(num)">
+          {{ num }}
         </button>
     </div>
 </section>

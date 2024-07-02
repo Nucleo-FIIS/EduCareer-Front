@@ -7,5 +7,3 @@ export interface EspecialidadModel {
     carrera: string;
     img_especialidad: string;
 }
-
-export type EspecialidadPaginada = EspecialidadModel[][];

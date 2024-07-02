@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EspecialidadModel, EspecialidadPaginada } from 'src/app/models/especialidad-model';
+import { EspecialidadModel } from 'src/app/models/especialidad-model';
 import { EspecializacionService } from 'src/app/services/especializacion.service';
 
 @Component({
@@ -7,62 +7,47 @@ import { EspecializacionService } from 'src/app/services/especializacion.service
   templateUrl: './especializaciones-general.component.html',
   styleUrls: ['./especializaciones-general.component.css']
 })
-export class EspecializacionesGeneralComponent implements OnInit{
-  filtroBusqueda: string = '';
-  ordenSeleccionado: string = 'ASC';
+export class EspecializacionesGeneralComponent implements OnInit {
+  filtroBusqueda: String = '';
+  ordenSeleccionado: String = '';
 
   public hasLoaded: boolean = false;
 
-  especialidades: EspecialidadPaginada = [];
-  paginaSeleccionada: EspecialidadModel[] = [];
-  // i es la página en la que estamos
-  i: number = -1;
+  especialidades: EspecialidadModel[] = [];
+  paginas: number[] = [];
 
   constructor(private especializacionService: EspecializacionService) {
   }
 
   ngOnInit(): void {
-    this.loadEspecialidades(this.ordenSeleccionado);
+    this.buscarEspecialidad();
   }
 
-  loadEspecialidades(order: string) {
-    this.especializacionService.getAllEspecialidades(order).subscribe(
-      (data: EspecialidadPaginada) => {
+  buscarEspecialidad() {
+    console.log(this.ordenSeleccionado);
+    this.especializacionService.findEspecialidad(this.ordenSeleccionado, this.filtroBusqueda, 1).subscribe(
+      (data: EspecialidadModel[]) => {
         this.especialidades = data;
-        this.selectPage(0);
-        console.log(this.paginaSeleccionada);
+      }
+    )
+
+    this.especializacionService.countEspecialidades(this.filtroBusqueda).subscribe(
+      (data: number) => {
+        this.createNumbersArray(data);
       }
     )
   }
 
-  buscarEspecialidad(order: string, filter: string) {
-    this.especializacionService.findEspecialidad(order, filter).subscribe(
-      (data: EspecialidadPaginada) => {
+  createNumbersArray(num: number) {
+    this.paginas = Array.from({ length: num }, (_, i) => i + 1);
+  }
+
+  selectPage(pag: number) {
+    this.especializacionService.findEspecialidad(this.ordenSeleccionado, this.filtroBusqueda, pag).subscribe(
+      (data: EspecialidadModel[]) => {
         this.especialidades = data;
-        this.selectPage(0);
-        console.log(this.paginaSeleccionada);
       }
     )
-    /* this.especialidades=[...this.especialidadesAll];
-    this.especialidades = this.especialidades.filter(curso => curso.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(this.filtroBusqueda.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())); */
-  }
-
-  selectPage(index: number) {
-    // index es la página a la que se quiere llegar
-    this.i = index;
-    this.paginaSeleccionada = this.especialidades[this.i];
-  }
-
-
-
-
-  filtroEspecialidad() {
-    /* this.especialidades=[...this.especialidadesAll];
-    if (this.ordenSeleccionado === 'asc') {
-      this.especialidades = this.especialidades.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (this.ordenSeleccionado === 'desc') {
-      this.especialidades = this.especialidades.sort((a, b) => b.title.localeCompare(a.title));
-    } */
   }
 
   onLoad() {

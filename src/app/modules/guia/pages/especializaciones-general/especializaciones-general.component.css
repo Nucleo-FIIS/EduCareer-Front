@@ -129,3 +129,30 @@
     width: 100%;
   }
 }
+
+.paginacion {
+  display: flex;
+  justify-content: center; /* Alinea a la derecha: flex-end a la izquierda flex-start, para el centro es center */
+  margin-top: 55px; /* Espacio adicional respecto a lo de arriba */
+}
+
+.paginacion button {
+  background-color: #453493;
+  color: white;
+  border: 2px solid #453493; /* Añade el borde desde el inicio */
+  padding: 8px 18px; /* Ajusta el padding para compensar el borde */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+}
+
+.paginacion button:hover {
+  background-color: white;
+  color: black;
+  border-color: #563d7c; /* Cambia solo el color del borde en el hover */
+}
