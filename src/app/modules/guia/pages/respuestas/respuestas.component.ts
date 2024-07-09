@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ComentarioModel } from 'src/app/models/comentario-model';
-import { ComentarioEspecializacionService } from 'src/app/services/comentario-especializacion.service';
+import { ComentarioService } from 'src/app/services/comentario.service';
 
 @Component({
   selector: 'app-respuestas',
@@ -13,12 +13,12 @@ export class RespuestasComponent {
   respuestas: ComentarioModel[] = [];
   respuestas_mostradas: ComentarioModel[] = [];
 
-  isHide : boolean = false;
+  isHiden: boolean = false;
 
-  constructor(private service: ComentarioEspecializacionService) { }
+  constructor(private service: ComentarioService) { }
 
   ngOnInit(): void {
-    this.service.getRespuestas(this.especialidad_id, this.comentario_id).subscribe(
+    this.service.getRespuestasEsp(this.especialidad_id, this.comentario_id).subscribe(
       (data: ComentarioModel[]) => {
         this.respuestas = data;
       }
@@ -27,11 +27,11 @@ export class RespuestasComponent {
 
   loadResponses() {
     this.respuestas_mostradas = this.respuestas;
-    this.isHide = true;
+    this.isHiden = true;
   }
 
   hideResponses() {
     this.respuestas_mostradas = [];
-    this.isHide = false;
+    this.isHiden = false;
   }
 }

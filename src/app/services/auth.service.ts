@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,18 +12,18 @@ export class AuthService {
 
     URL_API: string = `${environment.HOST_URL}`;
     AUTH_COOKIE_NAME: string = 'auth_token';
-    httpOptions = { 
+    httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         })
     };
-    httpOptionslogin = { 
+    httpOptionslogin = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         }),
         withCredentials: true
     };
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private cookieService: CookieService) {
 
     }
     handleError(error: HttpErrorResponse): Observable<any> {
@@ -50,7 +51,7 @@ export class AuthService {
         );
     }
     logout(request: any): Observable<any> {
-        return this.httpClient.post<any>(this.URL_API + '/api/auth/logout',request, this.httpOptionslogin).pipe(
+        return this.httpClient.post<any>(this.URL_API + '/api/auth/logout', request, this.httpOptionslogin).pipe(
             catchError(this.handleError)
         );
     }
@@ -61,13 +62,22 @@ export class AuthService {
     }
 
     pruebaUser(): Observable<any> {
-        return this.httpClient.get<any>(this.URL_API + '/api/pruebas/user', { 
+        return this.httpClient.get<any>(this.URL_API + '/api/pruebas/user', {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             }),
             withCredentials: true
         }).pipe(
             catchError(this.handleError)
-        );;
+        )
+    }
+
+    isTokenValid(): Observable<boolean> {
+        return this.httpClient.get<boolean>(`${this.URL_API}/api/auth/isValid`, { withCredentials: true }).pipe(
+            catchError(error => {
+                console.error('Error verificando el token', error);
+                return of(false);
+            })
+        );
     }
 }

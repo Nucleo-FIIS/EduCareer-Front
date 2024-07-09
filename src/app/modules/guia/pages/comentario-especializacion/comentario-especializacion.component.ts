@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { ComentarioModel } from 'src/app/models/comentario-model';
-import { ComentarioEspecializacionService } from 'src/app/services/comentario-especializacion.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ComentarioService } from 'src/app/services/comentario.service';
 
 @Component({
   selector: 'app-comentario-especializacion',
@@ -11,15 +12,50 @@ import { ComentarioEspecializacionService } from 'src/app/services/comentario-es
 export class ComentarioEspecializacionComponent {
   @Input()
   especialidad_id!: number;
+  comment!: String;
   comentarios: ComentarioModel[] = [];
+  isValid!: boolean;
 
-  constructor(private service: ComentarioEspecializacionService) { }
+  constructor(private commentService: ComentarioService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.service.getComentarios(this.especialidad_id).subscribe(
+    this.getComentarios();
+    this.isTokenValid();
+  }
+
+  getComentarios() {
+    this.commentService.getComentariosEsp(this.especialidad_id).subscribe(
       (data: ComentarioModel[]) => {
         this.comentarios = data;
       }
     )
+  }
+
+  private isTokenValid() {
+    this.authService.isTokenValid().subscribe(
+      (data: boolean) => {
+        this.isValid = data;
+      }
+    );
+  }
+
+  postComment() {
+    this.isTokenValid();
+    if (!this.isValid) {
+      window.location.reload();
+    } else {
+      const payload = {
+        id_guia: this.especialidad_id,
+        comentario: this.comment,
+      };
+      this.commentService.postCommesponsesEsp(payload).subscribe(
+        response => {
+          console.log('Comentario enviado exitosamente:', response);
+        },
+        error => {
+          console.error('Error al enviar comentario:', error);
+        }
+      );
+    }
   }
 }

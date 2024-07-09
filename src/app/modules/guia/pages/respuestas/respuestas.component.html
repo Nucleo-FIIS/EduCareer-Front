@@ -1,5 +1,5 @@
-<ng-container *ngIf="respuestas.length!=0">
-    <button (click)="loadResponses()" class="show-replies" *ngIf="!isHide">
+<ng-container *ngIf="respuestas?.length!=0">
+    <button (click)="loadResponses()" class="show-replies" *ngIf="!isHiden">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-forward" width="44"
             height="44" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
             stroke-linejoin="round">
@@ -9,7 +9,7 @@
         Mostrar {{respuestas.length}} respuestas
     </button>
 
-    <button (click)="hideResponses()" class="show-replies" *ngIf="isHide">
+    <button (click)="hideResponses()" class="show-replies" *ngIf="isHiden">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back">

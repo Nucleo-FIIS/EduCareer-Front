@@ -46,7 +46,7 @@
 
 
 <ol class="timeline">
-    <li class="timeline-item">
+    <li *ngIf="isValid;else invalidToken" class="timeline-item">
         <span class="timeline-item-icon | avatar-icon">
             <i class="avatar">
                 <img src="https://assets.codepen.io/285131/hat-man.png" />
@@ -56,6 +56,17 @@
             <input type="text" placeholder="Escribe un comentario..." />
         </div>
     </li>
+    <ng-template #invalidToken>
+        <article class="p-6 mb-6 text-base bg-gray-100 rounded-lg">
+            <footer class="flex justify-between items-center mb-2">
+                <div class="flex items-center">
+                    <p class="text-sm text-gray-600"><span
+                            class="cursor-pointer underline font-semibold text-indigo-600 hover:text-indigo-800 transition-all duration-300"
+                            routerLink="/auth/login">Iniciar sesión</span> para comentar 🔐💬</p>
+                </div>
+            </footer>
+        </article>
+    </ng-template>
     <div *ngIf="comentarios.length > 0; else noComments">
         <li class="timeline-item | extra-space" *ngFor="let c of comentarios">
             <span class="timeline-item-icon | filled-icon">
