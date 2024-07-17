@@ -21,6 +21,7 @@ import { ToastNotificationComponent } from './components/toast-notification/toas
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from './components/card/card.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CardComponent } from './components/card/card.component';
     ToastNotificationComponent,
     TruncatePipe,
     CardComponent,
+    CommentComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ import { CardComponent } from './components/card/card.component';
     ToastNotificationComponent,
     TruncatePipe,
     CardComponent,
+    CommentComponent,
   ]
 })
 export class SharedModule { }

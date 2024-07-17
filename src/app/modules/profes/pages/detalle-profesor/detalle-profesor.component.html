@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<section class="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto" *ngIf="datosProfesor">
+<section class="font-sans p-8 tracking-wide max-lg:max-w-5xl mx-auto" *ngIf="datosProfesor">
   <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
     <div class="space-y-4 text-center lg:sticky top-8">
       <div class="bg-gray-100 p-4 flex items-center justify-center sm:h-[380px] rounded">
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="max-w-xl">
+    <div>
       <div>
         <h2 class="text-2xl font-extrabold text-gray-800">{{ datosProfesor.nombre_completo }}</h2>
         <p class="text-sm text-gray-600 mt-2 font-medium">{{ datosProfesor.nombre_curso }}</p>
@@ -174,10 +174,10 @@
   <div class="mt-8">
     <div class="block sm:block">
       <div>
-        <nav class="-mb-px flex justify-center gap-6 max-w-2xl mx-auto px-4" aria-label="Tabs">
+        <nav class="-mb-px flex-col sm:flex-row flex justify-center gap-6 max-w-3xl mx-auto px-4" aria-label="Tabs">
           <a [routerLink]="['/profesores/detalle', encriptarId(idCurso.toString()), encriptarId(idProfesor.toString()), 'posts']"
             routerLinkActive="active"
-            class="w-1/2 transition-all duration-300 inline-flex shrink-0 justify-center items-center gap-2 border-b-[3px] text-sm font-medium text-gray-500 p-4 rounded-t-lg">
+            class="w-full sm:w-1/2 transition-all duration-300 inline-flex shrink-0 justify-center items-center gap-2 border-b-[3px] text-sm font-medium text-gray-500 p-4 rounded-t-lg">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-message-circle-more h-5 w-5">
@@ -192,7 +192,7 @@
 
           <a [routerLink]="['/profesores/detalle', encriptarId(idCurso.toString()), encriptarId(idProfesor.toString()), 'scores']"
             routerLinkActive="active"
-            class="w-1/2 transition-all duration-300 inline-flex shrink-0 justify-center items-center gap-2 border-b-[3px] text-sm font-medium p-4 rounded-t-lg"
+            class="w-full sm:w-1/2 transition-all duration-300 inline-flex shrink-0 justify-center items-center gap-2 border-b-[3px] text-sm font-medium p-4 rounded-t-lg"
             aria-current="page">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

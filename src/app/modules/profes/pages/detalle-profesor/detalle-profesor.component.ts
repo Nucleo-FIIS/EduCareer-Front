@@ -31,17 +31,21 @@ export class DetalleProfesorComponent {
 
   constructor(private route: ActivatedRoute, private detalleProfesorService: DetalleProfesorService, private router: Router, private title: Title) {
     this.route.params.subscribe(params => {
-      const idCurso = this.desencriptarId(params['idCurso']);
-      const idProfesor = this.desencriptarId(params['idProfesor']);
+      try {
+        const idCurso = this.desencriptarId(params['idCurso']);
+        const idProfesor = this.desencriptarId(params['idProfesor']);
 
-      const idCursoParams = +idCurso; // Convierte el parámetro a número
-      const idProfesorParams = +idProfesor; // Convierte el parámetro a número
-      if (!isNaN(idProfesorParams) && Number.isInteger(idProfesorParams) && !isNaN(idCursoParams) && Number.isInteger(idCursoParams)) {
-        this.idCurso = idCursoParams; // Asigna el id solo si es un número entero
-        this.idProfesor = idProfesorParams; // Asigna el id solo si es un número entero
-        this.obtenerDatosDelProfesor();
-      } else {
-        // Redirige si el id no es un número entero
+        const idCursoParams = +idCurso;
+        const idProfesorParams = +idProfesor;
+        if (!isNaN(idProfesorParams) && Number.isInteger(idProfesorParams) && !isNaN(idCursoParams) && Number.isInteger(idCursoParams)) {
+          this.idCurso = idCursoParams;
+          this.idProfesor = idProfesorParams;
+          this.obtenerDatosDelProfesor();
+        } else {
+          this.router.navigate(['/profesores/profesores-por-curso']);
+        }
+      } catch (e) {
+        console.error("Error desencriptando IDs", e);
         this.router.navigate(['/profesores/profesores-por-curso']);
       }
     });
@@ -92,7 +96,7 @@ export class DetalleProfesorComponent {
   onSave(slider: any) {
     // Encuentra el índice del slider con el mismo id en la lista de puntajes
     const index = this.puntajes.findIndex((s) => s.id === slider.id);
-    
+
     // Si se encuentra el slider, reemplázalo, si no, agrégalo a la lista
     if (index !== -1) {
       this.puntajes[index] = { id: slider.id, value: slider.value, text: slider.text };

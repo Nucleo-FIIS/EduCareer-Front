@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComentarioModel } from '../models/comentario-model';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -12,9 +11,18 @@ import { CookieService } from 'ngx-cookie-service';
 export class ComentarioService {
 
   URL_API: string = `${environment.HOST_URL}`;
+  comentariosProfesores = 'assets/data/comentarios.json';
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
+  getComments(id_curso: number, id_prof: number): Observable<any> {
+    return this.http.get<any>(this.URL_API + '/api/comentario/obtenerComentariosProfesor/' + id_curso + '/' + id_prof).pipe(map(res => res));
+  }
+
+  getCommentss(): Observable<any> {
+    return this.http.get<any>(this.comentariosProfesores).pipe(map(res => res));
+  }
+  
   getComentariosEsp(id_especialidad: number) {
     return this.http.get<ComentarioModel[]>(this.URL_API + '/api/comentario/findCommentsEsp/' + id_especialidad).pipe(map(res => res));
   }

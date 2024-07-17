@@ -1,0 +1,115 @@
+<div class="comment-wrp">
+    <div class="comment container bg-indigo-50">
+        <div class="c-score">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-plus score-control score-plus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+            </svg>
+            <p class="score-number">{{ comment.score }}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-minus score-control score-minus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
+                <path d="M5 12h14" />
+            </svg>
+        </div>
+        <div class="c-controls">
+            <button (click)="toggleCommentMenu()"
+                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 focus:outline-none"
+                type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-ellipsis h-4 w-4">
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="19" cy="12" r="1" />
+                    <circle cx="5" cy="12" r="1" />
+                </svg>
+                <span class="sr-only">Comment settings</span>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div class="flex justify-end absolute transform translate-x-[-116px]">
+                <div [ngClass]="{'block': showMenu, 'hidden': !showMenu}"
+                    class="z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow transition-opacity duration-300 opacity-0 absolute left-0 transform translate-y-9"
+                    [ngStyle]="{'opacity': showMenu ? '1' : '0'}">
+                    <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownMenuIconHorizontalButton">
+                        <li>
+                            <a (click)="editComment(comment)"
+                                class="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-pencil h-4 w-4">
+                                    <path
+                                        d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                                    <path d="m15 5 4 4" />
+                                </svg>
+                                Editar
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="deleteComment(comment)"
+                                class="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 hover:text-red-600 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-trash h-4 w-4">
+                                    <path d="M3 6h18" />
+                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                </svg>
+                                Eliminar
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="replyComment(comment)"
+                                class="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 hover:text-indigo-600 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-message-square-text h-4 w-4">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                    <path d="M13 8H7" />
+                                    <path d="M17 12H7" />
+                                </svg>
+                                Responder
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="c-user">
+            <img [src]="comment.img_user" [alt]="comment.nombre_user" class="usr-img rounded-full">
+            <p class="usr-name">{{ comment.nombre_user }}</p>
+            <p class="cmnt-at">{{ comment.fecha_creacion }}</p>
+        </div>
+        <p class="c-text">
+            <span *ngIf="comment.reply_to" class="reply-to">@{{ comment.reply_to }}, </span>
+            <span class="c-body"> {{ comment.comentario }}</span>
+        </p>
+    </div>
+
+    <button (click)="toggleReplies(comment)"
+        class="flex items-center gap-2 mb-2 text-sm text-gray-400 hover:text-gray-700 transition-all duration-300"
+        *ngIf="comment.replies.length > 0">
+        <svg *ngIf="!comment.showReplies" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-undo-2 h-4 w-4">
+            <path d="M9 14 4 9l5-5" />
+            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" />
+        </svg>
+        <svg *ngIf="comment.showReplies" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-redo-2 h-4 w-4">
+            <path d="m15 14 5-5-5-5" />
+            <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13" />
+        </svg>
+        {{ comment.showReplies ? 'Ocultar' : 'Mostrar' }} {{ comment.replies.length }}
+        respuesta{{ comment.replies.length > 1 ? 's' : '' }}
+    </button>
+    <div class="replies comments-wrp" *ngIf="comment.showReplies">
+        <ng-container *ngFor="let reply of comment.replies">
+            <app-comment [comment]="reply" [openCommentId]="openCommentId"
+                (toggleMenu)="toggleMenu.emit($event)"></app-comment>
+        </ng-container>
+    </div>
+</div>
