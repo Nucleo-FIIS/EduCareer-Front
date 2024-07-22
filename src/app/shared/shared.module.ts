@@ -22,6 +22,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from './components/card/card.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { ModalCommentComponent } from './components/modal-comment/modal-comment.component';
+import { ModalNotificationComponent } from './components/modal-notification/modal-notification.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { CommentComponent } from './components/comment/comment.component';
     TruncatePipe,
     CardComponent,
     CommentComponent,
+    ModalCommentComponent,
+    ModalNotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +64,8 @@ import { CommentComponent } from './components/comment/comment.component';
     TruncatePipe,
     CardComponent,
     CommentComponent,
+    ModalCommentComponent,
+    ModalNotificationComponent,
   ]
 })
 export class SharedModule { }

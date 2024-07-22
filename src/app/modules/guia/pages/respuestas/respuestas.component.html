@@ -1,4 +1,25 @@
+<li *ngIf="!isResponseBoxHiden" class="timeline-item mt-4">
+    <span class="timeline-item-icon | avatar-icon ml-[-64px]">
+        <i class="avatar">
+            <img src="https://assets.codepen.io/285131/hat-man.png" />
+        </i>
+    </span>
+    <div class="new-comment relative">
+        <input [(ngModel)]="response" (ngModelChange)="isTheResponseEmpty()" type="text"
+            placeholder="Responde al comentario..." class="border rounded p-2 w-full" />
+    </div>
+    <button (click)="postResponse()" [disabled]="isResponseEmpty" class="cursor-pointer bg-gray-200 hover:bg-[#e3e3e3] text-indigo-500 hover:text-indigo-700 p-3 rounded-full transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-send h-4 w-4">
+            <path d="m22 2-7 20-4-9-9-4Z" />
+            <path d="M22 2 11 13" />
+        </svg>
+    </button>
+</li>
+
 <ng-container *ngIf="respuestas?.length!=0">
+
     <button (click)="loadResponses()" class="show-replies" *ngIf="!isHiden">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-forward" width="44"
             height="44" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -6,7 +27,7 @@
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M15 11l4 4l-4 4m4 -4h-11a4 4 0 0 1 0 -8h1" />
         </svg>
-        Mostrar {{respuestas.length}} respuestas
+        Mostrar {{respuestas.length}} respuesta{{ respuestas.length ===01 ? '' : 's' }}
     </button>
 
     <button (click)="hideResponses()" class="show-replies" *ngIf="isHiden">
@@ -16,8 +37,10 @@
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
         </svg>
-        Ocultar {{respuestas.length}} respuestas
+        Ocultar {{respuestas.length}} respuesta{{ respuestas.length ===01 ? '' : 's' }}
     </button>
+
+
 
     <div class="flex flex-col gap-4 my-4">
         <span class="timeline-item-wrapper" *ngFor="let r of respuestas_mostradas" class="respuesta-list">
@@ -25,17 +48,13 @@
                 <i class="avatar | small">
                     <img src="https://assets.codepen.io/285131/hat-man.png" />
                 </i>
-                <span><a href="#">{{r.usuario}}</a> comentó en {{r.fecha}}</span>
+                <span><a href="#">{{r.usuario}}</a> respondió en {{r.fecha}}</span>
             </div>
             <div class="comment">
                 <p>{{r.comentario}}</p>
                 <button class="button">👏 2</button>
                 <button class="button | square">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="none" d="M0 0h24v24H0z" />
-                        <path fill="currentColor"
-                            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM7 12a5 5 0 0 0 10 0h-2a3 3 0 0 1-6 0H7z" />
-                    </svg>
+                    💬
                 </button>
             </div>
         </span>

@@ -1,11 +1,12 @@
 <div class="bg-white py-8 lg:py-16 antialiased animate__animated animate__fadeIn">
 
-    <div class="max-w-2xl mx-auto px-4">
+    <div class="max-w-3xl mx-auto px-4" *ngIf="votes">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-lg lg:text-2xl font-bold text-black">Calificaciones (20)</h2>
+            <h2 class="text-lg lg:text-2xl font-bold text-black">Calificaci{{ votes.total_votos === 1 ? 'ón' : 'ones'}}
+                ({{votes.total_votos}})</h2>
         </div>
         <!-- Single comment -->
-        <article class="p-6 mb-6 text-base bg-gray-100 rounded-lg">
+        <article class="p-6 mb-6 text-base bg-gray-100 rounded-lg" *ngIf="!isValid">
             <footer class="flex justify-between items-center mb-2">
                 <div class="flex items-center">
                     <p class="text-sm text-gray-600"><span
@@ -15,7 +16,15 @@
             </footer>
         </article>
     </div>
-    <div class="max-w-2xl mx-auto px-4">
+
+    <ng-template #noVotes>
+        <div class="max-w-3xl mx-auto px-4">
+            <p class="text-gray-500 text-sm font-medium">No se realizado ningun puntuación hasta el
+                momento 😔</p>
+        </div>
+    </ng-template>
+
+    <div class="max-w-3xl mx-auto px-4" *ngIf="votes && votes.star > 0; else noVotes">
         <div>
             <div class="flex flex-col gap-4 pb-2 pt-2 mb-4">
                 <span class="text-gray-700 font-medium">Método de enseñanza: </span>
@@ -24,14 +33,26 @@
                         Muy satisfecho)</p></span>
             </div>
             <div class="my-8">
-                <span id="ProgressLabel" class="sr-only">Loading</span>
-
                 <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="50"
-                    class="block rounded-full bg-gray-200">
-                    <span class="block h-4 rounded-full bg-[repeating-linear-gradient(45deg,_var(--tw-gradient-from)_0,_var(--tw-gradient-from)_20px,_var(--tw-gradient-to)_20px,_var(--tw-gradient-to)_40px)] from-indigo-400 to-indigo-500 text-center text-[10px]/4" style="width: 75%">
-                        <span class="font-bold text-white"> 75% </span>
+                    class="block rounded-full bg-gray-200" *ngIf="avg_porcent_ensenianza > 1; else noEnsenianza">
+                    <span
+                        class="block h-4 rounded-full bg-[repeating-linear-gradient(45deg,_var(--tw-gradient-from)_0,_var(--tw-gradient-from)_20px,_var(--tw-gradient-to)_20px,_var(--tw-gradient-to)_40px)] from-indigo-400 to-indigo-500 text-center text-[10px]/4"
+                        [style.width.%]="(avg_porcent_ensenianza - 1) * 25">
+                        <span class="font-bold text-white"> {{avg_porcent_ensenianza}} ⭐ </span>
                     </span>
                 </span>
+
+                <ng-template #noEnsenianza>
+                    <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="75"
+                        class="relative block rounded-full bg-gray-200">
+                        <span class="absolute h-4 inset-0 flex items-center justify-center text-[10px]/4">
+                            <span class="font-bold text-gray-600"> {{ avg_porcent_ensenianza }} ⭐ </span>
+                        </span>
+
+                        <span class="block h-4 rounded-full bg-indigo-600 text-center" [style.width.%]="(avg_porcent_ensenianza - 1) * 25"> </span>
+                    </span>
+                </ng-template>
+
                 <div class="flex justify-between mt-2 w-[100%] h-[10px]">
                     <span>1</span>
                     <span>2</span>
@@ -53,11 +74,25 @@
                 <span id="ProgressLabel" class="sr-only">Loading</span>
 
                 <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="50"
-                    class="block rounded-full bg-gray-200">
-                    <span class="block h-4 rounded-full bg-[repeating-linear-gradient(45deg,_var(--tw-gradient-from)_0,_var(--tw-gradient-from)_20px,_var(--tw-gradient-to)_20px,_var(--tw-gradient-to)_40px)] from-indigo-400 to-indigo-500 text-center text-[10px]/4" style="width: 60%">
-                        <span class="font-bold text-white"> 60% </span>
+                    class="block rounded-full bg-gray-200"  *ngIf="votes.avg_porcent_evaluaciones > 1; else noEvaluaciones">
+                    <span
+                        class="block h-4 rounded-full bg-[repeating-linear-gradient(45deg,_var(--tw-gradient-from)_0,_var(--tw-gradient-from)_20px,_var(--tw-gradient-to)_20px,_var(--tw-gradient-to)_40px)] from-indigo-400 to-indigo-500 text-center text-[10px]/4"
+                        [style.width.%]="(votes.avg_porcent_evaluaciones - 1) * 25">
+                        <span class="font-bold text-white"> {{ votes.avg_porcent_evaluaciones }} ⭐ </span>
                     </span>
                 </span>
+
+                <ng-template #noEvaluaciones>
+                    <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="75"
+                        class="relative block rounded-full bg-gray-200">
+                        <span class="absolute h-4 inset-0 flex items-center justify-center text-[10px]/4">
+                            <span class="font-bold text-gray-600"> {{ votes.avg_porcent_evaluaciones }} ⭐ </span>
+                        </span>
+
+                        <span class="block h-4 rounded-full bg-indigo-600 text-center" [style.width.%]="( votes.avg_porcent_evaluaciones - 1 ) * 25"> </span>
+                    </span>
+                </ng-template>
+
                 <div class="flex justify-between mt-2 w-[100%] h-[10px]">
                     <span>1</span>
                     <span>2</span>
@@ -76,14 +111,26 @@
                         Muy satisfecho)</p></span>
             </div>
             <div class="my-8">
-                <span id="ProgressLabel" class="sr-only">Loading</span>
-
                 <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="50"
-                    class="block rounded-full bg-gray-200">
-                    <span class="block h-4 rounded-full bg-[repeating-linear-gradient(45deg,_var(--tw-gradient-from)_0,_var(--tw-gradient-from)_20px,_var(--tw-gradient-to)_20px,_var(--tw-gradient-to)_40px)] from-indigo-400 to-indigo-500 text-center text-[10px]/4" style="width: 25%">
-                        <span class="font-bold text-white"> 25% </span>
+                    class="block rounded-full bg-gray-200"  *ngIf="votes.avg_porcent_supervivencia > 1; else noSupervivencia">
+                    <span
+                        class="block h-4 rounded-full bg-[repeating-linear-gradient(45deg,_var(--tw-gradient-from)_0,_var(--tw-gradient-from)_20px,_var(--tw-gradient-to)_20px,_var(--tw-gradient-to)_40px)] from-indigo-400 to-indigo-500 text-center text-[10px]/4"
+                        [style.width.%]="(votes.avg_porcent_supervivencia - 1) * 25">
+                        <span class="font-bold text-white"> {{ votes.avg_porcent_supervivencia }} ⭐ </span>
                     </span>
                 </span>
+
+                <ng-template #noSupervivencia>
+                    <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="75"
+                        class="relative block rounded-full bg-gray-200">
+                        <span class="absolute h-4 inset-0 flex items-center justify-center text-[10px]/4">
+                            <span class="font-bold text-gray-600"> {{ votes.avg_porcent_supervivencia }} ⭐ </span>
+                        </span>
+
+                        <span class="block h-4 rounded-full bg-indigo-600 text-center" [style.width.%]="( votes.avg_porcent_supervivencia - 1 ) * 25"> </span>
+                    </span>
+                </ng-template>
+
                 <div class="flex justify-between mt-2 w-[100%] h-[10px]">
                     <span>1</span>
                     <span>2</span>

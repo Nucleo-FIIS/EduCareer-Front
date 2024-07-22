@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComentarioModel } from '../models/comentario-model';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -13,16 +13,33 @@ export class ComentarioService {
   URL_API: string = `${environment.HOST_URL}`;
   comentariosProfesores = 'assets/data/comentarios.json';
 
+  private commentsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  public comments$: Observable<any[]> = this.commentsSubject.asObservable();
+
+  private votesSubject = new BehaviorSubject<any>(null);
+  votes$ = this.votesSubject.asObservable();
+
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getComments(id_curso: number, id_prof: number): Observable<any> {
-    return this.http.get<any>(this.URL_API + '/api/comentario/obtenerComentariosProfesor/' + id_curso + '/' + id_prof).pipe(map(res => res));
+    return this.http.get<any>(this.URL_API + '/api/comentario/obtenerComentariosProfesor/' + id_curso + '/' + id_prof).pipe(
+      map((response: any) => {
+        this.commentsSubject.next(response.comments);
+        return response;
+      }));
+  }
+
+  getVotes(id_curso: number, id_prof: number): Observable<any> {
+    return this.http.get<any>(`${this.URL_API}/api/comentario/obtenerVotaciones/${id_curso}/${id_prof}`).pipe(
+      map(res => res),
+      tap(res => this.votesSubject.next(res))
+    );
   }
 
   getCommentss(): Observable<any> {
     return this.http.get<any>(this.comentariosProfesores).pipe(map(res => res));
   }
-  
+
   getComentariosEsp(id_especialidad: number) {
     return this.http.get<ComentarioModel[]>(this.URL_API + '/api/comentario/findCommentsEsp/' + id_especialidad).pipe(map(res => res));
   }
@@ -59,4 +76,55 @@ export class ComentarioService {
         })
       );
   }
+
+  postCommentResponsesProf(payload: any): Observable<any> {
+
+    return this.http.post(this.URL_API + '/api/comentario/postCommentResponsesProf', payload, { withCredentials: true })
+      .pipe(
+        map(response => {
+          this.getComments(payload.id_curso, payload.id_profesor).subscribe();
+          return response;
+        }))
+  }
+
+  updateComments(comments: any[]): void {
+    this.commentsSubject.next(comments);
+  }
+
+  getEmailUser(): Observable<{ email: string }> {
+    return this.http.get<{ email: string }>(this.URL_API + '/api/comentario/getEmailUser', { withCredentials: true }).pipe(
+      map(res => res)
+    );
+  }
+
+  postVotesResponsesProf(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.URL_API}/api/comentario/postVotesResponsesProf`, payload, { withCredentials: true }).pipe(
+      tap(() => {
+        // Refresca los votos después de que se haya publicado un voto
+        this.getVotes(payload.id_curso, payload.id_profesor).subscribe();
+      })
+    );
+  }
+
+  getVoteUser(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.URL_API}/api/comentario/getVotesResponsesUser`, payload, { withCredentials: true }).pipe(map(res => res));
+  }
+
+  editCommentProf(payload: any): Observable<any> {
+    // Lo puedes hacer lo que quieras con el comentario editado
+    return this.http.post<any>(`${this.URL_API}/api/comentario/editCommentProf`, payload, { withCredentials: true }).pipe(
+      map(response => {
+        this.getComments(payload.id_curso, payload.id_profesor).subscribe();
+        return response;
+      }))
+  }
+
+  deleteCommentProf(payload: any): Observable<any> {
+    // Lo puedes hacer lo que quieras con el comentario eliminado
+    return this.http.post<any>(`${this.URL_API}/api/comentario/deleteCommentProf`, payload, { withCredentials: true }).pipe(
+      map(response => {
+        this.getComments(payload.id_curso, payload.id_profesor).subscribe();
+        return response;
+      }))
+  }  
 }

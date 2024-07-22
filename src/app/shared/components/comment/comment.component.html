@@ -1,21 +1,21 @@
 <div class="comment-wrp">
-    <div class="comment container bg-indigo-50">
-        <div class="c-score">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+    <div class="comment container bg-indigo-50" [ngClass]="{'this-user': comment.email === emailUser}">
+        <div class="c-score bg-gray-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" *ngIf="isValid"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-plus score-control score-plus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />
             </svg>
-            <p class="score-number">{{ comment.score }}</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            <p class="score-number flex gap-1"><span>👏🏻</span> {{ comment.score }}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" *ngIf="isValid"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-minus score-control score-minus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
                 <path d="M5 12h14" />
             </svg>
         </div>
         <div class="c-controls">
-            <button (click)="toggleCommentMenu()"
+            <button (click)="toggleCommentMenu()" *ngIf="isValid"
                 class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 focus:outline-none"
                 type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -35,7 +35,7 @@
                     [ngStyle]="{'opacity': showMenu ? '1' : '0'}">
                     <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownMenuIconHorizontalButton">
                         <li>
-                            <a (click)="editComment(comment)"
+                            <a (click)="editComment(comment)" *ngIf="comment.email === emailUser"
                                 class="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -48,7 +48,7 @@
                             </a>
                         </li>
                         <li>
-                            <a (click)="deleteComment(comment)"
+                            <a (click)="deleteComment(comment)" *ngIf="comment.email === emailUser"
                                 class="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 hover:text-red-600 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -79,13 +79,34 @@
         </div>
         <div class="c-user">
             <img [src]="comment.img_user" [alt]="comment.nombre_user" class="usr-img rounded-full">
-            <p class="usr-name">{{ comment.nombre_user }}</p>
-            <p class="cmnt-at">{{ comment.fecha_creacion }}</p>
+            <p class="usr-name tracking-normal text-[15px]">{{ comment.nombre_user }}</p> •
+            <p class="cmnt-at tracking-normal text-[14px]">{{ comment.fecha_creacion }}</p>
         </div>
         <p class="c-text">
             <span *ngIf="comment.reply_to" class="reply-to">@{{ comment.reply_to }}, </span>
             <span class="c-body"> {{ comment.comentario }}</span>
         </p>
+    </div>
+
+    <div class="replies comments-wrp">
+        <form class="mb-6" *ngIf="showReplyForm[comment.id_comentario]">
+            <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border-2 border-indigo-700">
+                <textarea id="comment" name="comment" rows="6" (input)="onInput($event)" (keydown)="onKeydown($event)"
+                    [(ngModel)]="textInput"
+                    class="resize-none px-0 w-full text-sm text-stone-950 border-0 focus:ring-0 focus:outline-none placeholder-gray-400"
+                    placeholder="Responde a {{ comment.nombre_user }}..." required></textarea>
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" [disabled]="!isAvailable" (click)="sendMessage()"
+                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-indigo-800 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                    Comentar
+                </button>
+                <button type="submit" [disabled]="!isAvailable" (click)="cancelMessage()"
+                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-500 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-red-700 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                    Cancelar
+                </button>
+            </div>
+        </form>
     </div>
 
     <button (click)="toggleReplies(comment)"
@@ -107,9 +128,9 @@
         respuesta{{ comment.replies.length > 1 ? 's' : '' }}
     </button>
     <div class="replies comments-wrp" *ngIf="comment.showReplies">
-        <ng-container *ngFor="let reply of comment.replies">
+        <ng-container *ngFor="let reply of getReplies(comment)">
             <app-comment [comment]="reply" [openCommentId]="openCommentId"
-                (toggleMenu)="toggleMenu.emit($event)"></app-comment>
+                (toggleMenu)="toggleMenu.emit($event)" [isValid]="isValid" [idCurso]="idCurso" [idProfesor]="idProfesor" [emailUser]="emailUser"></app-comment>
         </ng-container>
     </div>
 </div>

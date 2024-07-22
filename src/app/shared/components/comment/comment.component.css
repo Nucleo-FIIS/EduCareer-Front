@@ -61,11 +61,11 @@ button:hover {
     align-items: center;
     flex-direction: column;
     gap: 1rem;
-    padding: .75rem;
+    padding: 1.2rem;
     padding-top: .5rem;
+    padding-bottom: .5rem;
     width: 1rem;
     box-sizing: content-box;
-    background-color: var(--Very-light-gray);
     border-radius: 8px;
     align-self: flex-start;
 }
@@ -85,7 +85,7 @@ button:hover {
     width: 100%;
     grid-area: user;
     display: flex;
-    gap: 1rem;
+    gap: .4rem;
     align-items: center;
 }
 
@@ -174,14 +174,13 @@ button:hover {
 
 .this-user .usr-name::after {
     font-weight: 400;
-    content: "you";
+    content: "Tú";
     color: var(--White);
     background-color: var(--Moderate-blue);
-    padding: 0 .4rem;
-    padding-bottom: .2rem;
-    /* font-size: .8rem; */
+    padding: .4rem .4rem;
+    font-size: .8rem;
     margin-left: .5rem;
-    border-radius: 2px;
+    border-radius: 20px;
 }
 
 .this-user .reply {
