@@ -7,6 +7,7 @@ import { Profesores } from '../models/profesores-model';
 import { catchError } from 'rxjs/operators';
 import { CursoProfesor } from '../models/curso-profesor-model';
 import { environment } from 'src/environments/environment';
+import { Cursos } from '../models/curso-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,9 @@ export class ProfesoresService {
   private errorSubject = new BehaviorSubject<string>('');
   error$ = this.errorSubject.asObservable();
 
+  private idCursoSubject = new BehaviorSubject<number>(0);
+  idCurso$ = this.idCursoSubject.asObservable();
+
   URL_API: string = `${environment.HOST_URL}`;
 
   constructor(  private httpClient: HttpClient ) { }
@@ -36,17 +40,19 @@ export class ProfesoresService {
   }
 
   findProfesor(nombre: string): Observable<Profesores[]> {
-    return this.httpClient.get<Profesores[]>(`${this.URL_API}/api/profesor/encontrar-profesor/${nombre}`)
-      .pipe(
-        catchError(error => {
-          this.errorSubject.next(error.error.message);
-          return throwError(error);
-        })
-      );
+    return this.httpClient.get<Profesores[]>(`${this.URL_API}/api/profesor/encontrar-profesor/${nombre}`);
+  }
+
+  findCourse(nombreCurso: string, idCarrera: number): Observable<Cursos[]> {
+    return this.httpClient.get<Cursos[]>(`${this.URL_API}/api/curso/nombre-curso/${nombreCurso}/${idCarrera}`);
   }
 
   actualizarResultadosBusqueda(resultados: any): void {
     this.resultadosBusquedaSubject.next(resultados);
+  }
+
+  mandarIdCurso(idCurso: number): void {
+    this.idCursoSubject.next(idCurso);
   }
 
   enviarError(error: string): void {

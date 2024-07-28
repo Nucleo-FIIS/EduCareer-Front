@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CursoProfesor } from 'src/app/models/curso-profesor-model';
 import { Profesores } from 'src/app/models/profesores-model';
 import { ProfesoresService } from 'src/app/services/profesores.service';
+import { SharedStateService } from 'src/app/services/shared-state.service';
 
 @Component({
   selector: 'app-profes-por-curso',
@@ -20,9 +21,21 @@ export class ProfesPorCursoComponent {
   idCurso !: number;
   showError: boolean = false;
 
+  profesores: any[] = [];
+  messageError: string = '';
+
   @ViewChild('searchInput') searchInput!: ElementRef;
 
-  constructor(private profesoresService: ProfesoresService, private router: Router, private route: ActivatedRoute, private title: Title) {
+  constructor(
+                private profesoresService: ProfesoresService, 
+                private router: Router, 
+                private route: ActivatedRoute, 
+                private title: Title,
+                private sharedStateService: SharedStateService) {
+    
+  }
+
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       try {
         const idCarrera = this.desencriptarId(params['idCarrera']);
@@ -36,6 +49,20 @@ export class ProfesPorCursoComponent {
           this.idCiclo = idCicloParams; // Asigna el id solo si es un número entero
           this.idCurso = idCursoParams; // Asigna el id solo si es un número entero
           this.getProfesores();
+
+          this.sharedStateService.getSearchResults().subscribe(result => {
+            if (result && result.source === 'profes-por-curso') {
+              this.profesores = result.data.profesores;
+              this.showError = false;
+            }
+          });
+      
+          this.sharedStateService.getSearchError().subscribe(error => {
+            if (error && error.source === 'profes-por-curso') {
+              this.messageError = error.error;
+              this.showError = true;
+            }
+          });
         } else {
           // Redirige si el id no es un número entero
           this.router.navigate(['/profesores/carreras']);
@@ -45,6 +72,7 @@ export class ProfesPorCursoComponent {
         this.router.navigate(['/profesores/carreras']);
       }
     });
+    
   }
 
   onLoad() {
@@ -58,39 +86,14 @@ export class ProfesPorCursoComponent {
       (response: any) => {
         this.profesPorCurso = response;
         this.title.setTitle(this.profesPorCurso.nombre_curso  + ' | EduCareer');
-        this.profesoresService.setProfesores(response.profesores);
+        this.sharedStateService.setSearchResults('profes-por-curso', response);
+        this.showError = false;
       },
       (error) => {
-        this.profesoresService.setMessageError(error.error.message);
+        this.sharedStateService.setSearchError('profes-por-curso', error.error.message);
         this.showError = true;
       });
   }
-
-  /*search(): void {
-    const searchTerm: string = this.searchInput.nativeElement.value.trim();
-
-    if (searchTerm.length > 0) {
-      // Expresión regular para validar número entero o decimal
-      const regex = /^[+-]?\d+(\.\d+)?$/;
-      if (regex.test(searchTerm)) {
-        // Si es un número entero o decimal, muestra mensaje de error
-        this.palabraNoEncontrada = 'Formato de búsqueda no válido. Debe digitar en formato de texto, no un número 😡.';
-        this.profesores = [];
-      } else {
-        // Si es un texto, realiza la búsqueda
-        this.profesoresService.findProfesor(searchTerm).subscribe(
-          (response) => {
-            this.profesores = response;
-          },
-          (error) => {
-            this.profesores = [];
-            this.palabraNoEncontrada = error.error.message;
-            // console.clear(); //Método para borrar la consola del navegador
-          }
-        );
-      }
-    }
-  }*/
 
   regresar(): void {
     this.searchInput.nativeElement.value = '';
@@ -104,21 +107,4 @@ export class ProfesPorCursoComponent {
   desencriptarId(encryptedId: string): string {
     return atob(encryptedId);
   }
-
-  // Método para calcular las estrellas
-  // stars(score: string): string[] {
-  //   const numericScore = parseFloat(score);
-  //   const roundedScore = Math.ceil(numericScore * 2) / 2;  // Redondear hacia arriba a la mitad más cercana
-  //   const fullStars = Math.floor(roundedScore);
-  //   const halfStar = (roundedScore % 1 !== 0) ? ['ri-star-half-line'] : [];
-  //   const emptyStars = 5 - fullStars - halfStar.length;
-
-  //   const starArray = Array(fullStars).fill('ri-star-fill').concat(halfStar, Array(emptyStars).fill('ri-star-line'));
-
-  //   return starArray;
-  // }
-
-
-
-
 }

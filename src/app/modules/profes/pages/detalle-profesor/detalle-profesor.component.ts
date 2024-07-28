@@ -36,6 +36,12 @@ export class DetalleProfesorComponent {
   porcent_evaluaciones !: number;
   porcent_supervivencia !: number;
 
+  // Define un arreglo para almacenar los valores iniciales
+  initialVotes: any[] = [];
+
+  // Define la propiedad para controlar el estado del botón "Confirmar"
+  isConfirmButtonEnabled: boolean = false;
+
   public hasLoaded: boolean = false;
   onLoad() {
     setTimeout(() => {
@@ -218,7 +224,12 @@ export class DetalleProfesorComponent {
       };
       this.comentarioService.getVoteUser(payload).subscribe(
         response => {
+          console.log("votos", response.votos);
           this.sliders = response.votos;
+          this.initialVotes = JSON.parse(JSON.stringify(response.votos));
+          this.puntajes = this.sliders.map(slider => ({ id: slider.id_voto, value: slider.value, text: slider.text }));
+
+          this.checkIfConfirmButtonShouldBeEnabled();
         },
         error => {
           console.error('Error al enviar comentario:', error);
@@ -230,6 +241,28 @@ export class DetalleProfesorComponent {
   onSliderInput(slider: any) {
     slider.selectorPosition = (slider.value - 1) * 25;
     slider.progressBarWidth = (slider.value - 1) * 25;
+  
+    // Actualiza la lista de puntajes
+    const index = this.puntajes.findIndex((s) => s.id === slider.id_voto);
+    if (index !== -1) {
+      this.puntajes[index] = { id: slider.id_voto, value: slider.value, text: slider.text };
+    } else {
+      this.puntajes.push({ id: slider.id_voto, value: slider.value, text: slider.text });
+    }
+  
+    // Verifica si se deben habilitar el botón de "Confirmar"
+    this.checkIfConfirmButtonShouldBeEnabled();
+  }
+
+  checkIfConfirmButtonShouldBeEnabled() {
+    // Verifica si hay cambios en todos los sliders
+    const allChanged = this.sliders.every(slider => {
+      const initialValue = this.initialVotes.find(v => v.id_voto === slider.id_voto)?.value;
+      return slider.value !== initialValue;
+    });
+  
+    // Habilita o deshabilita el botón de "Confirmar" basado en los cambios
+    this.isConfirmButtonEnabled = allChanged;
   }
 
   onSave(slider: any) {
@@ -242,9 +275,12 @@ export class DetalleProfesorComponent {
     } else {
       this.puntajes.push({ id: slider.id_voto, value: slider.value, text: slider.text });
     }
+
+    console.log("puntajes", this.puntajes);
   }
 
   showDialog() {
+    this.isConfirmButtonEnabled = false;
     this.getVoteUser();
 
     setTimeout(() => {
@@ -253,7 +289,7 @@ export class DetalleProfesorComponent {
 
       dialogQualify?.classList.remove('hidden');
       dialogOverlay?.classList.remove('hidden');
-      
+
       document.body.classList.add('overflow-hidden');
 
       setTimeout(() => {

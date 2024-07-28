@@ -45,10 +45,11 @@
     <app-search></app-search>
 
     <!-- Card -->
-    <app-card *ngIf="!showError"></app-card>
+    <app-card *ngIf="!showError" [profesores]="profesores"></app-card>
 
     <!-- Error -->
-    <app-not-found *ngIf="showError"></app-not-found>
+    <app-not-found *ngIf="showError" [errorMessage]="messageError"></app-not-found>
+
 
     <!-- Regresar a la página anterior -->
     <div class="flex justify-center mt-10">

@@ -1,16 +1,14 @@
 <app-navbar></app-navbar>
 
 <section>
-
     <app-search></app-search>
 
-    <app-not-found *ngIf="showError"></app-not-found>
+    <app-not-found *ngIf="showError" [errorMessage]="error"></app-not-found>
 
-    <app-card *ngIf="!showError"></app-card>
+    <app-card *ngIf="!showError && !showErrorCourses" [profesores]="profesores"></app-card>
 
-
+    <app-courses *ngIf="!showError && showErrorCourses" [cursos]="cursos"></app-courses>
 </section>
-
 
 <app-scroll-up></app-scroll-up>
 

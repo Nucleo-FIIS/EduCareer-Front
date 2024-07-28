@@ -97,6 +97,12 @@ export class ComentarioService {
     );
   }
 
+  getInfolUser(): Observable<any> {
+    return this.http.get<any>(this.URL_API + '/api/comentario/getInfoUser', { withCredentials: true }).pipe(
+      map(res => res)
+    );
+  }
+
   postVotesResponsesProf(payload: any): Observable<any> {
     return this.http.post<any>(`${this.URL_API}/api/comentario/postVotesResponsesProf`, payload, { withCredentials: true }).pipe(
       tap(() => {

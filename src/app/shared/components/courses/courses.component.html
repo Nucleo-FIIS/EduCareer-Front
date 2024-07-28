@@ -1,0 +1,39 @@
+<div class="max-w-screen-xl mx-auto m-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <!-- CARD 1 -->
+        <div class="rounded overflow-hidden shadow-lg flex flex-col" *ngFor="let curso of cursos">
+            <div class="relative">
+                <a
+                    [routerLink]="['/profesores/carrera', encriptarId(idCarrera.toString()), 'ciclo', encriptarId(curso.idCiclo.toString()), 'curso', encriptarId(curso.idCurso.toString()), 'profesores-por-curso']">
+                    <img class="w-full h-60 object-cover"
+                        src="https://cards.algoreducation.com/_next/image?url=https%3A%2F%2Ffiles.algoreducation.com%2Fproduction-ts%2F__S3__67df9f1e-c0cd-480b-82a8-740f7466848e&w=3840&q=75"
+                        [alt]="curso.nombreCurso">
+                    <div
+                        class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+                    </div>
+                    <div
+                        class="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out rounded-xl">
+                        Créditos: {{ curso.numeroCreditos }}
+                    </div>
+                </a>
+
+            </div>
+            <div class="px-6 py-4 mb-auto">
+                <a [routerLink]="['/profesores/carrera', encriptarId(idCarrera.toString()), 'ciclo', encriptarId(curso.idCiclo.toString()), 'curso', encriptarId(curso.idCurso.toString()), 'profesores-por-curso']"
+                    class="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-2">{{
+                    curso.nombreCurso }}
+                </a>
+                <p class="text-gray-500 text-sm">
+                    {{ curso.codigoCurso }}
+                </p>
+            </div>
+            <div class="px-6 py-3 flex flex-row gap-1 items-center justify-center bg-gray-100">
+                <button
+                    [routerLink]="['/profesores/carrera', encriptarId(idCarrera.toString()), 'ciclo', encriptarId(curso.idCiclo.toString()), 'curso', encriptarId(curso.idCurso.toString()), 'profesores-por-curso']"
+                    class="cursor-pointer flex items-center hover:text-indigo-200 text-indigo-500 fill-indigo-400 bg-indigo-200 hover:bg-indigo-700 active:border active:border-indigo-400 rounded-md transition-all duration-300 p-2">
+                    <span class="font-bold text-sm pr-1">Ver más 👀</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

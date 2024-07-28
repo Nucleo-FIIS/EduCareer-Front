@@ -7,15 +7,6 @@ import { ProfesoresService } from 'src/app/services/profesores.service';
   styleUrls: ['./not-found.component.css']
 })
 export class NotFoundComponent {
-
-  message !: string;
-
-  constructor( private profesoresService: ProfesoresService) { }
-
-  ngOnInit(): void {
-    this.profesoresService.getMessageError().subscribe(message => {
-      this.message = message;
-    });
-  }
+  @Input() errorMessage: string = '';
 
 }

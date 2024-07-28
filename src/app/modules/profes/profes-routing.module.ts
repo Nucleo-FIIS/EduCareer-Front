@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       {path: 'carreras', component: CarrerasComponent, title: 'Carreras | EduCareer'},
       {path: 'carrera/:id/ciclos', component: CiclosComponent},
-      {path: 'busqueda', component: BusquedaComponent, title: 'Búsqueda | EduCareer'},
+      {path: 'busqueda/:idSeleccion/:idCarrera/:idCiclo/:searchTerm', component: BusquedaComponent},
       {path: 'carrera/:idCarrera/ciclo/:id/cursos', component: CursoCicloComponent, title: 'Profesores por ciclo | EduCareer'},
       {path: 'carrera/:idCarrera/ciclo/:idCiclo/curso/:idCurso/profesores-por-curso', component: ProfesPorCursoComponent},
 

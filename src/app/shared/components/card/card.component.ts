@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Profesores } from 'src/app/models/profesores-model';
@@ -10,15 +10,16 @@ import { ProfesoresService } from 'src/app/services/profesores.service';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  profesores: Profesores[] = [];
+  //profesores: Profesores[] = [];
   public hasLoaded: boolean = false;
   profesoresSubscription !: Subscription;
+  idCursoSubscription !: Subscription;
   
   idCurso !: number;
+  isShowNameCourse: boolean = false;
 
-  constructor( private profesoresService: ProfesoresService,private router: Router, private route: ActivatedRoute ) {  
-    
-  }
+  @Input() profesores: any[] = [];
+  constructor(private router: Router ) {  }
 
   onLoad() {
     setTimeout(() => {
@@ -27,29 +28,11 @@ export class CardComponent {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      try {
-        const idCurso = this.desencriptarId(params['idCurso']);
-        const idCursoParams = +idCurso; // Convierte el parámetro a número
-        if (!isNaN(idCursoParams) && Number.isInteger(idCursoParams)) {
-          this.idCurso = idCursoParams; // Asigna el id solo si es un número entero
-          this.profesoresSubscription = this.profesoresService.profesores$.subscribe(profesores => {
-            this.profesores = profesores;
-          });
-        } else {
-          // Redirige si el id no es un número entero
-          this.router.navigate(['/profesores/carreras']);
-        }
-      } catch (e) {
-        // Redirige si hay un error en la desencriptación
-        this.router.navigate(['/profesores/carreras']);
-      }
-    });
-    
-  }
+    const currentUrl = this.router.url;
 
-  ngOnDestroy(): void {
-    this.profesoresSubscription.unsubscribe();
+    if (currentUrl.includes('/profesores/busqueda')) {
+      this.isShowNameCourse = true;
+    }
   }
 
   encriptarId(id: string): string {

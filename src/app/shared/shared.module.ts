@@ -24,6 +24,7 @@ import { CardComponent } from './components/card/card.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ModalCommentComponent } from './components/modal-comment/modal-comment.component';
 import { ModalNotificationComponent } from './components/modal-notification/modal-notification.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ModalNotificationComponent } from './components/modal-notification/moda
     CommentComponent,
     ModalCommentComponent,
     ModalNotificationComponent,
+    CoursesComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +68,7 @@ import { ModalNotificationComponent } from './components/modal-notification/moda
     CommentComponent,
     ModalCommentComponent,
     ModalNotificationComponent,
+    CoursesComponent,
   ]
 })
 export class SharedModule { }
