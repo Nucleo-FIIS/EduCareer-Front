@@ -25,6 +25,8 @@ import { CommentComponent } from './components/comment/comment.component';
 import { ModalCommentComponent } from './components/modal-comment/modal-comment.component';
 import { ModalNotificationComponent } from './components/modal-notification/modal-notification.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { DayJsPipe } from './pipes/day-js.pipe';
+import { CapitalizeFirstLetterPipe } from './pipes/capitalize-first-letter.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { CoursesComponent } from './components/courses/courses.component';
     ModalCommentComponent,
     ModalNotificationComponent,
     CoursesComponent,
+    DayJsPipe,
+    CapitalizeFirstLetterPipe,
   ],
   imports: [
     CommonModule,
@@ -69,6 +73,8 @@ import { CoursesComponent } from './components/courses/courses.component';
     ModalCommentComponent,
     ModalNotificationComponent,
     CoursesComponent,
+    DayJsPipe,
+    CapitalizeFirstLetterPipe,
   ]
 })
 export class SharedModule { }

@@ -138,7 +138,7 @@
                                     <img [src]="comment.img_user" [alt]="comment.nombre_user"
                                         class="usr-img rounded-full">
                                     <p class="usr-name tracking-normal text-[15px]">{{ comment.nombre_user }}</p> •
-                                    <p class="cmnt-at tracking-normal text-[14px]">{{ comment.fecha_creacion }}</p>
+                                    <p class="cmnt-at tracking-normal text-[14px]">{{ comment.fecha_creacion | dayJs: 'fromNow' | capitalizeFirstLetter }}</p>
                                 </div>
                                 <p class="c-text text-gray-500">
                                     <span *ngIf="comment.reply_to" class="reply-to">@{{ comment.reply_to }},</span>
