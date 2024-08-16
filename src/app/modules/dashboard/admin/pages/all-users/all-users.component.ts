@@ -29,7 +29,7 @@ export class AllUsersComponent {
   filteredUsers: User[] = [];
 
   ngOnInit(): void {
-    this.sort('lastLogin');
+    this.filteredUsers=this.users;
   }
 
   toggleFilterMenu(): void {
@@ -44,7 +44,7 @@ export class AllUsersComponent {
   }
 
   sort(type: string): void {
-    this.selectedFilter = type;  // Actualiza el filtro seleccionado
+    this.selectedFilter = type; 
 
     switch(type) {
       case 'name':
@@ -111,7 +111,7 @@ export class AllUsersComponent {
       case 'Admin':
         return 'Admin';
       default:
-        return 'Filtrar';
+        return '';
     }
   }
   

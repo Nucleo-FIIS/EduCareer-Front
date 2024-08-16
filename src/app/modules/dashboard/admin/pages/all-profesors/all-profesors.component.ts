@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 
-interface User {
+interface Course {
+  code: string;
   name: string;
-  email: string;
-  type: string;
-  registrationDate: string;
-  lastLogin: string;
+  prereq: string;
   showMenu?: boolean;
 }
 
@@ -16,103 +14,81 @@ interface User {
 })
 export class AllProfesorsComponent {
   searchTerm: string = '';
-  showFilterMenu: boolean = false;
-  selectedFilter: string = 'lastLoginAsc'; 
-  users: User[] = [
-    { name: 'Gallego Basteri Luis Miguel', email: 'luis.gallego@example.com', type: 'User', registrationDate: '02/05/2024', lastLogin: '14/08/2024' },
-    { name: 'Sainz Castro Cristian', email: 'cristian.sainz@example.com', type: 'User', registrationDate: '02/05/2024', lastLogin: '14/08/2024' },
-    { name: 'Figueroa Arce Elmer', email: 'elmer.figueroa@example.com', type: 'User', registrationDate: '02/09/2024', lastLogin: '13/08/2024' },
-    { name: 'Reglero Montaner Héctor Eduardo', email: 'hector.reglero@example.com', type: 'Admin', registrationDate: '02/07/2024', lastLogin: '14/08/2024' },
-    { name: 'Aguilera Valadez Alberto', email: 'alberto.aguilera@example.com', type: 'User', registrationDate: '18/07/2024', lastLogin: '12/08/2024' },
+  showFilterMenu: boolean = true;
+  courses: Course[] = [
+    { code: 'FB101', name: 'Geometría Analítica', prereq: '-' },
+    { code: 'BMA01', name: 'Cálculo Diferencial', prereq: '-' },
   ];
 
-  filteredUsers: User[] = [];
+  filteredCourses: Course[] = [];
+  showEditModal: boolean = false;
+  showDeleteModal: boolean = false;
+  selectedCourse: Course = { code: '', name: '', prereq: '' };
 
   ngOnInit(): void {
-    this.sort('lastLogin');
+    this.filteredCourses = this.courses;
   }
 
   toggleFilterMenu(): void {
     this.showFilterMenu = !this.showFilterMenu;
   }
 
-  filterUsers(): void {
-    this.filteredUsers = this.users.filter(user =>
-      user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+  filterCourses(): void {
+    this.filteredCourses = this.courses.filter(c =>
+      c.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      c.code.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
-  }
-
-  sort(type: string): void {
-    this.selectedFilter = type;  // Actualiza el filtro seleccionado
-
-    switch(type) {
-      case 'name':
-        this.filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'nameDesc':
-        this.filteredUsers.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-      case 'email':
-        this.filteredUsers.sort((a, b) => a.email.localeCompare(b.email));
-        break;
-      case 'emailDesc':
-        this.filteredUsers.sort((a, b) => b.email.localeCompare(a.email));
-        break;
-      case 'lastLogin':
-        this.filteredUsers.sort((a, b) => new Date(a.lastLogin).getTime() - new Date(b.lastLogin).getTime());
-        break;
-      case 'lastLoginDesc':
-        this.filteredUsers.sort((a, b) => new Date(b.lastLogin).getTime() - new Date(a.lastLogin).getTime());
-        break;
-    }
-    this.toggleFilterMenu();
-  }
-
-  filterByType(type: string): void {
-    this.selectedFilter = type; 
-    this.filteredUsers = this.users.filter(user => user.type === type);
-    this.toggleFilterMenu();
   }
 
   clearSearch(): void {
     this.searchTerm = '';
-    this.filteredUsers = [...this.users];
+    this.filteredCourses = [...this.courses];
   }
 
-  toggleMenu(user: User): void {
-    this.users.forEach(u => {
-      if (u !== user) {
-        u.showMenu = false;
+  toggleMenu(course: Course): void {
+    this.courses.forEach(c => {
+      if (c !== course) {
+        c.showMenu = false;
       }
     });
-    user.showMenu = !user.showMenu;
+    course.showMenu = !course.showMenu;
   }
 
-  deleteUser(user: User): void {
-    alert(`Eliminar usuario: ${user.name}`);
+  editCourse(course: Course): void {
+    this.toggleMenu(course);
+    this.selectedCourse = { ...course };
+    this.showEditModal = true;
   }
-  selectedFilterLabel(): string {
-    switch (this.selectedFilter) {
-      case 'name':
-        return 'Nombre';
-      case 'nameDesc':
-        return 'Nombre';
-      case 'email':
-        return 'Email';
-      case 'emailDesc':
-        return 'Email';
-      case 'lastLogin':
-        return 'Última Conexión';
-      case 'lastLoginDesc':
-        return 'Última Conexión';
-      case 'User':
-        return 'User';
-      case 'Admin':
-        return 'Admin';
-      default:
-        return 'Filtrar';
+
+  saveCourse(): void {
+    if (this.selectedCourse) {
+      const index = this.courses.findIndex(c => c.code === this.selectedCourse.code);
+      if (index > -1) {
+        this.courses[index] = this.selectedCourse;
+      }
+      this.showEditModal = false;
     }
   }
-  
+
+  closeEditModal(): void {
+    this.showEditModal = false;
+    this.selectedCourse = { code: '', name: '', prereq: '' };
+  }
+
+  confirmDeleteCourse(course: Course): void {
+    this.toggleMenu(course);
+    this.selectedCourse = { ...course };
+    this.showDeleteModal = true;
+  }
+
+  deleteCourse(): void {
+    this.courses = this.courses.filter(c => c !== this.selectedCourse);
+    this.filteredCourses = this.filteredCourses.filter(c => c !== this.selectedCourse);
+    this.showDeleteModal = false;
+  }
+
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.selectedCourse = { code: '', name: '', prereq: '' };
+  }
 }
