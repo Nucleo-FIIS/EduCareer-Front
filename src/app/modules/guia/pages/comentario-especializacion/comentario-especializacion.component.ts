@@ -16,7 +16,7 @@ export class ComentarioEspecializacionComponent {
   comentarios: ComentarioModel[] = [];
   isValid!: boolean;
   isCommentEmpty: boolean = true;
-  isResponseBoxHiden: boolean = true;
+  isResponseBoxHiden: boolean[] = [];
 
   constructor(private commentService: ComentarioService, private authService: AuthService) { }
 
@@ -29,6 +29,10 @@ export class ComentarioEspecializacionComponent {
     this.commentService.getComentariosEsp(this.especialidad_id).subscribe(
       (data: ComentarioModel[]) => {
         this.comentarios = data;
+        this.isResponseBoxHiden=[];
+        this.comentarios.forEach(()=>{
+          this.isResponseBoxHiden.push(true);
+        });
       }
     )
   }
@@ -90,7 +94,8 @@ export class ComentarioEspecializacionComponent {
     return false;
   }
 
-  showResponseBox() {
-    this.isResponseBoxHiden = !this.isResponseBoxHiden;
+  showResponseBox(i:number) {
+    console.log(this.isResponseBoxHiden[i]);
+    this.isResponseBoxHiden[i] = !this.isResponseBoxHiden[i];
   }
 }

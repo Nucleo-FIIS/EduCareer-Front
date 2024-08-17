@@ -15,7 +15,7 @@ export class RespuestasComponent {
   respuestas_mostradas: ComentarioModel[] = [];
   response: String = "";
 
-  isHiden: boolean = false;
+  isHiden: boolean = false; // se refiere a la lista de respuestas
   isLoggedIn!: boolean
   @Input() isResponseBoxHiden!: boolean;
   isResponseEmpty: boolean = true;

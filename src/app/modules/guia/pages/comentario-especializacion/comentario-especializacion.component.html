@@ -30,7 +30,7 @@
         </article>
     </ng-template>
     <div *ngIf="comentarios.length > 0; else noComments">
-        <li class="timeline-item | extra-space" *ngFor="let c of comentarios">
+        <li class="timeline-item | extra-space" *ngFor="let c of comentarios; let i = index">
             <span class="timeline-item-icon | filled-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z" />
@@ -49,12 +49,12 @@
                 <div class="comment">
                     <p>{{c.comentario}}</p>
                     <button class="button">👏 2</button>
-                    <button class="button | square" (click)="showResponseBox()">
+                    <button class="button | square" (click)="showResponseBox(i)">
                         💬
                     </button>
                 </div>
                 <app-respuestas [comentario_id]="c.id_comentario" [especialidad_id]="especialidad_id"
-                    [isResponseBoxHiden]="isResponseBoxHiden"></app-respuestas>
+                    [isResponseBoxHiden]="isResponseBoxHiden[i]"></app-respuestas>
             </div>
         </li>
     </div>
