@@ -1,64 +1,149 @@
-<ol class="timeline">
-    <li *ngIf="isValid;else invalidToken" class="timeline-item">
-        <span class="timeline-item-icon | avatar-icon">
-            <i class="avatar">
-                <img src="https://assets.codepen.io/285131/hat-man.png" />
-            </i>
-        </span>
-        <div class="new-comment relative">
-            <input [(ngModel)]="comment" (ngModelChange)="isTheCommentEmpty()" type="text"
-                placeholder="Escribe un comentario..." class="border rounded p-2 w-full" />
+<!-- Comentarios -->
+<article class="bg-white py-8 lg:py-16 antialiased animate__animated animate__fadeIn">
+    <div class="max-w-3xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg lg:text-2xl font-bold text-black">
+                Comentario{{ comentarios.length === 1 ? '' : 's' }} ({{ comentarios.length }})
+            </h2>
         </div>
-        <button (click)="postComment()" [disabled]="isCommentEmpty" class="cursor-pointer bg-gray-200 hover:bg-[#e3e3e3] text-indigo-500 hover:text-indigo-700 p-3 rounded-full transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-send h-4 w-4">
-                <path d="m22 2-7 20-4-9-9-4Z" />
-                <path d="M22 2 11 13" />
-            </svg>
-        </button>
-    </li>
-    <ng-template #invalidToken>
-        <article class="p-6 mb-6 text-base bg-gray-100 rounded-lg">
-            <footer class="flex justify-between items-center mb-2">
-                <div class="flex items-center">
-                    <p class="text-sm text-gray-600"><span
-                            class="cursor-pointer underline font-semibold text-indigo-600 hover:text-indigo-800 transition-all duration-300"
-                            routerLink="/auth/login">Iniciar sesión</span> para comentar 🔐💬</p>
-                </div>
-            </footer>
-        </article>
-    </ng-template>
-    <div *ngIf="comentarios.length > 0; else noComments">
-        <li class="timeline-item | extra-space" *ngFor="let c of comentarios">
-            <span class="timeline-item-icon | filled-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="none" d="M0 0h24v24H0z" />
-                    <path fill="currentColor"
-                        d="M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM7 10v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z" />
-                </svg>
-            </span>
-            <div class="timeline-item-wrapper">
-                <div class="timeline-item-description">
-                    <i class="avatar | small">
-                        <img src="https://assets.codepen.io/285131/hat-man.png" />
-                    </i>
-                    <!-- <span><a href="#">{{c.usuario}}</a> comentó el <time datetime="20-01-2021">Jan 20, 2021</time></span> -->
-                    <span><a href="#">{{c.usuario}}</a> comentó el {{c.fecha}}</span>
-                </div>
-                <div class="comment">
-                    <p>{{c.comentario}}</p>
-                    <button class="button">👏 2</button>
-                    <button class="button | square" (click)="showResponseBox()">
-                        💬
-                    </button>
-                </div>
-                <app-respuestas [comentario_id]="c.id_comentario" [especialidad_id]="especialidad_id"
-                    [isResponseBoxHiden]="isResponseBoxHiden"></app-respuestas>
+        <!-- Single comment -->
+
+        <form class="mb-6" *ngIf="isValid; else invalidToken">
+            <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border-2 border-indigo-700">
+                <textarea id="comment" name="comment" rows="6" (ngModelChange)="isTheCommentEmpty(-1,$event)" (keydown.enter)="postCommesponse(-1,null)"
+                 [(ngModel)]="posts[-1]" autofocus
+                    class="resize-none px-0 w-full text-sm text-stone-950 border-0 focus:ring-0 focus:outline-none placeholder-gray-400"
+                    placeholder="Escribe tu comentario..." required></textarea>
             </div>
-        </li>
-    </div>
-    <ng-template #noComments>
-        <p>No hay comentarios disponibles</p>
-    </ng-template>
-</ol>
+            <div class="flex gap-2">
+                <button type="submit" [disabled]="isCommentEmpty[-1]" (click)="postCommesponse(-1,null)"
+                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-indigo-800 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                    Comentar
+                </button>
+                <button type="submit" [disabled]="isCommentEmpty[-1]" (click)="cancelPost(-1)"
+                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-500 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-red-700 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+
+        <ng-template #invalidToken>
+            <article class="p-6 mb-6 text-base bg-gray-100 rounded-lg">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="text-sm text-gray-600"><span
+                                class="cursor-pointer underline font-semibold text-indigo-600 hover:text-indigo-800 transition-all duration-300"
+                                routerLink="/auth/login">Iniciar sesión</span> para comentar 🔐💬</p>
+                    </div>
+                </footer>
+            </article>
+        </ng-template>
+
+        <p class="text-gray-500 text-sm font-medium" *ngIf="comentarios.length === 0">No se realizado ningun comentario hasta el
+            momento 😔</p>
+
+        <main class="text-sm sm:text-base">
+            <div class="comment-section">
+                <div class="comments-wrp">
+                    <ng-container *ngFor="let comment of comentarios; let i = index">
+                        <div class="comment-wrp">
+                            <div class="comment container bg-indigo-50" [ngClass]="{'this-user': belongsToUser[comment.id_comentario]}">
+                                <div class="c-score bg-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        *ngIf="isValid" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-plus score-control score-plus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
+                                        <path d="M5 12h14" />
+                                        <path d="M12 5v14" />
+                                    </svg>
+                                    <p class="score-number flex gap-1"><span>👏🏻</span>3</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        *ngIf="isValid" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-minus score-control score-minus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
+                                        <path d="M5 12h14" />
+                                    </svg>
+                                </div>
+                                <div class="c-controls">
+                                    <ul *ngIf="isValid" class="flex gap-2">
+                                        <li *ngIf="belongsToUser[comment.id_comentario]">
+                                            <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-green-500 hover:text-white transition-all duration-300 focus:outline-none"
+                                                type="button">
+                                                <!-- Icono de editar (lapiz) -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-edit h-4 w-4">
+                                                    <path d="M11 5h5v5" />
+                                                    <path d="M19.4 3.6a2.1 2.1 0 0 1 0 3L10 16 7 17l1-3 9.4-9.4a2.1 2.1 0 0 1 3-3z" />
+                                                </svg>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button (click)="showResponseBox(comment.id_comentario)" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 focus:outline-none"
+                                                type="button">
+                                                <!-- Icono de responder (mensaje) -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-message-circle h-4 w-4">
+                                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7A8.38 8.38 0 0 1 9.5 19L4 20l1-5.5a8.38 8.38 0 0 1-.5-2.5 8.5 8.5 0 0 1 8.5-8.5 8.5 8.5 0 0 1 8.5 8.5z" />
+                                                </svg>
+                                            </button>
+                                        </li>
+                                        <li *ngIf="belongsToUser[comment.id_comentario]">
+                                            <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 focus:outline-none"
+                                                type="button">
+                                                <!-- Icono de eliminar (tachito de basura) -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-trash h-4 w-4">
+                                                    <polyline points="3 6 5 6 21 6" />
+                                                    <path d="M19 6l-1.5 14a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 6m5-3h4a2 2 0 0 1 2 2v0H8a2 2 0 0 1-2-2v0h2z" />
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="c-user">
+                                    <img [src]="'https://i.stack.imgur.com/l60Hf.png'" [alt]="comment"
+                                        class="usr-img rounded-full">
+                                    <p class="usr-name tracking-normal text-[15px]">{{ comment.usuario }}</p> •
+                                    <p class="cmnt-at tracking-normal text-[14px]">{{ comment.fecha}}</p>
+                                </div>
+                                <p class="c-text text-gray-500">
+                                    <span class="c-body"> {{ comment.comentario }}</span>
+                                </p>
+                            </div>
+
+                            <div class="replies comments-wrp">
+                                <form class="mb-6" *ngIf="!isResponseBoxHiden[comment.id_comentario]">
+                                    <div
+                                        class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border-2 border-indigo-700">
+                                        <textarea id="comment" name="comment" rows="6" (ngModelChange)="isTheCommentEmpty(comment.id_comentario,$event)" (keydown.enter)="postCommesponse(comment.id_comentario,comment.id_comentario)"
+                                            [(ngModel)]="posts[comment.id_comentario]"
+                                            class="resize-none px-0 w-full text-sm text-stone-950 border-0 focus:ring-0 focus:outline-none placeholder-gray-400"
+                                            placeholder="Responde a {{ comment.usuario }}..." required></textarea>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button type="submit" [disabled]="isCommentEmpty[comment.id_comentario]" (click)="postCommesponse(comment.id_comentario,comment.id_comentario)"
+                                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-indigo-800 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                                            Comentar
+                                        </button>
+                                        <button type="submit" [disabled]="isCommentEmpty[comment.id_comentario]" (click)="cancelPost(comment.id_comentario)"
+                                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-500 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-red-700 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <app-respuestas [callParentTokenValidation]="isTokenValid.bind(this)" [isValid]="isValid" [comentario_id]="comment.id_comentario" [especialidad_id]="especialidad_id"></app-respuestas>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div> <!--comment sectio-->
+        </main>
+    </div>   
+</article>
+
+

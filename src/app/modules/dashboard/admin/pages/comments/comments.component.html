@@ -1,0 +1,155 @@
+<div class="bg-gray-50 select-none h-screen">
+    <header-admin></header-admin>
+
+    <sidebar-admin breadcrumb1="Dashboard" breadcrumb2="Lista de comentarios"></sidebar-admin>
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
+        <!-- Tabs and Filter -->
+        <div class="flex justify-between items-center border-b border-gray-200">
+            <div class="overflow-x-auto">
+                <nav class="flex space-x-8">
+                    <a href="#" class="text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Publicados
+                    </a>
+                    <a href="#" class="whitespace-nowrap py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm">
+                        Ocultos
+                    </a>
+                    <a href="#" class="whitespace-nowrap py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm">
+                        Pendientes de revisión
+                    </a>
+                    <!-- Agrega más pestañas si es necesario -->
+                </nav>
+            </div>
+
+            <!-- Filter Dropdown -->
+            <div class="relative">
+                <button (click)="toggleFilterMenu()"
+                    class="bg-gray-50 p-2 rounded-lg border border-gray-300 text-gray-700 text-sm sm:text-sm focus:outline-none">
+                    Filtrar
+                    <svg class="w-4 h-4 inline ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <!-- Filter Dropdown Menu -->
+                <div *ngIf="showFilterMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                    <ul class="text-gray-700 text-sm">
+                        <li>
+                            <button (click)="filterBy('Profesor')"
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                                Profesor
+                            </button>
+                        </li>
+                        <li>
+                            <button (click)="filterBy('Especialidad')"
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                                Especialidad
+                            </button>
+                        </li>
+                        <li>
+                            <button (click)="sortByDate('asc')"
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                                Fecha <svg class="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 15l7-7 7 7" />
+                            </svg>
+                            </button>
+                        </li>
+                        <li>
+                            <button (click)="sortByDate('desc')"
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                                Fecha <svg class="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments List -->
+        <div class="mt-6 space-y-4">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <div class="flex items-center">
+                    <img class="w-12 h-12 rounded-full" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
+                    <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Jane Doe</div>
+                        <div class="text-sm text-gray-500">Hace 2 meses</div>
+                    </div>
+                    <div class="ml-auto text-sm text-gray-500">
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2 text-sm text-gray-700">
+                    La seguridad es un tema crítico. No solo se trata de desarrollar un sitio atractivo, sino de protegerlo contra posibles amenazas. ¡La privacidad de los datos de los usuarios es una responsabilidad que no podemos descuidar!
+                </div>
+                <div class="mt-2 flex space-x-4 text-sm">
+                    <div class="flex items-center text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 9l-5 5m0 0l-5-5m5 5V3" />
+                        </svg>
+                        <span>5</span>
+                    </div>
+                    <div class="flex items-center text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l5-5m0 0l5 5m-5-5v12" />
+                        </svg>
+                        <span>1</span>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-indigo-600">
+                    Data Science | Especializaciones
+                </div>
+            </div>
+
+            <!-- Repeat this block for each comment -->
+            <div class="bg-white p-4 rounded-lg shadow">
+                <div class="flex items-center">
+                    <img class="w-12 h-12 rounded-full" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Luz Ramirez">
+                    <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Luz Ramirez</div>
+                        <div class="text-sm text-gray-500">Hace 1 año</div>
+                    </div>
+                    <div class="ml-auto text-sm text-gray-500">
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2 text-sm text-gray-700">
+                    La seguridad es un tema crítico. No solo se trata de desarrollar un sitio atractivo, sino de protegerlo contra posibles amenazas. ¡La privacidad de los datos de los usuarios es una responsabilidad que no podemos descuidar!
+                </div>
+                <div class="mt-2 flex space-x-4 text-sm">
+                    <div class="flex items-center text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 9l-5 5m0 0l-5-5m5 5V3" />
+                        </svg>
+                        <span>9</span>
+                    </div>
+                    <div class="flex items-center text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l5-5m0 0l5 5m-5-5v12" />
+                        </svg>
+                        <span>0</span>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-indigo-600">
+                    Llanos Panduro Daniel | Profesores
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+</div>

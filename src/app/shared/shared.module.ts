@@ -27,6 +27,8 @@ import { ModalNotificationComponent } from './components/modal-notification/moda
 import { CoursesComponent } from './components/courses/courses.component';
 import { DayJsPipe } from './pipes/day-js.pipe';
 import { CapitalizeFirstLetterPipe } from './pipes/capitalize-first-letter.pipe';
+import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
+import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 
 @NgModule({
   declarations: [
@@ -49,11 +51,13 @@ import { CapitalizeFirstLetterPipe } from './pipes/capitalize-first-letter.pipe'
     CoursesComponent,
     DayJsPipe,
     CapitalizeFirstLetterPipe,
+    HeaderAdminComponent,
+    SidebarAdminComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     FooterComponent,
@@ -75,6 +79,8 @@ import { CapitalizeFirstLetterPipe } from './pipes/capitalize-first-letter.pipe'
     CoursesComponent,
     DayJsPipe,
     CapitalizeFirstLetterPipe,
+    HeaderAdminComponent,
+    SidebarAdminComponent,
   ]
 })
 export class SharedModule { }
