@@ -4,6 +4,7 @@ import { ComentarioModel } from '../models/comentario-model';
 import { BehaviorSubject, catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { ComentarioAdm } from '../models/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,20 @@ export class ComentarioService {
 
   getRespuestasEsp(id_especialidad: number, id_comentario_padre: number) {
     return this.http.get<ComentarioModel[]>(this.URL_API + '/api/comentario/findResponsesEsp/' + id_especialidad + '/' + id_comentario_padre).pipe(map(res => res));
+  }
+
+  getComentariosAdm(id_estado: number) {
+    return this.http.get<ComentarioAdm[]>(this.URL_API + '/api/comentario/getCommentsAdm/' + id_estado).pipe(map(res => res));
+  }
+
+  changeCommentState(payload: any): Observable<any> {
+
+    return this.http.post(this.URL_API + '/api/comentario/setStateComment', payload, { withCredentials: true })
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        })
+      );
   }
 
   postCommesponsesEsp(payload: any): Observable<any> {
