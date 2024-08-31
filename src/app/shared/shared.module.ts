@@ -29,6 +29,7 @@ import { DayJsPipe } from './pipes/day-js.pipe';
 import { CapitalizeFirstLetterPipe } from './pipes/capitalize-first-letter.pipe';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.
     CapitalizeFirstLetterPipe,
     HeaderAdminComponent,
     SidebarAdminComponent,
+    TooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -81,6 +83,7 @@ import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.
     CapitalizeFirstLetterPipe,
     HeaderAdminComponent,
     SidebarAdminComponent,
+    TooltipDirective,
   ]
 })
 export class SharedModule { }

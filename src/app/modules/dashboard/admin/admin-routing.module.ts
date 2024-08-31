@@ -11,10 +11,10 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'all-users', component: AllUsersComponent, title: 'Admin - Users | EduCareer' },
-      { path: 'all-curses', component: AllCursesComponent, title: 'Admin - Curses | EduCareer' },
-      { path: 'all-profesors', component: AllProfesorsComponent, title: 'Admin - Profesors | EduCareer' },
-      { path: 'all-specialties', component: AllSpecialtiesComponent, title: 'Admin - specialties | EduCareer' },
-      { path: 'comments', component: CommentsComponent, title: 'Admin - comments | EduCareer' },
+      { path: 'all-curses', component: AllCursesComponent, title: 'Admin - Cursos | EduCareer' },
+      { path: 'all-profesors', component: AllProfesorsComponent, title: 'Admin - Profesores | EduCareer' },
+      { path: 'all-specialties', component: AllSpecialtiesComponent, title: 'Admin - Especialidades | EduCareer' },
+      { path: 'comments', component: CommentsComponent, title: 'Admin - Comentarios | EduCareer' },
       { path: '**', redirectTo: 'all-users' }
     ]
   }
