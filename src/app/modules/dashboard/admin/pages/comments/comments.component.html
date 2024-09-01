@@ -9,19 +9,16 @@
         <div class="flex justify-between items-center border-b border-gray-200">
             <div class="overflow-x-auto">
                 <nav class="flex space-x-8">
-                    <a (click)="selectTab(2)" 
-                       [class.text-indigo-600]="selectedTab === 2" 
-                       class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    <a (click)="selectTab(2)" [class.text-indigo-600]="selectedTab === 2"
+                        class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                         Publicados
                     </a>
-                    <a (click)="selectTab(3)" 
-                       [class.text-indigo-600]="selectedTab === 3" 
-                       class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    <a (click)="selectTab(3)" [class.text-indigo-600]="selectedTab === 3"
+                        class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                         Ocultos
                     </a>
-                    <a (click)="selectTab(1)" 
-                       [class.text-indigo-600]="selectedTab === 1" 
-                       class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    <a (click)="selectTab(1)" [class.text-indigo-600]="selectedTab === 1"
+                        class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                         Pendientes de revisión
                     </a>
                 </nav>
@@ -34,8 +31,7 @@
                     Filtrar
                     <svg class="w-4 h-4 inline ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 9l-7 7-7-7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <!-- Filter Dropdown Menu -->
@@ -57,20 +53,20 @@
                             <button (click)="sortByDate('asc')"
                                 class="block w-full text-left px-4 py-2 hover:bg-gray-100">
                                 Fecha <svg class="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 15l7-7 7 7" />
-                            </svg>
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 15l7-7 7 7" />
+                                </svg>
                             </button>
                         </li>
                         <li>
                             <button (click)="sortByDate('desc')"
                                 class="block w-full text-left px-4 py-2 hover:bg-gray-100">
                                 Fecha <svg class="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
                             </button>
                         </li>
                     </ul>
@@ -79,167 +75,268 @@
         </div>
 
         <!-- Comments List -->
-        <div class="mt-6 space-y-4">
-            <div *ngIf="selectedTab===1">
-                <div *ngFor="let comment of comentarios" class="bg-white p-4 rounded-lg shadow" >
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
-                        <div class="ml-4">
-                            <div class="text-sm font-medium text-gray-900">{{comment.usuario}}</div>
-                            <div class="text-sm text-gray-500">{{comment.fecha}}</div>
+        <div class="relative top-6 mt-6">
+            <div class="space-y-4 relative bottom-6">
+                <ng-container *ngIf="selectedTab===1">
+                    <div *ngFor="let comment of comentarios" class="animate__animated animate__fadeIn bg-white p-4 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <img class="w-12 h-12 rounded-full"
+                                src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">{{comment.usuario}}</div>
+                                <div class="text-sm text-gray-500">{{comment.fecha}}</div>
+                            </div>
+                            <div class="ml-auto text-sm text-gray-500">
+                                <button class="text-gray-500 hover:text-gray-700 transition duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                        <div class="ml-auto text-sm text-gray-500">
-                            <button class="text-gray-500 hover:text-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                        <div class="mt-2 text-sm text-gray-700">
+                            {{comment.comentario}}
+                        </div>
+                        <div class="mt-2 flex space-x-4 text-sm">
+                            <div class="flex items-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14 9l-5 5m0 0l-5-5m5 5V3" />
                                 </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-sm text-gray-700">
-                        {{comment.comentario}}
-                    </div>
-                    <div class="mt-2 flex space-x-4 text-sm">
-                        <div class="flex items-center text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 9l-5 5m0 0l-5-5m5 5V3" />
-                            </svg>
-                            <span>5</span>
-                        </div>
-                        <div class="flex items-center text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l5-5m0 0l5 5m-5-5v12" />
-                            </svg>
-                            <span>1</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-sm text-indigo-600">
-                        {{comment.referencia}}
-                    </div>
-                    <div class="flex flex-col items-center ml-4">
-                        <div class="flex flex-col items-center">
-                            <span class="text-xs text-gray-500">Puesto en revisión por {{comment.operario}}</span>
-                            <img class="w-6 h-6 mt-1" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Puesto en revisión por">
-                          </div>
-                        
-                          <!-- Buttons -->
-                          <div class="flex flex-col space-y-2">
-                            <button (click)="setCommentState(comment,2)" class="text-sm text-blue-600">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z" fill="#1C274C"></path> </g></svg>
-                                Aprobar
-                            </button>
-                            <button (click)="setCommentState(comment,3)" class="text-sm text-blue-600">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM8.96965 8.96967C9.26254 8.67678 9.73742 8.67678 10.0303 8.96967L12 10.9394L13.9696 8.96969C14.2625 8.6768 14.7374 8.6768 15.0303 8.96969C15.3232 9.26258 15.3232 9.73746 15.0303 10.0303L13.0606 12L15.0303 13.9697C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73744 15.3232 9.26256 15.3232 8.96967 15.0303C8.67678 14.7374 8.67678 14.2626 8.96967 13.9697L10.9393 12L8.96965 10.0303C8.67676 9.73744 8.67676 9.26256 8.96965 8.96967Z" fill="#e01f1f"></path> </g></svg>
-                                Rechazar
-                            </button>
-                          </div>
-                    </div>
-                
-                </div>
-            </div>
-            <div *ngIf="selectedTab===2">
-                <div *ngFor="let comment of comentarios" class="bg-white p-4 rounded-lg shadow" >
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
-                        <div class="ml-4">
-                            <div class="text-sm font-medium text-gray-900">{{comment.usuario}}</div>
-                            <div class="text-sm text-gray-500">{{comment.fecha}}</div>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-500">
-                            <button class="text-gray-500 hover:text-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                                <span>5</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10 14l5-5m0 0l5 5m-5-5v12" />
                                 </svg>
-                            </button>
+                                <span>1</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-sm text-indigo-600">
+                            {{comment.referencia}}
+                        </div>
+                        <div class="flex flex-row gap-4 items-center mr-4 mt-4 justify-between">
+                            <div class="flex flex-row gap-2 items-center">
+                                <span class="text-xs text-gray-500">Puesto en revisión por {{comment.operario}}</span>
+                                <img class="w-6 h-6 rounded-full"
+                                    src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg"
+                                    alt="Puesto en revisión por">
+                            </div>
+                            <div class="flex flex-row gap-4">
+                                <button (click)="setCommentState(comment,2)"
+                                    class="py-1.5 px-3.5 text-xs bg-indigo-500 text-white rounded-md cursor-pointer font-medium leading-5 text-center shadow-xs transition-all duration-500 hover:bg-indigo-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-circle-check w-4 h-4 inline mr-1">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="m9 12 2 2 4-4" />
+                                    </svg>
+                                    Aprobar
+                                </button>
+
+                                <button (click)="setCommentState(comment,3)"
+                                    class="py-1.5 px-3.5 text-xs bg-red-500 text-white rounded-md cursor-pointer font-medium leading-5 text-center shadow-xs transition-all duration-500 hover:bg-red-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-circle-x w-4 h-4 inline mr-1">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="m15 9-6 6" />
+                                        <path d="m9 9 6 6" />
+                                    </svg>
+                                    Rechazar
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="mt-2 text-sm text-gray-700">
-                        {{comment.comentario}}
-                    </div>
-                    <div class="mt-2 flex space-x-4 text-sm">
-                        <div class="flex items-center text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 9l-5 5m0 0l-5-5m5 5V3" />
-                            </svg>
-                            <span>5</span>
+                </ng-container>
+                <ng-container *ngIf="selectedTab===2">
+                    <div *ngFor="let comment of comentarios" class="animate__animated animate__fadeIn bg-white p-4 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <img class="w-12 h-12 rounded-full"
+                                src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">{{comment.usuario}}</div>
+                                <div class="text-sm text-gray-500">{{comment.fecha}}</div>
+                            </div>
+                            <div class="ml-auto text-sm text-gray-500">
+                                <button class="text-gray-500 hover:text-gray-700 transition duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                        <div class="flex items-center text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l5-5m0 0l5 5m-5-5v12" />
-                            </svg>
-                            <span>1</span>
+                        <div class="mt-2 text-sm text-gray-700">
+                            {{comment.comentario}}
                         </div>
-                    </div>
-                    <div class="mt-4 text-sm text-indigo-600">
-                        {{comment.referencia}}
-                    </div>
-                    <div class="flex flex-col items-start">
-                        <div class="flex items-center space-x-2">
-                          <span class="text-xs text-gray-500">Aprobado por</span>
-                          <img class="w-6 h-6 rounded-full" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Aprobado por">
-                        </div>
-                        <div (click)="setCommentState(comment,1)" class="flex space-x-2 mt-2">
-                            <button class="text-sm text-blue-600">
-                                <svg height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#000000;} </style> <g> <path class="st0" d="M332.998,291.918c52.2-71.895,45.941-173.338-18.834-238.123c-71.736-71.728-188.468-71.728-260.195,0 c-71.746,71.745-71.746,188.458,0,260.204c64.775,64.775,166.218,71.034,238.104,18.844l14.222,14.203l40.916-40.916 L332.998,291.918z M278.488,278.333c-52.144,52.134-136.699,52.144-188.852,0c-52.152-52.153-52.152-136.717,0-188.861 c52.154-52.144,136.708-52.144,188.852,0C330.64,141.616,330.64,226.18,278.488,278.333z"></path> <path class="st0" d="M109.303,119.216c-27.078,34.788-29.324,82.646-6.756,119.614c2.142,3.489,6.709,4.603,10.208,2.46 c3.49-2.142,4.594-6.709,2.462-10.198v0.008c-19.387-31.7-17.45-72.962,5.782-102.771c2.526-3.228,1.946-7.898-1.292-10.405 C116.48,115.399,111.811,115.979,109.303,119.216z"></path> <path class="st0" d="M501.499,438.591L363.341,315.178l-47.98,47.98l123.403,138.168c12.548,16.234,35.144,13.848,55.447-6.456 C514.505,474.576,517.743,451.138,501.499,438.591z"></path> </g> </g></svg>
-                                Revisar
-                            </button>
-                        </div>
-                    </div>
-                
-                </div>
-            </div>
-            <div *ngIf="selectedTab===3">
-                <div *ngFor="let comment of comentarios" class="bg-white p-4 rounded-lg shadow" >
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
-                        <div class="ml-4">
-                            <div class="text-sm font-medium text-gray-900">{{comment.usuario}}</div>
-                            <div class="text-sm text-gray-500">{{comment.fecha}}</div>
-                        </div>
-                        <div class="ml-auto text-sm text-gray-500">
-                            <button class="text-gray-500 hover:text-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                        <div class="mt-2 flex space-x-4 text-sm">
+                            <div class="flex items-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14 9l-5 5m0 0l-5-5m5 5V3" />
                                 </svg>
-                            </button>
+                                <span>5</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10 14l5-5m0 0l5 5m-5-5v12" />
+                                </svg>
+                                <span>1</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-sm text-indigo-600">
+                            {{comment.referencia}}
+                        </div>
+                        <div class="flex items-center flex-row gap-4 mt-4 justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs text-gray-500">Aprobado por</span>
+                                <img class="w-6 h-6 rounded-full"
+                                    src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg"
+                                    alt="Aprobado por">
+                            </div>
+                            <div (click)="setCommentState(comment,1)" class="flex items-center space-x-2">
+                                <button
+                                    class="py-1.5 px-3.5 text-xs bg-indigo-500 text-white rounded-md cursor-pointer font-medium leading-5 text-center shadow-xs transition-all duration-500 hover:bg-indigo-700">
+                                    <svg version="1.1" id="_x32_" class="w-4 h-4 inline mr-1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        viewBox="0 0 512 512" xml:space="preserve" fill="#000000" stroke="#000000">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <style type="text/css">
+                                                .st0 {
+                                                    fill: #fff;
+                                                }
+                                            </style>
+                                            <g>
+                                                <path class="st0"
+                                                    d="M332.998,291.918c52.2-71.895,45.941-173.338-18.834-238.123c-71.736-71.728-188.468-71.728-260.195,0 c-71.746,71.745-71.746,188.458,0,260.204c64.775,64.775,166.218,71.034,238.104,18.844l14.222,14.203l40.916-40.916 L332.998,291.918z M278.488,278.333c-52.144,52.134-136.699,52.144-188.852,0c-52.152-52.153-52.152-136.717,0-188.861 c52.154-52.144,136.708-52.144,188.852,0C330.64,141.616,330.64,226.18,278.488,278.333z">
+                                                </path>
+                                                <path class="st0"
+                                                    d="M109.303,119.216c-27.078,34.788-29.324,82.646-6.756,119.614c2.142,3.489,6.709,4.603,10.208,2.46 c3.49-2.142,4.594-6.709,2.462-10.198v0.008c-19.387-31.7-17.45-72.962,5.782-102.771c2.526-3.228,1.946-7.898-1.292-10.405 C116.48,115.399,111.811,115.979,109.303,119.216z">
+                                                </path>
+                                                <path class="st0"
+                                                    d="M501.499,438.591L363.341,315.178l-47.98,47.98l123.403,138.168c12.548,16.234,35.144,13.848,55.447-6.456 C514.505,474.576,517.743,451.138,501.499,438.591z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    Revisar
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="mt-2 text-sm text-gray-700">
-                        {{comment.comentario}}
-                    </div>
-                    <div class="mt-2 flex space-x-4 text-sm">
-                        <div class="flex items-center text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 9l-5 5m0 0l-5-5m5 5V3" />
-                            </svg>
-                            <span>5</span>
+                </ng-container>
+                <ng-container *ngIf="selectedTab===3">
+                    <div *ngFor="let comment of comentarios" class="animate__animated animate__fadeIn bg-white p-4 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <img class="w-12 h-12 rounded-full"
+                                src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Jane Doe">
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">{{comment.usuario}}</div>
+                                <div class="text-sm text-gray-500">{{comment.fecha}}</div>
+                            </div>
+                            <div class="ml-auto text-sm text-gray-500">
+                                <button class="text-gray-500 hover:text-gray-700 transition duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6.75 12h10.5M12 6.75l5.25 5.25L12 17.25" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                        <div class="flex items-center text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l5-5m0 0l5 5m-5-5v12" />
-                            </svg>
-                            <span>1</span>
+                        <div class="mt-2 text-sm text-gray-700">
+                            {{comment.comentario}}
+                        </div>
+                        <div class="mt-2 flex space-x-4 text-sm">
+                            <div class="flex items-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14 9l-5 5m0 0l-5-5m5 5V3" />
+                                </svg>
+                                <span>5</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10 14l5-5m0 0l5 5m-5-5v12" />
+                                </svg>
+                                <span>1</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-sm text-indigo-600">
+                            {{comment.referencia}}
+                        </div>
+                        <div class="flex items-center flex-row gap-4 mt-4 justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs text-gray-500">Rechazado por {{comment.operario}}</span>
+                                <img class="w-6 h-6 rounded-full"
+                                    src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg"
+                                    alt="Rechazado por">
+                            </div>
+                            <div class="flex flex-row gap-4">
+                                <div (click)="setCommentState(comment,1)" class="flex items-center space-x-2">
+                                    <button
+                                        class="py-1.5 px-3.5 text-xs bg-indigo-500 text-white rounded-md cursor-pointer font-medium leading-5 text-center shadow-xs transition-all duration-500 hover:bg-indigo-700">
+                                        <svg version="1.1" id="_x32_" class="w-4 h-4 inline mr-1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+                                            xml:space="preserve" fill="#000000" stroke="#000000">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <style type="text/css">
+                                                    .st0 {
+                                                        fill: #fff;
+                                                    }
+                                                </style>
+                                                <g>
+                                                    <path class="st0"
+                                                        d="M332.998,291.918c52.2-71.895,45.941-173.338-18.834-238.123c-71.736-71.728-188.468-71.728-260.195,0 c-71.746,71.745-71.746,188.458,0,260.204c64.775,64.775,166.218,71.034,238.104,18.844l14.222,14.203l40.916-40.916 L332.998,291.918z M278.488,278.333c-52.144,52.134-136.699,52.144-188.852,0c-52.152-52.153-52.152-136.717,0-188.861 c52.154-52.144,136.708-52.144,188.852,0C330.64,141.616,330.64,226.18,278.488,278.333z">
+                                                    </path>
+                                                    <path class="st0"
+                                                        d="M109.303,119.216c-27.078,34.788-29.324,82.646-6.756,119.614c2.142,3.489,6.709,4.603,10.208,2.46 c3.49-2.142,4.594-6.709,2.462-10.198v0.008c-19.387-31.7-17.45-72.962,5.782-102.771c2.526-3.228,1.946-7.898-1.292-10.405 C116.48,115.399,111.811,115.979,109.303,119.216z">
+                                                    </path>
+                                                    <path class="st0"
+                                                        d="M501.499,438.591L363.341,315.178l-47.98,47.98l123.403,138.168c12.548,16.234,35.144,13.848,55.447-6.456 C514.505,474.576,517.743,451.138,501.499,438.591z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        Revisar
+                                    </button>
+                                </div>
+                                <button
+                                    class="py-1.5 px-3.5 text-xs bg-red-500 text-white rounded-md cursor-pointer font-medium leading-5 text-center shadow-xs transition-all duration-500 hover:bg-red-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-circle-x w-4 h-4 inline mr-1">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="m15 9-6 6" />
+                                        <path d="m9 9 6 6" />
+                                    </svg>
+                                    Eliminar
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="mt-4 text-sm text-indigo-600">
-                        {{comment.referencia}}
-                    </div>
-                    <div class="flex flex-col items-center ml-4">
-                        <div class="flex flex-col items-center">
-                            <span class="text-xs text-gray-500">Rechazado por {{comment.operario}}</span>
-                            <img class="w-6 h-6 mt-1" src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Rechazado por">
-                        </div>
-                        
-                          <!-- Buttons -->
-                          <div (click)="setCommentState(comment,1)" class="flex flex-col space-y-2">
-                            <button class="text-sm text-blue-600">
-                                <svg height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#000000;} </style> <g> <path class="st0" d="M332.998,291.918c52.2-71.895,45.941-173.338-18.834-238.123c-71.736-71.728-188.468-71.728-260.195,0 c-71.746,71.745-71.746,188.458,0,260.204c64.775,64.775,166.218,71.034,238.104,18.844l14.222,14.203l40.916-40.916 L332.998,291.918z M278.488,278.333c-52.144,52.134-136.699,52.144-188.852,0c-52.152-52.153-52.152-136.717,0-188.861 c52.154-52.144,136.708-52.144,188.852,0C330.64,141.616,330.64,226.18,278.488,278.333z"></path> <path class="st0" d="M109.303,119.216c-27.078,34.788-29.324,82.646-6.756,119.614c2.142,3.489,6.709,4.603,10.208,2.46 c3.49-2.142,4.594-6.709,2.462-10.198v0.008c-19.387-31.7-17.45-72.962,5.782-102.771c2.526-3.228,1.946-7.898-1.292-10.405 C116.48,115.399,111.811,115.979,109.303,119.216z"></path> <path class="st0" d="M501.499,438.591L363.341,315.178l-47.98,47.98l123.403,138.168c12.548,16.234,35.144,13.848,55.447-6.456 C514.505,474.576,517.743,451.138,501.499,438.591z"></path> </g> </g></svg>
-                                Revisar
-                            </button>
-                          </div>
-                    </div>
-                
-                </div>
+                </ng-container>
             </div>
         </div>
     </div>
