@@ -1,202 +1,138 @@
 <div class="bg-gray-50 select-none h-screen">
-    <header-user></header-user>
+  <header-user></header-user>
 
-    <sidebar-user breadcrumb1="Dashboard" breadcrumb2="Editar perfil"></sidebar-user>
+  <sidebar-user breadcrumb1="Dashboard" breadcrumb2="Editar perfil"></sidebar-user>
 
-    <!-- Content -->
-    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 animate__animated animate__fadeIn bg-gray-50">
-        <!-- Card Section -->
-        <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-            <!-- Card -->
-            <div class="bg-white rounded-xl shadow p-4 sm:p-7">
-                <div class="mb-8">
-                    <h2 class="text-xl font-bold text-gray-800">
-                        Perfil
-                    </h2>
-                    <p class="text-sm text-gray-600">
-                        Administre su nombre, contraseña y configuración de cuenta.
-                    </p>
-                </div>
-
-                <form>
-                    <!-- Grid -->
-                    <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
-                        <div class="sm:col-span-3">
-                            <label class="inline-block text-sm text-gray-800 mt-2.5">
-                                Foto de perfil
-                            </label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <div class="flex items-center gap-5">
-                                <img class="inline-block size-16 rounded-full ring-2 ring-white"
-                                    src="https://www.conpaas.org/wp-content/uploads/2016/06/team-1.jpg" alt="Image Description">
-                                <div class="flex gap-x-2">
-                                    <div>
-                                        <button type="button"
-                                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
-                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                                <polyline points="17 8 12 3 7 8" />
-                                                <line x1="12" x2="12" y1="3" y2="15" />
-                                            </svg>
-                                            Subir foto
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label for="af-account-full-name" class="inline-block text-sm text-gray-800 mt-2.5">
-                                Nombre completo
-                            </label>
-                            <button type="button" class="hs-tooltip-toggle ms-1" (mouseenter)="toggleTooltip(true)" (mouseleave)="toggleTooltip(false)">
-                                <svg class="inline-block size-3 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                    <path
-                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                </svg>
-                            </button>
-                            <div class="hs-tooltip inline-block show absolute showTooltip" [class.show]="isTooltipShown">
-                                <span
-                                    class="transition-all duration-700 hover:transition-all hover:duration-1000 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible inline-block absolute w-40 text-center z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm"
-                                    role="tooltip">
-                                    Mostrado para todo el público
-                                </span>
-                            </div>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <div class="sm:flex">
-                                <input id="af-account-full-name" type="text"
-                                    class="cursor-no-drop focus:outline-none py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 disabled:opacity-50 placeholder:text-gray-700"
-                                    [disabled]="isButtonDisabled" placeholder="John" value="John">
-                                <input type="text"
-                                    class="cursor-no-drop focus:outline-none py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 disabled:opacity-50 placeholder:text-gray-700"
-                                    [disabled]="isButtonDisabled" placeholder="Doe">
-                            </div>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label class="inline-block text-sm text-gray-800 mt-2.5">
-                                Email
-                            </label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <input id="af-account-email" type="email"
-                                class="cursor-no-drop focus:ring-1 focus:outline-none py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 placeholder:text-gray-700"
-                                [disabled]="isButtonDisabled" placeholder="john_doe@gmail.com">
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label for="af-account-password" class="inline-block text-sm text-gray-800 mt-2.5">
-                                Contraseña
-                            </label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <div class="space-y-2">
-                                <input id="af-account-password" type="text"
-                                    class="focus:ring-1 focus:outline-none py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                    placeholder="Introduzca la contraseña actual">
-                                <input type="text"
-                                    class="focus:ring-1 focus:outline-none py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                    placeholder="Introduzca la nueva contraseña">
-                            </div>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label for="af-account-gender-checkbox" class="inline-block text-sm text-gray-800 mt-2.5">
-                                Género
-                            </label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <div class="sm:flex">
-                                <!-- <label for="af-account-gender-checkbox"
-                                    class="cursor-no-drop flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px rounded-lg sm:mt-0 sm:first:ms-0 text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                    <span class="text-sm text-gray-500 ms-3">Masculino</span>
-                                </label> -->
-                                <input type="text"
-                                    class="cursor-no-drop focus:ring-1 focus:outline-none py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 placeholder:text-gray-700"
-                                    [disabled]="isButtonDisabled" placeholder="Masculino">
-                            </div>
-                        </div>
-                        <!-- End Col -->
-
-
-                        <div class="sm:col-span-3">
-                            <label for="af-account-gender-checkbox" class="inline-block text-sm text-gray-800 mt-2.5">
-                                Carrera
-                            </label>
-                        </div>
-                        <!-- End Col -->
-
-
-                        <div class="sm:col-span-9">
-                            <div class="sm:flex">
-                                <label for="af-account-gender-checkbox"
-                                    class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                    <input type="radio" name="af-account-gender-checkbox"
-                                        class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                        id="af-account-gender-checkbox" checked>
-                                    <span class="text-sm text-gray-500 ms-3">Sistemas</span>
-                                </label>
-
-                                <label for="af-account-gender-checkbox-female"
-                                    class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                    <input type="radio" name="af-account-gender-checkbox"
-                                        class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                        id="af-account-gender-checkbox-female">
-                                    <span class="text-sm text-gray-500 ms-3">Industrial</span>
-                                </label>
-
-                                <label for="af-account-gender-checkbox-other"
-                                    class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                    <input type="radio" name="af-account-gender-checkbox"
-                                        class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                        id="af-account-gender-checkbox-other">
-                                    <span class="text-sm text-gray-500 ms-3">Software</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- End Col -->
-                    </div>
-                    <!-- End Grid -->
-
-                    <div class="mt-5 flex justify-end gap-x-2">
-                        <button type="button"
-                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
-                            Cancelar
-                        </button>
-                        <button type="button"
-                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                            Guardar cambios
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <!-- End Card -->
+  <!-- Content -->
+  <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
+    <!-- Card Section -->
+    <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <!-- Card -->
+      <div class="bg-white rounded-xl shadow p-4 sm:p-7">
+        <div class="mb-8">
+          <h2 class="text-xl font-bold text-gray-800">Perfil</h2>
+          <p class="text-sm text-gray-600">
+            Administre su nombre, contraseña y configuración de cuenta.
+          </p>
         </div>
-        <!-- End Card Section -->
-    </div>
-    <!-- End Content -->
-    <!-- ========== END MAIN CONTENT ========== -->
 
+        <!-- Formulario -->
+        <form [formGroup]="profileForm" id="profileForm" enctype="multipart/form-data">
+          <!-- Grid -->
+          <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
+            <!-- Foto de perfil -->
+            <div class="sm:col-span-3">
+              <label class="inline-block text-sm text-gray-800 mt-2.5">Foto de perfil</label>
+            </div>
+
+            <div class="sm:col-span-9">
+              <div class="flex items-center gap-5">
+                <img id="profile-image" class="inline-block size-16 rounded-full ring-2 ring-white" [src]="imageUrl"
+                  alt="Image Description">
+                <div class="flex gap-x-2">
+                  <div>
+                    <input type="file" id="upload-photo" name="profilePhoto" class="hidden" accept="image/*"
+                      (change)="onFileSelected($event)">
+
+                    <button type="button"
+                      class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+                      (click)="triggerFileInput()">
+                      Subir foto
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nombre completo -->
+            <div class="sm:col-span-3">
+              <label for="nombre" class="inline-block text-sm text-gray-800 mt-2.5">Nombre completo</label>
+            </div>
+
+            <div class="sm:col-span-9">
+              <input id="nombre" formControlName="nombre" name="nombre" type="text"
+                class="focus:ring-1 focus:outline-none py-2 px-3 block w-full border border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 placeholder:text-gray-700"
+                placeholder="John Doe">
+            </div>
+
+            <!-- Email -->
+            <div class="sm:col-span-3">
+              <label for="af-account-email" class="inline-block text-sm text-gray-800 mt-2.5">Email</label>
+            </div>
+
+            <div class="sm:col-span-9">
+              <input id="af-account-email" name="email" type="email" disabled
+                class="focus:ring-1 focus:outline-none py-2 px-3 block w-full border border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 placeholder:text-gray-700"
+                placeholder="john.doe@example.com">
+            </div>
+
+            <!-- Contraseña -->
+            <div class="sm:col-span-3">
+              <label for="password" class="inline-block text-sm text-gray-800 mt-2.5">Contraseña</label>
+            </div>
+
+            <div class="sm:col-span-9">
+              <div class="space-y-2">
+                <input id="old_password" formControlName="old_password" name="old_password" type="password"
+                  class="focus:ring-1 focus:outline-none py-2 px-3 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Introduzca la contraseña actual">
+                <input id="password" formControlName="password" name="password" type="password"
+                  class="focus:ring-1 focus:outline-none py-2 px-3 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Introduzca la nueva contraseña">
+              </div>
+            </div>
+
+            <!-- Género -->
+            <div class="sm:col-span-3">
+              <label for="genero" class="inline-block text-sm text-gray-800 mt-2.5">Género</label>
+            </div>
+
+            <div class="sm:col-span-9">
+              <select id="genero" formControlName="genero"
+                class="focus:ring-1 focus:outline-none py-2 px-3 block w-full border border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                <option value="">Seleccione un género</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </select>
+            </div>
+
+            <!-- Carrera -->
+            <div class="sm:col-span-3">
+              <label for="carrera" class="inline-block text-sm text-gray-800 mt-2.5">Carrera</label>
+            </div>
+
+            <div class="sm:col-span-9">
+              <select id="carrera" formControlName="carrera"
+                class="focus:ring-1 focus:outline-none py-2 px-3 block w-full border border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                <option value="">Seleccione una carrera</option>
+                <option value="1">Sistemas</option>
+                <option value="2">Industrial</option>
+              </select>
+            </div>
+
+            <!-- Mensaje de éxito -->
+            <div class="sm:col-span-12">
+              <p *ngIf="successMessage" class="text-sm text-green-600">{{ successMessage }}</p>
+            </div>
+
+            <!-- Submit button -->
+            <div class="sm:col-span-12">
+              <div class="mt-5 flex justify-end gap-x-2">
+                <button type="button"
+                  class="py-2 px-3 inline-flex justify-center items-center gap-x-3 text-sm font-medium text-white shadow-sm rounded-lg bg-green-600 hover:bg-green-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
+                  [disabled]="isButtonDisabled" (click)="updateProfile()">
+                  Guardar cambios
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- End Grid -->
+        </form>
+        <!-- End Form -->
+      </div>
+      <!-- End Card -->
+    </div>
+    <!-- End Card Section -->
+  </div>
+  <!-- End Content -->
 </div>

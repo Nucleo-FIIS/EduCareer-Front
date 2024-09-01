@@ -83,7 +83,7 @@
             <p class="cmnt-at tracking-normal text-[14px]">{{ comment.fecha_creacion | dayJs: 'fromNow' | capitalizeFirstLetter }}</p>
         </div>
         <p class="c-text">
-            <span *ngIf="comment.reply_to" class="reply-to">@{{ comment.reply_to }}, </span>
+            <span *ngIf="comment.reply_to" class="reply-to">{{ '@' + comment.reply_to }}, </span>
             <span class="c-body"> {{ comment.comentario }}</span>
         </p>
     </div>

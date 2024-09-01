@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
 import { ComentarioModel } from 'src/app/models/comentario-model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,36 +12,57 @@ import { ComentarioService } from 'src/app/services/comentario.service';
 export class ComentarioEspecializacionComponent {
   @Input()
   especialidad_id!: number;
-  comment!: String;
   comentarios: ComentarioModel[] = [];
+  posts: String[]=[];
   isValid!: boolean;
-  isCommentEmpty: boolean = true;
+  isCommentEmpty: boolean[] = [];
   isResponseBoxHiden: boolean[] = [];
+  belongsToUser:boolean[]=[];
 
-  constructor(private commentService: ComentarioService, private authService: AuthService) { }
+  constructor(private commentService: ComentarioService, private authService: AuthService,private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getComentarios();
     this.isTokenValid();
+    this.posts[-1]='';
+    this.isCommentEmpty[-1]=true;
   }
 
   getComentarios() {
     this.commentService.getComentariosEsp(this.especialidad_id).subscribe(
       (data: ComentarioModel[]) => {
         this.comentarios = data;
-        this.isResponseBoxHiden=[];
-        this.comentarios.forEach(()=>{
-          this.isResponseBoxHiden.push(true);
-        });
+        this.initializeCommentState();
+        this.checkCommentOwnership(); 
+        console.log(this.posts);
       }
-    )
+    );
   }
 
-  isTheCommentEmpty() {
-    this.isCommentEmpty = this.isEmpty(this.comment);
+  initializeCommentState() {
+    this.comentarios.forEach(comentario => {
+      if(this.isEmpty(this.isResponseBoxHiden[comentario.id_comentario])){
+        this.isResponseBoxHiden[comentario.id_comentario]=true;
+      }
+    });
+    this.comentarios.forEach(comentario => {
+       if(this.isEmpty(this.posts[comentario.id_comentario])){
+         this.posts[comentario.id_comentario]='';
+       }
+    });
+    this.comentarios.forEach(comentario => {
+      this.isTheCommentEmpty(comentario.id_comentario, this.posts[comentario.id_comentario]);
+    });
   }
 
-  private isTokenValid() {
+  isTheCommentEmpty(commentId: number, newValue: String): void {
+    this.isCommentEmpty[commentId] = newValue.trim().length === 0;
+    this.cdr.detectChanges();
+    console.log('comentario vacío: ',this.isCommentEmpty);
+    console.log('comentarios: ',this.posts);
+  }
+
+  isTokenValid() {
     this.authService.isTokenValid().subscribe(
       (data: boolean) => {
         this.isValid = data;
@@ -49,23 +70,23 @@ export class ComentarioEspecializacionComponent {
     );
   }
 
-  postComment() {
+  postCommesponse(i:number,comentario_padre:number|null) {
     this.isTokenValid();
     if (!this.isValid) {
       window.location.reload();
     } else {
       const payload = {
         id_guia: this.especialidad_id,
-        comentario: this.comment,
-        parent_comment_id: null
+        comentario: this.posts[i],
+        parent_comment_id: comentario_padre
       };
       console.log("Payload:", payload);
       this.commentService.postCommesponsesEsp(payload).subscribe(
         response => {
           console.log('Comentario enviado exitosamente:', response);
           this.getComentarios();
-          this.comment = "";
-          this.isCommentEmpty = true;
+          this.posts[i]='';
+          this.isCommentEmpty[i]=true;
         },
         error => {
           console.error('Error al enviar comentario:', error);
@@ -98,4 +119,30 @@ export class ComentarioEspecializacionComponent {
     console.log(this.isResponseBoxHiden[i]);
     this.isResponseBoxHiden[i] = !this.isResponseBoxHiden[i];
   }
+
+  cancelPost(i:number){
+    this.posts[i] = '';
+    this.isTheCommentEmpty(i,'');
+    this.showResponseBox(i);
+  }
+
+  setResponseBoxesState(){
+    this.isResponseBoxHiden=[];
+    this.comentarios.forEach(()=>{
+      this.isResponseBoxHiden.push(true);
+    });    
+  }
+
+  checkCommentOwnership() {
+    this.belongsToUser = [];
+    this.comentarios.forEach(comentario => {
+      this.commentService.commentMatchesToken(comentario.id_comentario).subscribe(
+        (data: boolean) => {
+          this.belongsToUser[comentario.id_comentario]=data;
+        }
+      );
+    });
+    console.log('pertenece a: ',this.belongsToUser);
+  }
+
 }

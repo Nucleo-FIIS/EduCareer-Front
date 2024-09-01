@@ -1,62 +1,114 @@
-<li *ngIf="!isResponseBoxHiden" class="timeline-item mt-4">
-    <span class="timeline-item-icon | avatar-icon ml-[-64px]">
-        <i class="avatar">
-            <img src="https://assets.codepen.io/285131/hat-man.png" />
-        </i>
-    </span>
-    <div class="new-comment relative">
-        <input [(ngModel)]="response" (ngModelChange)="isTheResponseEmpty()" type="text"
-            placeholder="Responde al comentario..." class="border rounded p-2 w-full" />
-    </div>
-    <button (click)="postResponse()" [disabled]="isResponseEmpty" class="cursor-pointer bg-gray-200 hover:bg-[#e3e3e3] text-indigo-500 hover:text-indigo-700 p-3 rounded-full transition-all duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-send h-4 w-4">
-            <path d="m22 2-7 20-4-9-9-4Z" />
-            <path d="M22 2 11 13" />
+    <button (click)="showResponses()"
+        class="flex items-center gap-2 mb-2 text-sm text-gray-400 hover:text-gray-700 transition-all duration-300"
+        *ngIf="respuestas.length > 0">
+        <svg *ngIf="areResponsesHiden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-undo-2 h-4 w-4">
+            <path d="M9 14 4 9l5-5" />
+            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" />
         </svg>
-    </button>
-</li>
-
-<ng-container *ngIf="respuestas?.length!=0">
-
-    <button (click)="loadResponses()" class="show-replies" *ngIf="!isHiden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-forward" width="44"
-            height="44" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M15 11l4 4l-4 4m4 -4h-11a4 4 0 0 1 0 -8h1" />
+        <svg *ngIf="!areResponsesHiden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-redo-2 h-4 w-4">
+            <path d="m15 14 5-5-5-5" />
+            <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13" />
         </svg>
-        Mostrar {{respuestas.length}} respuesta{{ respuestas.length ===01 ? '' : 's' }}
+        {{ !areResponsesHiden ? 'Ocultar' : 'Mostrar' }} {{ respuestas.length }}
+        respuesta{{ respuestas.length > 1 ? 's' : '' }}
     </button>
+    <div class="replies comments-wrp" *ngIf="!areResponsesHiden">
+        <ng-container *ngFor="let rpta of respuestas; let i = index">
+            <div class="comment-wrp">
+                <div class="comment container bg-indigo-50" [ngClass]="{'this-user': commentBelongsToUser[rpta.id_comentario]}">
+                    <div class="c-score bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            *ngIf="isValid" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-plus score-control score-plus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                        </svg>
+                        <p class="score-number flex gap-1"><span>👏🏻</span>3</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            *ngIf="isValid" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-minus score-control score-minus h-4 w-4 text-indigo-300 hover:text-indigo-700 transition-all duration-300">
+                            <path d="M5 12h14" />
+                        </svg>
+                    </div>
+                    <div class="c-controls">
+                        <ul *ngIf="isValid" class="flex gap-2">
+                            <li *ngIf="commentBelongsToUser[rpta.id_comentario]">
+                                <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-green-500 hover:text-white transition-all duration-300 focus:outline-none"
+                                    type="button">
+                                    <!-- Icono de editar (lapiz) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-edit h-4 w-4">
+                                        <path d="M11 5h5v5" />
+                                        <path d="M19.4 3.6a2.1 2.1 0 0 1 0 3L10 16 7 17l1-3 9.4-9.4a2.1 2.1 0 0 1 3-3z" />
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button (click)="showResponseBox(rpta.id_comentario)" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 focus:outline-none"
+                                    type="button">
+                                    <!-- Icono de responder (mensaje) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-message-circle h-4 w-4">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7A8.38 8.38 0 0 1 9.5 19L4 20l1-5.5a8.38 8.38 0 0 1-.5-2.5 8.5 8.5 0 0 1 8.5-8.5 8.5 8.5 0 0 1 8.5 8.5z" />
+                                    </svg>
+                                </button>
+                            </li>
+                            <li *ngIf="commentBelongsToUser[rpta.id_comentario]">
+                                <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 focus:outline-none"
+                                    type="button">
+                                    <!-- Icono de eliminar (tachito de basura) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-trash h-4 w-4">
+                                        <polyline points="3 6 5 6 21 6" />
+                                        <path d="M19 6l-1.5 14a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 6m5-3h4a2 2 0 0 1 2 2v0H8a2 2 0 0 1-2-2v0h2z" />
+                                    </svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="c-user">
+                        <img [src]="'https://i.stack.imgur.com/l60Hf.png'" [alt]="rpta"
+                            class="usr-img rounded-full">
+                        <p class="usr-name tracking-normal text-[15px]">{{ rpta.usuario }}</p> •
+                        <p class="cmnt-at tracking-normal text-[14px]">{{ rpta.fecha}}</p>
+                    </div>
+                    <p class="c-text text-gray-500">
+                        <span class="c-body"> {{ rpta.comentario }}</span>
+                    </p>
+                </div>
 
-    <button (click)="hideResponses()" class="show-replies" *ngIf="isHiden">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
-        </svg>
-        Ocultar {{respuestas.length}} respuesta{{ respuestas.length ===01 ? '' : 's' }}
-    </button>
-
-
-
-    <div class="flex flex-col gap-4 my-4">
-        <span class="timeline-item-wrapper" *ngFor="let r of respuestas_mostradas" class="respuesta-list">
-            <div class="timeline-item-description">
-                <i class="avatar | small">
-                    <img src="https://assets.codepen.io/285131/hat-man.png" />
-                </i>
-                <span><a href="#">{{r.usuario}}</a> respondió en {{r.fecha}}</span>
+                <div class="replies comments-wrp">
+                    <form class="mb-6" *ngIf="!isResponseBoxHiden[rpta.id_comentario]">
+                        <div
+                            class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border-2 border-indigo-700">
+                            <textarea id="comment" name="comment" rows="6" (ngModelChange)="isTheCommentEmpty(rpta.id_comentario,$event)" (keydown.enter)="postResponse(rpta.id_comentario,rpta.id_comentario)"
+                                [(ngModel)]="posts[rpta.id_comentario]"
+                                class="resize-none px-0 w-full text-sm text-stone-950 border-0 focus:ring-0 focus:outline-none placeholder-gray-400"
+                                placeholder="Responde a {{ rpta.usuario }}..." required></textarea>
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="submit" [disabled]="isCommentBoxEmpty[rpta.id_comentario]" (click)="postResponse(rpta.id_comentario,rpta.id_comentario)"
+                                class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-indigo-800 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                                Comentar
+                            </button>
+                            <button type="submit" [disabled]="isCommentBoxEmpty[rpta.id_comentario]" (click)="cancelPost(rpta.id_comentario)"
+                                class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-500 rounded-lg focus:ring-indigo-200 focus:ring-primary-900 hover:bg-red-700 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                    <app-respuestas [callParentTokenValidation]="callParentTokenValidation.bind(this)" [isValid]="isValid" [comentario_id]="rpta.id_comentario" [especialidad_id]="especialidad_id"></app-respuestas>
+                </div>
             </div>
-            <div class="comment">
-                <p>{{r.comentario}}</p>
-                <button class="button">👏 2</button>
-                <button class="button | square">
-                    💬
-                </button>
-            </div>
-        </span>
+        </ng-container>
     </div>
-</ng-container>
